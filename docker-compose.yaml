@@ -1,0 +1,78 @@
+version: '3.3'
+
+services:
+  imap:
+     image: imap
+     hostname: imap
+     restart: unless-stopped
+     build:
+      context: ./imap
+      args: 
+        vmail_gid: 0
+        vmail_uid: 503
+        VMAIL_GROUP: root
+        VMAIL_USER : vmail
+     # depends_on:
+       # - rspam
+     environment: 
+       - LDAP_HOSTS=space_seperated_list_in_dot_env
+       - LDAP_PASSWORD=see_dot_env
+     volumes:
+       # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
+       - /var/vmail:/var/vmail
+       # - /usr/local/src/docker/mail/etc/dovecot:/etc/dovecot
+       - log:/var/log
+       - /etc/localtime:/etc/localtime:ro
+     ports:
+       - "143:1143"
+       - "993:1993"
+       - "4190:4190"
+       # - "2525:2525"
+     extra_hosts:
+        # - "murg.elternserver.local:10.100.101.16"
+        - "ldap.datilo.de:10.100.101.16"
+     domainname: faudin.de
+     hostname: imap
+     labels:
+       - "traefik.enable=false"
+     secrets:
+        - letsencrypt-cert
+        - letsencrypt-fullchain
+        - source: letsencrypt-privkey
+          target: letsencrypt-privkey
+     networks:
+       #  mail:
+       # ipv4_address: 172.26.0.3
+       # aliases: 
+       #  - imap
+       services:
+          ipv4_address: 172.20.0.5
+          aliases:
+            - imap
+
+
+
+volumes:
+    log: {}
+
+secrets:
+        letsencrypt-cert: 
+           file: /etc/letsencrypt-readers/cert.pem
+        letsencrypt-fullchain: 
+           file: /etc/letsencrypt-readers/fullchain.pem
+        letsencrypt-privkey: 
+           file: /etc/letsencrypt-readers/privkey.pem
+
+networks:
+   mail:
+     driver: bridge
+     ipam:
+       driver: default
+       config:
+       -
+         subnet: 172.26.0.0/24
+   traefik:
+     external: true
+   services:
+     external: true
+

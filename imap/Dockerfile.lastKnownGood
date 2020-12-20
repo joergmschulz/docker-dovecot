@@ -1,0 +1,55 @@
+FROM alpine:edge
+
+ARG vmail_gid
+ARG VMAIL_GROUP
+ARG VMAIL_USER
+ARG vmail_uid
+ARG LDAP_PASSWORD
+# 
+ARG ACCESS_FIX="/run/dovecot /var/run/dovecot"
+# 
+RUN set -x && \
+    apk update && \
+    apk upgrade && \
+    apk add -t .dovecot-run-deps \
+        		dovecot \
+        		dovecot-lmtpd \
+		        dovecot-ldap \
+		        dovecot-pigeonhole-plugin \
+		        # rspamd-client \
+		        && \
+    \
+### Create Vmail User
+    # groupadd -f -g $vmail_gid vmail && \
+    # adduser -S -D -H -u $vmail_uid -G vmail -g "Dovecot Vmail" ${VMAIL_USER} && \
+    addgroup -S -g 0 vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
+    \
+### Setup Container for Dovecot
+    rm -rf /etc/dovecot/* && \
+    mkdir -p /var/lib/dovecot && \
+    mkdir -p /var/log/dovecot && \
+    \
+### Cleanup
+## this should be removed on prod
+    apk add sudo && \
+    rm -rf /var/cache/apk/* /usr/src/*
+
+### Networking Configuration
+EXPOSE 1143 2525 1024 1587 1993 4190
+
+### Add Files
+ADD install /
+# create DH PEM
+RUN ( cd /etc/dovecot && \
+    test -f dh.pem || openssl dhparam 4096 > dh.pem ) && \
+    sed -i "s/LDAP_PASSWORD/${LDAP_PASSWORD}/" /etc/dovecot/dovecot-ldap.conf.ext && \
+    chmod g+r /etc/dovecot/dovecot-ldap.conf.ext && \
+    for d in $ACCESS_FIX ; do mkdir -p $d ; done && \
+    chown -R ${vmail_uid}.0 ${ACCESS_FIX} \
+    &&  find ${ACCESS_FIX} -type d -exec chmod g+wx {} \; \
+    &&  find ${ACCESS_FIX} -type f -exec chmod g+w  {} \; 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+USER vmail
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# CMD ["dovecot", "-F"]
