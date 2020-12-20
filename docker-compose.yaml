@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 services:
   imap:
@@ -6,17 +6,15 @@ services:
      hostname: imap
      restart: unless-stopped
      build:
-      context: ./imap
-      args: 
-        vmail_gid: 0
-        vmail_uid: 503
-        VMAIL_GROUP: root
-        VMAIL_USER : vmail
-     # depends_on:
-       # - rspam
+       context: ./imap
+       args: 
+         vmail_gid: 0
+         vmail_uid: 503
+         VMAIL_GROUP: root
+         VMAIL_USER : vmail
      environment: 
-       - LDAP_HOSTS=space_seperated_list_in_dot_env
-       - LDAP_PASSWORD=see_dot_env
+        - LDAP_HOSTS=${LDAP_HOSTS}
+        - LDAP_PASSWORD=${LDAP_PASSWORD}
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        - /var/vmail:/var/vmail

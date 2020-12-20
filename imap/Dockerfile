@@ -4,6 +4,8 @@ ARG vmail_gid
 ARG VMAIL_GROUP
 ARG VMAIL_USER
 ARG vmail_uid
+ENV LDAP_HOSTS=TakeItFromDotEnv
+ENV LDAP_PASSWORD=TakeItFromDotEnv
 
 ARG dovecot_branch=release-2.3.11
 ARG DOVECOT_PREFIX=/usr/local/dovecot
@@ -55,8 +57,9 @@ RUN    addgroup -S -g 0 vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u
     PANDOC=false ./configure ${dovecot_config}
 
 RUN  cd /opt/dovecot && make -s -j$(nproc) && make install 
-ARG pigeonhole_branch=master
-# release-0.5.10,11 don't compile 20201219
+# ARG pigeonhole_branch=master
+ARG pigeonhole_branch=release-0.5.11 
+# don't compile 20201219
 RUN  mkdir /opt/pigeonhole/ && \
     cd /opt/pigeonhole && \
     git init . && git remote add -t ${pigeonhole_branch} origin https://github.com/dovecot/pigeonhole.git && \
