@@ -25,7 +25,7 @@ hosts = LDAP_HOSTS
 
 # Distinguished Name - the username used to login to the LDAP server.
 # Leave it commented out to bind anonymously (useful with auth_bind=yes).
-dn = cn=admin,dc=elternserver,dc=de
+dn = LDAP_USER
 
 # Password for LDAP server, if dn is specified.
 dnpass = LDAP_PASSWORD
