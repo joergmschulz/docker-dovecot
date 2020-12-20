@@ -15,6 +15,7 @@ services:
      environment: 
         - LDAP_HOSTS=${LDAP_HOSTS}
         - LDAP_PASSWORD=${LDAP_PASSWORD}
+        - LDAP_USER=${LDAP_USER}
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        - /var/vmail:/var/vmail
