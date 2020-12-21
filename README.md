@@ -1,5 +1,10 @@
 # docker-dovecot
 lightweight alpine based dockerized dovecot
+
+## standard config Files
+see the directory install/
+some of the files will be modifid using below ARGS or values in .env
+
 ## Ports
 
 | service | Port in container| comments |
@@ -16,6 +21,6 @@ lightweight alpine based dockerized dovecot
 Set these values in your .env file
 | Parameter | sample | comments |
 | -------------- | --------- | --------|
-| LDAP_HOSTS | |
-| LDAP_PASSWORD  | |
-| LDAP_USER | | 
+| LDAP_HOSTS | ldap1 ldap2 ldap3 | space separated list of LDAP hosts |
+| LDAP_PASSWORD  | topsecret | |
+| LDAP_USER | "cn=admin_ro,dc=elternserver,dc=de" | as long as you keep auth_bind = yes |
