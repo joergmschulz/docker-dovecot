@@ -21,7 +21,7 @@ hosts = LDAP_HOSTS
 
 # LDAP URIs to use. You can use this instead of hosts list. Note that this
 # setting isn't supported by all LDAP libraries.
-#uris = 
+#uris =
 
 # Distinguished Name - the username used to login to the LDAP server.
 # Leave it commented out to bind anonymously (useful with auth_bind=yes).
@@ -30,17 +30,7 @@ dn = LDAP_USER
 # Password for LDAP server, if dn is specified.
 dnpass = LDAP_PASSWORD
 
-# Use SASL binding instead of the simple binding. Note that this changes
-# ldap_version automatically to be 3 if it's lower. Also note that SASL binds
-# and auth_bind=yes don't work together.
-#sasl_bind = no
-# SASL mechanism name to use.
-#sasl_mech =
-# SASL realm to use.
-#sasl_realm =
-# SASL authorization ID, ie. the dnpass is for this "master user", but the
-# dn is still the logged in user. Normally you want to keep this empty.
-#sasl_authz_id =
+
 
 # Use TLS to connect to the LDAP server.
 tls = yes
@@ -67,8 +57,8 @@ debug_level = 0
 # The pass_filter is used to find the DN for the user. Note that the pass_attrs
 # is still used, only the password field is ignored in it. Before doing any
 # search, the binding is switched back to the default DN.
-# auth_bind = no
-auth_bind = yes
+auth_bind = no
+# auth_bind = yes
 
 # If authentication binding is used, you can save one LDAP request per login
 # if users' DN can be specified with a common template. The template can use

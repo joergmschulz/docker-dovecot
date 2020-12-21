@@ -15,12 +15,21 @@ some of the files will be modifid using below ARGS or values in .env
 | managesieve  | 4190  | 4190 in compose |
 
 ## addresses
+## ssl
+see the secrets section of docker-compose.yaml.
+## logging
+we log to /dev/stderr.
+
 
 ## runtime parameters
 ### LDAP
+We expect a TLS connection to your ldap hosts.
 Set these values in your .env file
 | Parameter | sample | comments |
 | -------------- | --------- | --------|
 | LDAP_HOSTS | ldap1 ldap2 ldap3 | space separated list of LDAP hosts |
 | LDAP_PASSWORD  | topsecret | |
 | LDAP_USER | "cn=admin_ro,dc=elternserver,dc=de" | as long as you keep auth_bind = yes |
+
+## testing
+see https://wiki.dovecot.org/TestInstallation 
