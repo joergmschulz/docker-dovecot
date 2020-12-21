@@ -14,7 +14,8 @@ lightweight alpine based dockerized dovecot
 ## runtime parameters
 ### LDAP
 Set these values in your .env file
-LDAP_HOSTS
-LDAP_PASSWORD
-LDAP_USER
-
+| Parameter | sample | comments |
+| -------------- | --------- | --------|
+| LDAP_HOSTS | |
+| LDAP_PASSWORD  | |
+| LDAP_USER | | 
