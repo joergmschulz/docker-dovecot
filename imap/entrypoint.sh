@@ -10,11 +10,12 @@ sed -i "s/default_internal_group.*/default_internal_group = ${mygroup}/" /etc/do
 sed -i "s/VMAIL_GROUP/${mygroup}/" /etc/dovecot/dovecot.conf
 sed -i "s/LDAP_PASSWORD/${LDAP_PASSWORD}/" /etc/dovecot/dovecot-ldap.conf.ext
 sed -i "s/LDAP_HOSTS/${LDAP_HOSTS}/" /etc/dovecot/dovecot-ldap.conf.ext
-sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
 sed -i "s/LDAP_BASE/${LDAP_BASE}/" /etc/dovecot/dovecot-ldap.conf.ext
 sed -i "s/LDAP_USER_FILTER/${LDAP_USER_FILTER}/" /etc/dovecot/dovecot-ldap.conf.ext
 sed -i "s/LDAP_PASS_FILTER/${LDAP_PASS_FILTER}/" /etc/dovecot/dovecot-ldap.conf.ext
 sed -i "s/LDAP_ITERATE_FILTER/${LDAP_ITERATE_FILTER}/" /etc/dovecot/dovecot-ldap.conf.ext
+sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
+
 
 echo ${LDAP_PASS_FILTER}
 
