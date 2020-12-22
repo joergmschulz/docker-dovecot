@@ -28,7 +28,7 @@ we log to /dev/stderr.
 ## runtime parameters
 ### LDAP
 We expect a TLS connection to your ldap hosts.
-Set these values in your .env file
+Set these values in your .env file. Watch up that you escape the & with \& until we find a better way to replace the parameters than using sed
 | Parameter | sample | comments |
 | -------------- | --------- | --------|
 | LDAP_HOSTS | ldap1 ldap2 ldap3 | Space separated list of LDAP hosts to use. host:port is allowed too. |
