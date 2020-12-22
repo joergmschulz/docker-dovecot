@@ -94,7 +94,7 @@ RUN ( cd /etc/dovecot && \
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-USER vmail
+USER ${VMAIL_USER}
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["dovecot", "-F"]
 
