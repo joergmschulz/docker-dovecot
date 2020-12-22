@@ -28,14 +28,14 @@ we log to /dev/stderr.
 ## runtime parameters
 ### LDAP
 We expect a TLS connection to your ldap hosts.
-Set these values in your .env file. Watch up that you escape the & with \& until we find a better way to replace the parameters than using sed
+Set these values in your .env file. Watch up that you escape the \& with \\& until we find a better way to replace the parameters than using sed
 | Parameter | sample | comments |
 | -------------- | --------- | --------|
 | LDAP_HOSTS | ldap1 ldap2 ldap3 | Space separated list of LDAP hosts to use. host:port is allowed too. |
 | LDAP_PASSWORD  | topsecret | |
-| LDAP_USER | "cn=somebody,dc=yourDomain,dc=de" |  |
-| LDAP_BASE | "ou=People,dc=yourDomain,dc=de"" |  |
-| LDAP_*FILTER | ```((|(mail=%u)(|(gosaMailAlternateAddress=%u))))``` | technically select approved users by LDAP entities |
+| LDAP_USER | cn=somebody,dc=yourDomain,dc=de |  |
+| LDAP_BASE | ```ou=People,dc=yourDomain,dc=de``` |  |
+| LDAP_*FILTER | `((|(mail=%u)(|(gosaMailAlternateAddress=%u))))` | technically select approved users by LDAP entities |
 
 
 ## testing
