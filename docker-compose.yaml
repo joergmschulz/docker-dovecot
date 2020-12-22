@@ -17,9 +17,9 @@ services:
         - LDAP_PASSWORD=${LDAP_PASSWORD}
         - LDAP_USER=${LDAP_USER}
         - LDAP_BASE=${LDAP_BASE}
-        - LDAP_USER_FILTER="(&(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
-        - LDAP_PASS_FILTER="(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
-        - LDAP_ITERATE_FILTER="(memberOf=cn=localMail,ou=groups,dc=elternserver,dc=de)"
+        - LDAP_USER_FILTER=(&(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))
+        - LDAP_PASS_FILTER=(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))
+        - LDAP_ITERATE_FILTER=(memberOf=cn=localMail,ou=groups,dc=elternserver,dc=de)
         # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
