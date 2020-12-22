@@ -1,6 +1,10 @@
 # docker-dovecot
 lightweight alpine based dockerized dovecot
 
+We expect users to login via their complete email address. Two conditions must be met:
+- must be memberOf the specified LDAP_group that entitles him to use mail at allowed
+- the user must be found by either the mail address or an gosaMailAlternateAddress (fusiondirectory specific, you might use other tokens)
+
 ## standard config Files
 see the directory install/
 some of the files will be modifid using below ARGS or values in .env
@@ -27,9 +31,10 @@ We expect a TLS connection to your ldap hosts.
 Set these values in your .env file
 | Parameter | sample | comments |
 | -------------- | --------- | --------|
-| LDAP_HOSTS | ldap1 ldap2 ldap3 | space separated list of LDAP hosts |
+| LDAP_HOSTS | ldap1 ldap2 ldap3 | Space separated list of LDAP hosts to use. host:port is allowed too. |
 | LDAP_PASSWORD  | topsecret | |
-| LDAP_USER | "cn=admin_ro,dc=elternserver,dc=de" | as long as you keep auth_bind = yes |
+| LDAP_USER | "cn=somebody,dc=yourDomain,dc=de" | as long as you keep auth_bind = yes |
+| LDAP_BASE | "ou=People,dc=yourDomain,dc=de"" | as long as you keep auth_bind = yes |
 
 ## testing
-see https://wiki.dovecot.org/TestInstallation 
+see https://wiki.dovecot.org/TestInstallation

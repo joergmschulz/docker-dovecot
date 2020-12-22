@@ -7,20 +7,24 @@ services:
      restart: unless-stopped
      build:
        context: ./imap
-       args: 
+       args:
          vmail_gid: 0
          vmail_uid: 503
          VMAIL_GROUP: root
          VMAIL_USER : vmail
-     environment: 
+     environment:
         - LDAP_HOSTS=${LDAP_HOSTS}
         - LDAP_PASSWORD=${LDAP_PASSWORD}
         - LDAP_USER=${LDAP_USER}
+        - LDAP_BASE=${LDAP_BASE}
+        - LDAP_USER_FILTER="(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
+        - LDAP_PASS_FILTER="((|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
+        - LDAP_ITERATE_FILTER="(memberOf=cn=localMail,ou=groups,dc=elternserver,dc=de)"
+        # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        - /var/vmail:/var/vmail
-       # - /usr/local/src/docker/mail/etc/dovecot:/etc/dovecot
-       - log:/var/log
+       # - log:/var/log
        - /etc/localtime:/etc/localtime:ro
      ports:
        - "143:1143"
@@ -42,7 +46,7 @@ services:
      networks:
        #  mail:
        # ipv4_address: 172.26.0.3
-       # aliases: 
+       # aliases:
        #  - imap
        services:
           ipv4_address: 172.20.0.5
@@ -55,11 +59,11 @@ volumes:
     log: {}
 
 secrets:
-        letsencrypt-cert: 
+        letsencrypt-cert:
            file: /etc/letsencrypt-readers/cert.pem
-        letsencrypt-fullchain: 
+        letsencrypt-fullchain:
            file: /etc/letsencrypt-readers/fullchain.pem
-        letsencrypt-privkey: 
+        letsencrypt-privkey:
            file: /etc/letsencrypt-readers/privkey.pem
 
 networks:
@@ -74,4 +78,3 @@ networks:
      external: true
    services:
      external: true
-
