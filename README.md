@@ -35,7 +35,7 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | LDAP_PASSWORD  | topsecret | |
 | LDAP_USER | cn=somebody,dc=yourDomain,dc=de |  |
 | LDAP_BASE | ```ou=People,dc=yourDomain,dc=de``` |  |
-| LDAP_*FILTER | `((|(mail=%u)(|(gosaMailAlternateAddress=%u))))` | technically select approved users by LDAP entities |
+| LDAP_*FILTER | `((\|(mail=%u)(\|(gosaMailAlternateAddress=%u))))` | technically select approved users by LDAP entities |
 
 
 ## testing
