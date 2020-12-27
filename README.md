@@ -34,8 +34,8 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | LDAP_HOSTS | ldap1 ldap2 ldap3 | Space separated list of LDAP hosts to use. host:port is allowed too. |
 | LDAP_PASSWORD  | topsecret | |
 | LDAP_USER | cn=somebody,dc=yourDomain,dc=de |  |
-| LDAP_BASE | ```ou=People,dc=yourDomain,dc=de``` |  |
-| LDAP_*FILTER | `((\|(mail=%u)(\|(gosaMailAlternateAddress=%u))))` | technically select approved users by LDAP entities |
+| LDAP_BASE | ``ou=People,dc=yourDomain,dc=de`` |  |
+| LDAP_USER_FILTER, LDAP_PASS_FILTER, LDAP_ITERATE_FILTER| use your convenient LDAP filters here | technically select approved users by LDAP entities |
 
 
 ## testing

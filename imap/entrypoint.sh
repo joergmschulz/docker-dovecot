@@ -17,11 +17,6 @@ sed -i "s/LDAP_ITERATE_FILTER/${LDAP_ITERATE_FILTER}/" /etc/dovecot/dovecot-ldap
 sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
 
 
-echo ${LDAP_PASS_FILTER}
-
-# echo_info "ensure data path /data"
-# mkdir -p /data/dovecot/
-# mkdir -p /data/vmail/
 
 echo "start dovecot"
 # exec /bin/sh
