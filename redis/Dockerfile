@@ -110,7 +110,7 @@ RUN set -eux && \
     \
 # Workspace and Volume Setup
     mkdir -p /data && \
-    chown redis /data
+    chown -R redis /data
 
 
 
