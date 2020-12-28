@@ -23,7 +23,7 @@ services:
         # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
-       - /var/vmail:/var/vmail
+       - /data/${DOMAIN}/vmail:/var/vmail
        # - log:/var/log
        - /etc/localtime:/etc/localtime:ro
      ports:
@@ -49,9 +49,34 @@ services:
        # aliases:
        #  - imap
        services:
-          ipv4_address: 172.20.0.5
+          ipv4_address: $IMAP_IP
           aliases:
             - imap
+  redis:
+    image: redis
+    hostname: redis
+    restart: unless-stopped
+    build:
+      context: ./redis
+      args:
+        redis_gid: 0
+        redis_uid: 6379
+        REDIS_GROUP: root
+        REDIS_USER : redis
+        REDIS_IP: ${REDIS_IP}
+        REDIS_PASSWORD: ${REDIS_PASSWORD}
+    # environment:
+      # - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
+      - /data/${DOMAIN}/redis:/data
+      # - log:/var/log
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      services:
+        ipv4_address: ${REDIS_IP}
+        aliases:
+          - redis
 
 
 

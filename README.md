@@ -19,10 +19,26 @@ some of the files will be modifid using below ARGS or values in .env
 | managesieve  | 4190  | 4190 in compose |
 
 ## addresses
+These are the addresses used in the services network. They shouldn't be seen elsewhere.
+| address | host| name in .env |
+| -------------- | ---------: | --------|
+| 172.20.0.4 | redis  | REDIS_IP |
+| 172.20.0.5 | imap  | IMAP_IP |
+
+## volumes
+for persistent data
+| volume | mountpoint| comments |
+| -------------- | ---------: | --------|
+| /data/$DOMAIN/vmail | /var/vmail  | imap, rw |
+| /data/$DOMAIN/redis | /var/vmail  | imap, rw |
+
 ## ssl
 see the secrets section of docker-compose.yaml.
 ## logging
 we log to /dev/stderr.
+
+## Passwords
+REDIS_PASSWORD (to be set in .env)
 
 
 ## runtime parameters

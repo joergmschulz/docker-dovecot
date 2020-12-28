@@ -8,7 +8,7 @@ ENV LDAP_HOSTS=TakeItFromDotEnv
 ENV LDAP_PASSWORD=TakeItFromDotEnv
 ENV LDAP_PASS_FILTER=TakeItFromDotEnv
 ENV LDAP_USER_FILTER=TakeItFromDotEnv
-ENV LDAP_ITERATE_FILTER==TakeItFromDotEnv
+ENV LDAP_ITERATE_FILTER=TakeItFromDotEnv
 
 ARG dovecot_branch=release-2.3.11
 ARG DOVECOT_PREFIX=/usr/local/dovecot
