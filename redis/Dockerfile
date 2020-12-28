@@ -15,6 +15,9 @@ ARG REDIS_PASSWORD
 
 RUN mkdir -p /usr/local/etc/redis && \
 printf "bind ${REDIS_IP}\n\
+save 900 1\n\
+save 300 10\n\
+save 60 10000\n\
 protected-mode yes\n\
 requirepass ${REDIS_PASSWORD}\n\
 port 6379\n"\
