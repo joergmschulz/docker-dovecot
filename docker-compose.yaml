@@ -33,7 +33,7 @@ services:
        # - "2525:2525"
      extra_hosts:
         # - "murg.elternserver.local:10.100.101.16"
-        - "ldap.datilo.de:10.100.101.16"
+        - "ldap.${DOMAIN}.de:${LDAP_IP}"
      domainname: faudin.de
      hostname: imap
      labels:

@@ -36,6 +36,9 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | LDAP_USER | cn=somebody,dc=yourDomain,dc=de |  |
 | LDAP_BASE | ``ou=People,dc=yourDomain,dc=de`` |  |
 | LDAP_USER_FILTER, LDAP_PASS_FILTER, LDAP_ITERATE_FILTER| use your convenient LDAP filters here | technically select approved users by LDAP entities |
+| LDAP_IP  | 10.100.1.23 | IP address of your LDAP server |
+| DOMAIN  | faudin | the domain part of your hosts. will be composed as imap.$DOMAIN.de, smtp.$DOMAIN.de. Adjust your DNS. |
+
 
 
 ## testing
