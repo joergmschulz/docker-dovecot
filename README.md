@@ -1,5 +1,5 @@
 # docker-dovecot
-lightweight alpine based dockerized dovecot
+lightweight alpine based dockerized dovecot, exim, rspamd environment
 
 We expect users to login via their complete email address. Two conditions must be met:
 - must be memberOf the specified LDAP_group that entitles him to use mail at allowed
@@ -17,13 +17,16 @@ some of the files will be modifid using below ARGS or values in .env
 | lmtp in      | 2525  | only internal, from mail srv |
 | imaps        | 1993  | 993 in docker-compose |
 | managesieve  | 4190  | 4190 in compose |
+| exim-external  | 1025  | 25 in compose |
+| exim-external  | 1587  | 587 in compose |
 
 ## addresses
-These are the addresses used in the services network. They shouldn't be seen elsewhere.
+These are the addresses used in the services network. They shouldn't be seen elsewhere. We define them in the .env file.
 | address | host| name in .env |
 | -------------- | ---------: | --------|
 | 172.20.0.4 | redis  | REDIS_IP |
 | 172.20.0.5 | imap  | IMAP_IP |
+| 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP |
 
 ## volumes
 for persistent data
@@ -37,9 +40,14 @@ see the secrets section of docker-compose.yaml.
 ## logging
 we log to /dev/stderr.
 
-## Passwords
-REDIS_PASSWORD (to be set in .env)
+## Passwords and users in .env file
+| placeholder | container| comments |
+| -------------- | ---------: | --------|
+| REDIS_PASSWORD | redis, rspam | access to REDIS via this password |
+| LDAP_PASSWORD | dovecot, exim  | admin readonly access to ldap |
 
+## build time parameters
+as always, documentation lags behind. Ask questions, answers will be here.
 
 ## runtime parameters
 ### LDAP
@@ -56,6 +64,13 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | DOMAIN  | faudin | the domain part of your hosts. will be composed as imap.$DOMAIN.de, smtp.$DOMAIN.de. Adjust your DNS. |
 
 
+## build side notes
+### exim
+for exim, see http://exim.org/exim-html-current/doc/html/spec_html/ch-building_and_installing_exim.html and https://registry.hub.docker.com/r/itherz/exim4/dockerfile
+all build parameters are set in the Local/makefile
+#### exim makefile
+dbm  = gdbm, see Local/makefile
+SPOOL_DIRECTORY=/var/spool/exim; this is not persistant
 
 ## testing
 see https://wiki.dovecot.org/TestInstallation

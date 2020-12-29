@@ -52,6 +52,50 @@ services:
           ipv4_address: $IMAP_IP
           aliases:
             - imap
+
+
+
+  exim-external:
+    image: exim
+    hostname: exim-external
+    restart: unless-stopped
+    build:
+      context: ./exim
+      args:
+        EXIM_GID: 0
+        EXIM_GROUP: root
+        EXIM_USER: exim
+        EXIM_UID: 1024
+
+        # EXIM_EXTERNAL_IP: ${EXIM_IP}
+        EXIM_VERSION: exim-4.94+fixes
+        # EXIM_SOURCE: https://github.com/EXIM/EXIM/archive/EXIM-${EXIM_VERSION}.tar.gz
+    volumes:
+      - /data/${DOMAIN}/mail-external/log:/var/log
+        # - log:/var/log
+      - /etc/localtime:/etc/localtime:ro
+    extra_hosts:
+       # - "murg.elternserver.local:10.100.101.16"
+       - "ldap.${DOMAIN}.de:${LDAP_IP}"
+    domainname: faudin.de
+
+    labels:
+      - "traefik.enable=false"
+    secrets:
+       - letsencrypt-cert
+       - letsencrypt-fullchain
+       - source: letsencrypt-privkey
+         target: letsencrypt-privkey
+    ports:
+      - "25:1025"
+      - "587:1587"
+    networks:
+        services:
+          ipv4_address: ${EXIM_EXTERNAL_IP}
+          aliases:
+            - exim
+
+
   redis:
     image: redis
     hostname: redis
