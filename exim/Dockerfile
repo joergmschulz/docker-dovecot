@@ -46,7 +46,10 @@ ADD Local/Makefile /usr/src/exim/src/Local/
 
 RUN set -eux; \
     cd /usr/src/exim/src && \
-    make && make install
+    make && make install && \
+    rm -rf /usr/src && \
+    apt-get remove -y build-essential libldap2-dev libpcre3-dev libdkim-dev && \ 
+    apt-get autoremove --purge  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
 ARG ACCESS_FIX="/var/log/ /var/spool/exim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
