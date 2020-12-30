@@ -1,13 +1,21 @@
 # docker-dovecot
 lightweight alpine based dockerized dovecot, exim, rspamd environment
 
+In order to achieve scalabality the setup will be split accross 3 servers:
+
+    1 MX server, where most of the security features sit (exim-external)
+    1 SMTP relay, to allow users to send mails to the outside world (exim-internal)
+    1 Mailstore dovecot server, where the mailbox sits (imap)
+    1 RSPAM server. Also hosts clamav. If needed, you can add other, better virus scanners here.
+    1 redis server (for rspam and others)
+
 We expect users to login via their complete email address. Two conditions must be met:
 - must be memberOf the specified LDAP_group that entitles him to use mail at allowed
 - the user must be found by either the mail address or an gosaMailAlternateAddress (fusiondirectory specific, you might use other tokens)
 
 ## standard config Files
 see the directory install/
-some of the files will be modifid using below ARGS or values in .env
+some of the files will be modified using below ARGS or values in .env
 
 ## Ports
 
@@ -68,6 +76,7 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 ### exim
 for exim, see http://exim.org/exim-html-current/doc/html/spec_html/ch-building_and_installing_exim.html and https://registry.hub.docker.com/r/itherz/exim4/dockerfile
 all build parameters are set in the Local/makefile
+see also https://www.howtoforge.com/setting-up-a-mail-server-using-exim4-clamav-dovecot-spamassassin-and-many-more-on-debian-p2
 #### exim makefile
 dbm  = gdbm, see Local/makefile
 SPOOL_DIRECTORY=/var/spool/exim; this is not persistant
