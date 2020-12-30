@@ -79,7 +79,8 @@ all build parameters are set in the Local/makefile
 see also https://www.howtoforge.com/setting-up-a-mail-server-using-exim4-clamav-dovecot-spamassassin-and-many-more-on-debian-p2
 #### exim makefile
 dbm  = gdbm, see Local/makefile
-SPOOL_DIRECTORY=/var/spool/exim; this is not persistant
+SPOOL_DIRECTORY=/var/spool/exim; this is not persistent
+Watch out for entrypoint.sh - this one builds the exim config.
 
 ## testing
 see https://wiki.dovecot.org/TestInstallation

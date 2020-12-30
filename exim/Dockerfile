@@ -51,7 +51,7 @@ RUN set -eux; \
     apt-get remove -y build-essential libldap2-dev libpcre3-dev libdkim-dev && \
     apt-get -y autoremove --purge  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
-ARG ACCESS_FIX="/var/log/ /var/spool/exim"
+ARG ACCESS_FIX="/var/log/exim /var/spool/exim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     chown -R ${EXIM_USER}:${EXIM_GROUP} ${ACCESS_FIX} && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
@@ -61,4 +61,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 USER ${EXIM_USER}
-CMD ["/bin/sh"]
+CMD ["/bin/bash"]

@@ -495,7 +495,7 @@ SUPPORT_DANE=yes
 # LOOKUP_INCLUDE=-I /usr/local/ldap/include -I /usr/local/mysql/include -I /usr/local/pgsql/include
 # LOOKUP_INCLUDE +=-I /usr/local/include
 # LOOKUP_LIBS=-L/usr/local/lib -lldap -llber -lmysqlclient -lpq -lgds -lsqlite3 -llmdb
-LOOKUP_LIBS=-L/usr/local/lib -lldap -llber 
+LOOKUP_LIBS=-L/usr/local/lib -lldap -llber
 
 #------------------------------------------------------------------------------
 # Compiling the Exim monitor: If you want to compile the Exim monitor, a
@@ -903,7 +903,7 @@ HAVE_ICONV=yes
 # %s. This will be replaced by one of the strings "main", "panic", or "reject"
 # to form the final file names. Some installations may want something like this:
 
-LOG_FILE_PATH=/var/log/exim_%slog
+LOG_FILE_PATH=/var/log/exim/%s.log
 
 # which results in files with names /var/log/exim_mainlog, etc. The directory
 # in which the log files are placed must exist; Exim does not try to create
