@@ -71,9 +71,18 @@ services:
         EXIM_VERSION: exim-4.94+fixes
         # EXIM_SOURCE: https://github.com/EXIM/EXIM/archive/EXIM-${EXIM_VERSION}.tar.gz
     volumes:
-      - /data/${DOMAIN}/mail-external/log:/var/log
+      # - /data/${DOMAIN}/mail-external/log:/var/log
         # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
+    environment:
+       - LDAP_HOSTS=${LDAP_HOSTS}
+       - LDAP_PASSWORD=${LDAP_PASSWORD}
+       - LDAP_USER=${LDAP_USER}
+       - LDAP_BASE=${LDAP_BASE}
+       - LDAP_USER_FILTER=${LDAP_USER_FILTER}
+       - "EXIM_PORTS=1025 : 1465 : 1587"
+       - EXIM_TLS_ON_CONNECT_PORTS=1465
+       # - SUBMISSION_PORT=1587
     extra_hosts:
        # - "murg.elternserver.local:10.100.101.16"
        - "ldap.${DOMAIN}.de:${LDAP_IP}"

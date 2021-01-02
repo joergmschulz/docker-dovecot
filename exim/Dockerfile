@@ -16,7 +16,8 @@ ARG EXIM_VERSION=master
 
 ARG EXIM_SOURCE=https://github.com/exim/exim/archive/exim-${EXIM_VERSION}.tar.gz
 
-
+ENV EXIM_PORTS="1025 : 1465 : 1587"
+ENV EXIM_TLS_ON_CONNECT_PORTS=1465
 
 
 RUN set -x && \
@@ -39,19 +40,21 @@ RUN set -eux; \
       mkdir -p /usr/src && cd /usr/src && \
       git clone https://github.com/exim/exim -b $EXIM_VERSION exim && \
       # echo "$EXIM_DOWNLOAD_SHA *exim.tar.gz" | sha256sum -c -; \ TBD!
-      mkdir -p /usr/src/exim/Local
+      mkdir -p /usr/src/exim/Local && \
+      mkdir -p /etc/exim
 
 # tweak this makefile. currently users are hardcoded.
 ADD Local/Makefile /usr/src/exim/src/Local/
-
 RUN set -eux; \
     cd /usr/src/exim/src && \
     make && make install && \
     rm -rf /usr/src && \
-    apt-get remove -y build-essential libldap2-dev libpcre3-dev libdkim-dev && \
+    apt-get remove -y build-essential  libpcre3-dev libdkim-dev git && \
     apt-get -y autoremove --purge  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
-ARG ACCESS_FIX="/var/log/exim /var/spool/exim"
+ADD exim.conf /etc/exim/exim.conf
+
+ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     chown -R ${EXIM_USER}:${EXIM_GROUP} ${ACCESS_FIX} && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;

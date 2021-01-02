@@ -27,6 +27,7 @@ some of the files will be modified using below ARGS or values in .env
 | managesieve  | 4190  | 4190 in compose |
 | exim-external  | 1025  | 25 in compose |
 | exim-external  | 1587  | 587 in compose |
+| exim-external  | 1465  | 465 in compose (tls on connect) |
 
 ## addresses
 These are the addresses used in the services network. They shouldn't be seen elsewhere. We define them in the .env file.
@@ -81,6 +82,7 @@ see also https://www.howtoforge.com/setting-up-a-mail-server-using-exim4-clamav-
 dbm  = gdbm, see Local/makefile
 SPOOL_DIRECTORY=/var/spool/exim; this is not persistent
 Watch out for entrypoint.sh - this one builds the exim config.
+logging goes to the (mounted? ) directory /var/log/exim/. The exicyclog script isn't run by default; you have to set up a cron job for it if you want it.
 
 ## testing
 see https://wiki.dovecot.org/TestInstallation
