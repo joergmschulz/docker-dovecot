@@ -66,6 +66,7 @@ services:
         EXIM_GROUP: root
         EXIM_USER: exim
         EXIM_UID: 1024
+        EXIM_VERSION: 4.94
 
         # EXIM_EXTERNAL_IP: ${EXIM_IP}
         EXIM_VERSION: exim-4.94+fixes
@@ -82,6 +83,7 @@ services:
        - LDAP_USER_FILTER=${LDAP_USER_FILTER}
        - "EXIM_PORTS=1025 : 1465 : 1587"
        - EXIM_TLS_ON_CONNECT_PORTS=1465
+       - DOMAIN=${DOMAIN}
        # - SUBMISSION_PORT=1587
     extra_hosts:
        # - "murg.elternserver.local:10.100.101.16"

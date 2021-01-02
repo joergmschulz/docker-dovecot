@@ -11,13 +11,14 @@ ARG EXIM_USER
 ARG EXIM_UID
 
 ARG EXIM_IP=0.0.0.0
-# ARG EXIM_VERSION=4.94
-ARG EXIM_VERSION=master
+ARG EXIM_VERSION=4.94
+# ARG EXIM_VERSION=master
 
 ARG EXIM_SOURCE=https://github.com/exim/exim/archive/exim-${EXIM_VERSION}.tar.gz
 
 ENV EXIM_PORTS="1025 : 1465 : 1587"
 ENV EXIM_TLS_ON_CONNECT_PORTS=1465
+ENV DOMAIN=TakeItFromDotEnv
 
 
 RUN set -x && \
@@ -52,12 +53,12 @@ RUN set -eux; \
     apt-get remove -y build-essential  libpcre3-dev libdkim-dev git && \
     apt-get -y autoremove --purge  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
-ADD exim.conf /etc/exim/exim.conf
-
 ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     chown -R ${EXIM_USER}:${EXIM_GROUP} ${ACCESS_FIX} && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
+ADD exim.conf /etc/exim/config.d/exim.conf
+
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
