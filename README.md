@@ -58,8 +58,8 @@ we log to /dev/stderr.
 ## build time parameters
 as always, documentation lags behind. Ask questions, answers will be here.
 
-## runtime parameters
-### LDAP
+# runtime parameters
+## LDAP
 We expect a TLS connection to your ldap hosts.
 Set these values in your .env file. Watch up that you escape the \& with \\& until we find a better way to replace the parameters than using sed
 | Parameter | sample | comments |
@@ -70,15 +70,20 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | LDAP_BASE | ``ou=People,dc=yourDomain,dc=de`` |  |
 | LDAP_USER_FILTER, LDAP_PASS_FILTER, LDAP_ITERATE_FILTER| use your convenient LDAP filters here | technically select approved users by LDAP entities |
 | LDAP_IP  | 10.100.1.23 | IP address of your LDAP server |
-| DOMAIN  | faudin | the domain part of your hosts. will be composed as imap.$DOMAIN.de, smtp.$DOMAIN.de. Adjust your DNS. |
+| DOMAIN  | faudin | the domain part of your hosts. The imap host will be composed as imap.$DOMAIN.de, smtp.$DOMAIN.de. Adjust your DNS. The external mail host will be named mail.${DOMAIN}.de |
+
+## exim
+### mail acceptance
+EXIM will accept mails to ${DOMAIN}.de.
+In order to NOT pass all invalid users to dovecot, we'll look up the validity of the users via LDAP. Valid users must be memberOf the group localMail.
 
 
-## build side notes
-### exim
+# build side notes
+## exim
 for exim, see http://exim.org/exim-html-current/doc/html/spec_html/ch-building_and_installing_exim.html and https://registry.hub.docker.com/r/itherz/exim4/dockerfile
 all build parameters are set in the Local/makefile
 see also https://www.howtoforge.com/setting-up-a-mail-server-using-exim4-clamav-dovecot-spamassassin-and-many-more-on-debian-p2
-#### exim makefile
+### exim makefile
 dbm  = gdbm, see Local/makefile
 SPOOL_DIRECTORY=/var/spool/exim; this is not persistent
 Watch out for entrypoint.sh - this one builds the exim config.
