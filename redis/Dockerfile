@@ -17,17 +17,9 @@ RUN set -eux && \
     addgroup -S -g ${redis_gid} $REDIS_GROUP || export REDIS_GROUP=root  && \
     adduser -S -D -H -u $redis_uid -G $REDIS_GROUP -g "Redis user" ${REDIS_USER} && \
 
-    apk add --no-cache \
-    # grab su-exec for easy step-down from root
-    		# 'su-exec>=0.2' \
     # add tzdata for https://github.com/docker-library/redis/issues/138
-    		tzdata
-
-
-
-    RUN set -eux; \
-    	\
-    	apk add --no-cache --virtual .build-deps \
+    apk add --no-cache --virtual .build-deps \
+        tzdata \
     		coreutils \
     		dpkg-dev dpkg \
     		gcc \
@@ -35,10 +27,6 @@ RUN set -eux && \
     		make \
     		musl-dev \
     		openssl-dev \
-    # install real "wget" to avoid:
-    #   + wget -O redis.tar.gz http://download.redis.io/releases/redis-6.0.6.tar.gz
-    #   Connecting to download.redis.io (45.60.121.1:80)
-    #   wget: bad header line:     XxhODalH: btu; path=/; Max-Age=900
     		wget \
     	; \
     	\
@@ -108,22 +96,19 @@ RUN set -eux && \
     \
 # Workspace and Volume Setup
     mkdir -p /data && \
-    chown -R redis /data
+    chown -R ${REDIS_USER}:${REDIS_GROUP} /data
 
 
+ARG ACCESS_FIX="/usr/local/etc/redis"
+RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
+        chown -R ${REDIS_USER}:${REDIS_GROUP} ${ACCESS_FIX} && \
+        find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
 
 
+RUN mkdir -p /usr/local/etc/redis
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN mkdir -p /usr/local/etc/redis && \
-printf "bind ${REDIS_IP}\n\
-save 900 1\n\
-save 300 10\n\
-save 60 10000\n\
-protected-mode yes\n\
-dir /data\n\
-requirepass ${REDIS_PASSWORD}\n\
-port 6379\n"\
-> /usr/local/etc/redis/redis.conf
-
-USER redis
-CMD ["/usr/local/bin/redis-server",  "/usr/local/etc/redis/redis.conf"]
+USER $REDIS_USER
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# CMD /bin/sh

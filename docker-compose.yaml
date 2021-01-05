@@ -53,7 +53,68 @@ services:
           aliases:
             - imap
 
+  rspam:
+     image: rspam
+     restart: unless-stopped
+     build:
+       context: ./rspam
+       args:
+         RSPAM_gid: 0
+         RSPAM_uid: 1001
+         RSPAM_GROUP: root
+         RSPAM_USER : rspamd
+         CLAMAV_gid: 0
+         CLAMAV_uid: 1002
+         CLAMAV_GROUP: root
+         CLAMAV_USER : clamav
+         RSPAM_IP: ${RSPAM_IP}
+         RSPAM_REDIS_DB: 7
 
+     depends_on:
+       - redis
+     volumes:
+       # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
+       # - /usr/local/src/docker/mail/etc/rspamd:/etc/rspamd
+       # - log:/var/log
+       - /data/${DOMAIN}/rspam:/var/lib/rspamd
+       - /data/${DOMAIN}/clamav:/var/lib/clamav
+       - /etc/localtime:/etc/localtime:ro
+     ports:
+       - 11334:11334
+     extra_hosts:
+        - "ldap.${DOMAIN}.de:${LDAP_IP}"
+     domainname: ${DOMAIN}.de
+     hostname: rspam
+     environment:
+       - REDIS_PASSWORD=${REDIS_PASSWORD}
+       - RSPAM_GROUP=root
+       - RSPAM_USER=rspamd
+       - RSPAM_enable_password=${RSPAM_password}
+       - RSPAM_password=${RSPAM_enable_password}
+       - RSPAM_REDIS_DB=7
+     secrets:
+        - letsencrypt-cert
+        - letsencrypt-fullchain
+        - source: letsencrypt-privkey
+          target: letsencrypt-privkey
+     labels:
+       - "traefik.enable=true"
+       - "traefik.http.routers.rspam_${DOMAIN}_tls.rule=Host(`rspam.${DOMAIN}.de`)"
+       # - "traefik.http.routers.api.middlewares=auth"
+       - "traefik.http.routers.rspam_${DOMAIN}_tls.tls=true"
+       - "traefik.http.routers.rspam_${DOMAIN}_tls.entrypoints=websecure"
+       # - "traefik.http.middlewares.auth.basicauth.users=js:$$apr1$$x/KGmZcY$$lKC.FmZGenhbjMu1LrTFI."
+       - "traefik.docker.network=traefik"
+       - traefik.port=11334
+
+     networks:
+       services:
+        ipv4_address: ${RSPAM_IP}
+        aliases:
+         - rspam
+       traefik:
+         aliases:
+           - rspam
 
   exim-external:
     image: exim
@@ -119,8 +180,7 @@ services:
         redis_uid: 6379
         REDIS_GROUP: root
         REDIS_USER : redis
-        REDIS_IP: ${REDIS_IP}
-        REDIS_PASSWORD: ${REDIS_PASSWORD}
+
     # environment:
       # - REDIS_PASSWORD=${REDIS_PASSWORD}
     volumes:
@@ -128,11 +188,16 @@ services:
       - /data/${DOMAIN}/redis:/data
       # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
+    environment:
+      - REDIS_IP=${REDIS_IP}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
     networks:
       services:
         ipv4_address: ${REDIS_IP}
         aliases:
           - redis
+
 
 
 
@@ -148,13 +213,6 @@ secrets:
            file: /etc/letsencrypt-readers/privkey.pem
 
 networks:
-   mail:
-     driver: bridge
-     ipam:
-       driver: default
-       config:
-       -
-         subnet: 172.26.0.0/24
    traefik:
      external: true
    services:

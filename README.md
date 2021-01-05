@@ -1,7 +1,7 @@
 # docker-dovecot
 lightweight alpine based dockerized dovecot, exim, rspamd environment
 
-In order to achieve scalabality the setup will be split accross 3 servers:
+In order to achieve scalabality the setup will be split accross these servers:
 
     1 MX server, where most of the security features sit (exim-external)
     1 SMTP relay, to allow users to send mails to the outside world (exim-internal)
@@ -36,6 +36,7 @@ These are the addresses used in the services network. They shouldn't be seen els
 | 172.20.0.4 | redis  | REDIS_IP |
 | 172.20.0.5 | imap  | IMAP_IP |
 | 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP |
+| 172.20.0.6 | rspam  | RSPAM_IP |
 
 ## volumes
 for persistent data
@@ -72,6 +73,15 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | LDAP_IP  | 10.100.1.23 | IP address of your LDAP server |
 | DOMAIN  | faudin | the domain part of your hosts. The imap host will be composed as imap.$DOMAIN.de, smtp.$DOMAIN.de. Adjust your DNS. The external mail host will be named mail.${DOMAIN}.de |
 
+## redis
+### databases
+| database | user | comments |
+| -------------- | --------- | --------|
+| 7 | rspamd |  |  
+
+## rspamd
+If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
+
 ## exim
 ### mail acceptance
 EXIM will accept mails to ${DOMAIN}.de.
@@ -89,5 +99,5 @@ SPOOL_DIRECTORY=/var/spool/exim; this is not persistent
 Watch out for entrypoint.sh - this one builds the exim config.
 logging goes to the (mounted? ) directory /var/log/exim/. The exicyclog script isn't run by default; you have to set up a cron job for it if you want it.
 
-## testing
+## testing dovecot
 see https://wiki.dovecot.org/TestInstallation
