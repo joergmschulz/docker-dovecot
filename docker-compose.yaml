@@ -106,6 +106,7 @@ services:
        # - "traefik.http.middlewares.auth.basicauth.users=js:$$apr1$$x/KGmZcY$$lKC.FmZGenhbjMu1LrTFI."
        - "traefik.docker.network=traefik"
        - traefik.port=11334
+       - traefik.backend=rspam
 
      networks:
        services:
