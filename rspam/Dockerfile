@@ -27,6 +27,11 @@ RUN set -eux && \
         apk add --no-cache --virtual \
             tzdata \
             rspamd \
+            rspamd-controller \
+            rspamd-client \
+            rspamd-utils \
+            rspamd-proxy \
+            rspamd-libs \
             clamav \
             clamav-libunrar
 
