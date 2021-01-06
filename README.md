@@ -36,7 +36,7 @@ These are the addresses used in the services network. They shouldn't be seen els
 | 172.20.0.4 | redis  | REDIS_IP |
 | 172.20.0.5 | imap  | IMAP_IP |
 | 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP |
-| 172.20.0.6 | rspam  | RSPAM_IP |
+| 172.20.0.6 | rspam  | RSPAM_IP (listening here) |
 
 ## volumes
 for persistent data

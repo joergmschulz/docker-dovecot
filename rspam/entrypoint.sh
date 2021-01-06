@@ -9,6 +9,9 @@ printf "enable_password = \"${RSPAM_enable_password}\";\n\
 password = \"${RSPAM_password}\";\n\
 bind_socket = \"0.0.0.0:11334\";\n" > worker-controller.inc
 
+sed -i "s/RSPAM_IP/${RSPAM_IP}/" worker-normal.inc
+
+
 
 ( freshclam -u ${RSPAM_USER} && \
 clamd && \

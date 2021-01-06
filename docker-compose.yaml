@@ -92,6 +92,7 @@ services:
        - RSPAM_enable_password=${RSPAM_enable_password}
        - RSPAM_password=${RSPAM_password}
        - RSPAM_REDIS_DB=7
+       - RSPAM_IP=${RSPAM_IP}
      secrets:
         - letsencrypt-cert
         - letsencrypt-fullchain
@@ -124,6 +125,7 @@ services:
     image: exim
     hostname: exim-external
     restart: unless-stopped
+    depends: rspam
     build:
       context: ./exim
       args:
