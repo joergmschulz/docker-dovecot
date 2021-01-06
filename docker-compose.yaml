@@ -89,8 +89,8 @@ services:
        - REDIS_PASSWORD=${REDIS_PASSWORD}
        - RSPAM_GROUP=root
        - RSPAM_USER=rspamd
-       - RSPAM_enable_password=${RSPAM_password}
-       - RSPAM_password=${RSPAM_enable_password}
+       - RSPAM_enable_password=${RSPAM_enable_password}
+       - RSPAM_password=${RSPAM_password}
        - RSPAM_REDIS_DB=7
      secrets:
         - letsencrypt-cert
