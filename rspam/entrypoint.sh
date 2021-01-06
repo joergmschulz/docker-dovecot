@@ -9,7 +9,7 @@ printf "enable_password = \"${RSPAM_enable_password}\"\n\
 password = \"RSPAM_password\" = \"${RSPAM_password}\"\n" > worker-controller.inc
 
 
-freshclam
+freshclam -u ${RSPAM_USER}
 clamd
 
 rspamd -f -u ${RSPAM_USER} -g $RSPAM_GROUP || exec "$@"
