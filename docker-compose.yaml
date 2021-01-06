@@ -125,7 +125,8 @@ services:
     image: exim
     hostname: exim-external
     restart: unless-stopped
-    depends: rspam
+    depends_on:
+      - rspam
     build:
       context: ./exim
       args:
