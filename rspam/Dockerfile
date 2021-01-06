@@ -14,8 +14,8 @@ ARG RSPAM_IP=0.0.0.0
 # ARG CLAMAV_uid
 # ARG CLAMAV_PASSWORD
 
-ENV RSPAM_enable_password=TakeItFromDotEnv
-ENV RSPAM_password=TakeItFromDotEnv
+# ENV RSPAM_enable_password=TakeItFromDotEnv
+# ENV RSPAM_password=TakeItFromDotEnv
 ENV RSPAM_REDIS_DB=7
 
 
