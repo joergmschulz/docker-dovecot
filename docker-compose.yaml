@@ -63,21 +63,17 @@ services:
          RSPAM_uid: 1001
          RSPAM_GROUP: root
          RSPAM_USER : rspamd
-         CLAMAV_gid: 0
-         CLAMAV_uid: 1002
-         CLAMAV_GROUP: root
-         CLAMAV_USER : clamav
          RSPAM_IP: ${RSPAM_IP}
          RSPAM_REDIS_DB: 7
 
      depends_on:
        - redis
+       - clamav
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        # - /usr/local/src/docker/mail/etc/rspamd:/etc/rspamd
        # - log:/var/log
        - /data/${DOMAIN}/rspam:/var/lib/rspamd
-       - /data/${DOMAIN}/clamav:/var/lib/clamav
        - /etc/localtime:/etc/localtime:ro
      ports:
        - 11334:11334
@@ -93,6 +89,7 @@ services:
        - RSPAM_password=${RSPAM_password}
        - RSPAM_REDIS_DB=7
        - RSPAM_IP=${RSPAM_IP}
+       - CLAMAV_IP=${CLAMAV_IP}
      secrets:
         - letsencrypt-cert
         - letsencrypt-fullchain
@@ -174,6 +171,29 @@ services:
           ipv4_address: ${EXIM_EXTERNAL_IP}
           aliases:
             - exim
+  clamav:
+    image: joergmschulz/docker-clamav
+    hostname: clamav
+    build:
+      context: ./clamav
+      args:
+        CLAMAV_gid: 0
+        CLAMAV_uid: 1001
+        CLAMAV_GROUP: root
+        CLAMAV_USER : clamav
+    container_name: clamav
+    restart: always
+    environment:
+       - CLAMAV_IP=${CLAMAV_IP}
+    volumes:
+      # - clam:/var/lib/clamav
+      # - /data/${DOMAIN}/clamav:/var/lib/clamav
+      - ${CLAMAVLIB:-/data/clamav}:/var/lib/clamav
+    networks:
+        services:
+          ipv4_address: ${CLAMAV_IP}
+          aliases:
+            - clamav
 
 
   redis:
@@ -198,7 +218,7 @@ services:
     environment:
       - REDIS_IP=${REDIS_IP}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-
+    container_name: redis
     networks:
       services:
         ipv4_address: ${REDIS_IP}

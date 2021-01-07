@@ -37,6 +37,7 @@ These are the addresses used in the services network. They shouldn't be seen els
 | 172.20.0.5 | imap  | IMAP_IP |
 | 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP |
 | 172.20.0.6 | rspam  | RSPAM_IP (listening here) |
+| 172.20.0.7 | clam  | CLAMAV_IP (listening here) |
 
 ## volumes
 for persistent data
@@ -81,6 +82,9 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 
 ## rspamd
 If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
+
+## ClamAV
+currently stolen from https://github.com/mko-x/docker-clamav/blob/master/docker-compose.yml
 
 ## exim
 ### mail acceptance
