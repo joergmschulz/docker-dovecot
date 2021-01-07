@@ -1,10 +1,5 @@
 FROM debian:buster-slim
 
-
-
-
-
-
 ARG EXIM_GID
 ARG EXIM_GROUP
 ARG EXIM_USER
@@ -44,10 +39,12 @@ RUN set -eux; \
       mkdir -p /usr/src/exim/Local && \
       mkdir -p /etc/exim
 
-# tweak this makefile. currently users are hardcoded.
+
 ADD Local/Makefile /usr/src/exim/src/Local/
 RUN set -eux; \
     cd /usr/src/exim/src && \
+    sed -i "s/EXIM_LOCAL_USER/${EXIM_USER}/" Local/Makefile && \
+    sed -i "s/EXIM_LOCAL_GROUP/${EXIM_GROUP}/" Local/Makefile && \
     make && make install && \
     rm -rf /usr/src && \
     apt-get remove -y build-essential  libpcre3-dev libdkim-dev git && \

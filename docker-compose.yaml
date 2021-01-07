@@ -119,7 +119,7 @@ services:
            - rspam
 
   exim-external:
-    image: exim
+    image: joergmschulz/exim
     hostname: exim-external
     restart: unless-stopped
     depends_on:
@@ -166,6 +166,7 @@ services:
     ports:
       - "25:1025"
       - "587:1587"
+      - "465:1465"
     networks:
         services:
           ipv4_address: ${EXIM_EXTERNAL_IP}

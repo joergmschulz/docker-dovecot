@@ -139,7 +139,7 @@ CONFIGURE_FILE=/usr/exim/configure
 # lookup is deferred until runtime. In this case, it is the name that is built
 # into the binary. You can do this by a setting of the form:
 
-EXIM_USER=ref:exim
+EXIM_USER=ref:EXIM_LOCAL_USER
 
 # In other words, put "ref:" in front of the user name. If you set EXIM_USER
 # like this, any value specified for EXIM_GROUP is also passed "by reference".
@@ -153,7 +153,7 @@ EXIM_USER=ref:exim
 # for EXIM_USER (e.g. EXIM_USER=exim), you don't need to set EXIM_GROUP unless
 # you want to use a group other than the default group for the given user.
 
-EXIM_GROUP=root
+EXIM_GROUP=EXIM_LOCAL_GROUP
 
 # Many sites define a user called "exim", with an appropriate default group,
 # and use
@@ -699,7 +699,7 @@ CONFIGURE_GROUP=ref:root
 
 # ALT_CONFIG_PREFIX=/some/directory/
 # ALT_CONFIG_PREFIX=/some/directory/exim.conf-
-
+ALT_CONFIG_PREFIX=/etc/exim/config.d/
 
 #------------------------------------------------------------------------------
 # When a user other than root uses the -C option to override the configuration
@@ -712,7 +712,7 @@ CONFIGURE_GROUP=ref:root
 # the TRUSTED_CONFIG_LIST file, then root privileges are not dropped by Exim.
 
 # TRUSTED_CONFIG_LIST=/usr/exim/trusted_configs
-
+# TRUSTED_CONFIG_LIST=/etc/exim/config.d/exim.conf
 
 #------------------------------------------------------------------------------
 # Uncommenting this option disables the use of the -D command line option,

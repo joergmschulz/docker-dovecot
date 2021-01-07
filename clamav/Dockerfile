@@ -1,5 +1,5 @@
 FROM alpine:edge
-LABEL maintainer="https://mko-x.github.io/docker-clamav/"
+LABEL maintainer="js@faudin.de"
 
 ARG CLAMAV_gid
 ARG CLAMAV_GROUP
