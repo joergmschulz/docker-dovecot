@@ -61,7 +61,8 @@ ADD exim.conf /etc/exim/config.d/exim.conf
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+USER ${EXIM_USER}
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-USER ${EXIM_USER}
+
 CMD ["/bin/bash"]
