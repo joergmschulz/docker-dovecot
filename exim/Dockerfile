@@ -13,7 +13,7 @@ ARG EXIM_SOURCE=https://github.com/exim/exim/archive/exim-${EXIM_VERSION}.tar.gz
 
 ENV EXIM_PORTS="1025 : 1465 : 1587"
 ENV EXIM_TLS_ON_CONNECT_PORTS=1465
-ENV DOMAIN=TakeItFromDotEnv
+# ENV DOMAIN=TakeItFromDotEnv
 
 
 RUN set -x && \

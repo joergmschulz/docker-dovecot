@@ -88,8 +88,10 @@ currently stolen from https://github.com/mko-x/docker-clamav/blob/master/docker-
 
 ## exim
 ### mail acceptance
-EXIM will accept mails to ${DOMAIN}.de.
+EXIM will accept mails to EXIM_LOCAL_DOMAINS as listed in .env
 In order to NOT pass all invalid users to dovecot, we'll look up the validity of the users via LDAP. Valid users must be memberOf the group localMail.
+
+Currently all mails to all accepted domains are delivered to the imap server imap.$DOMAIN.de. We might find a way to configure this in LDAP.
 
 
 # build side notes

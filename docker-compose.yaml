@@ -154,6 +154,7 @@ services:
     extra_hosts:
        # - "murg.elternserver.local:10.100.101.16"
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
+       ## - "imap.${DOMAIN}.de:${IMAP_IP}" will be pulled from LDAP
     domainname: faudin.de
 
     labels:
