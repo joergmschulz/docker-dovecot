@@ -150,9 +150,8 @@ services:
        - EXIM_TLS_ON_CONNECT_PORTS=1465
        - EXIM_LOCAL_DOMAINS=${EXIM_LOCAL_DOMAINS}
        - DOMAIN=${DOMAIN}
-       # - SUBMISSION_PORT=1587
+
     extra_hosts:
-       # - "murg.elternserver.local:10.100.101.16"
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: faudin.de

@@ -1,0 +1,29 @@
+LDAP_PASSWORD=PasswordForLDAP
+LDAP_HOSTS=ldap.yourDomain.de
+LDAP_IP=ip.On.Your.Private.Network
+LDAP_USER=cn=admin_ro,dc=yourDomain,dc=de
+LDAP_BASE=ou=People,dc=yourDomain,dc=de
+
+# fusiondirectory structure reflected here
+LDAP_USER_FILTER=(\&(\&(memberof=cn=localMail,ou=groups,dc=yourDomain,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))
+EXIM_LDAP_USER_FILTER=(\&(memberOf=cn=localmail,ou=groups,dc=yourDomain,dc=de)(|(mail=$local_part@$domain)(|(gosaMailAlternateAddress=$local_part@$domain))))
+LDAP_PASS_FILTER=(\&(memberof=cn=localMail,ou=groups,dc=yourDomain,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))
+LDAP_ITERATE_FILTER=(memberOf=cn=localMail,ou=groups,dc=yourDomain,dc=de)
+
+DOMAIN=yourDomain
+EXIM_LOCAL_DOMAINS="yourDomain.de : yourSecondDomain.de : yourThirdDomain.de"
+
+IMAP_IP=172.20.0.5
+REDIS_IP=172.20.0.4
+EXIM_EXTERNAL_IP=172.20.0.3
+RSPAM_IP=172.20.0.6
+CLAMAV_IP=172.20.0.7
+NEXTCLOUD_IP=172.20.1.4
+
+REDIS_PASSWORD=someSecurePassword
+
+RSPAM_enable_password=https://www.rspamd.com/doc/quickstart.html#setting-the-controller-password
+RSPAM_password=$https://www.rspamd.com/doc/quickstart.html#setting-the-controller-password
+
+# shared storage for clamav
+CLAMAVLIB=~/clamav/
