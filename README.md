@@ -28,6 +28,9 @@ some of the files will be modified using below ARGS or values in .env
 | exim-external  | 1025  | 25 in compose |
 | exim-external  | 1587  | 587 in compose |
 | exim-external  | 1465  | 465 in compose (tls on connect) |
+| exim-ext-mailout  | 1025  | 2526 (instead of submission standard )in compose |
+| exim-extmailout  | 1587  | 1587 in compose |
+| exim-ext-mailout  | 1465  | 1465 in compose (tls on connect) |
 
 ## addresses
 These are the addresses used in the services network. They shouldn't be seen elsewhere. We define them in the .env file.
@@ -38,6 +41,7 @@ These are the addresses used in the services network. They shouldn't be seen els
 | 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP |
 | 172.20.0.6 | rspam  | RSPAM_IP (listening here) |
 | 172.20.0.7 | clam  | CLAMAV_IP (listening here) |
+| 172.20.0.8 | exim-ext-mailout  | EXIM_EXT_MAILOUT_IP (listening here) |
 
 ## volumes
 for persistent data
@@ -93,6 +97,9 @@ In order to NOT pass all invalid users to dovecot, we'll look up the validity of
 
 Currently all mails to all accepted domains are delivered to the imap server imap.$DOMAIN.de. We might find a way to configure this in LDAP.
 
+## exim-ext-mailout
+This is responsible for mailing out. only hosts in $EXIM_LOCAL_DOMAINS and hosts from mail network can send out messages.
+EXIM_RELAY_HOSTS : EXIM_WHITELIST_NET can send out messages.
 
 # build side notes
 ## exim
