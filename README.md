@@ -101,6 +101,13 @@ Currently all mails to all accepted domains are delivered to the imap server ima
 This is responsible for mailing out. only hosts in $EXIM_LOCAL_DOMAINS and hosts from mail network can send out messages.
 EXIM_RELAY_HOSTS : EXIM_WHITELIST_NET can send out messages.
 
+DKIM see also https://exim.org/exim-html-current/doc/html/spec_html/ch-dkim_spf_and_dmarc.html ;
+<code>
+openssl genrsa -out dkim_rsa.private 2048
+openssl rsa -in dkim_rsa.private -out /dev/stdout -pubout -outform PEM
+</code>
+save the result as 20210111._domainkey.${DOMAIN}.de with the content k=rsa;p=[output of 2nd command]
+
 # build side notes
 ## exim
 for exim, see http://exim.org/exim-html-current/doc/html/spec_html/ch-building_and_installing_exim.html and https://registry.hub.docker.com/r/itherz/exim4/dockerfile

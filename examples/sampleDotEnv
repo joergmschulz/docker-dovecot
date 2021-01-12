@@ -12,6 +12,7 @@ LDAP_ITERATE_FILTER=(memberOf=cn=localMail,ou=groups,dc=yourDomain,dc=de)
 
 DOMAIN=yourDomain
 EXIM_LOCAL_DOMAINS="yourDomain.de : yourSecondDomain.de : yourThirdDomain.de"
+EXIM_DKIM_SELECTOR=20210111
 
 IMAP_IP=172.20.0.5
 REDIS_IP=172.20.0.4

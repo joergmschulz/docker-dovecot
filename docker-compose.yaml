@@ -260,6 +260,7 @@ services:
        - DOMAIN=${DOMAIN}
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_WHITELIST_NET=${EXIM_WHITELIST_NET}
+       - EXIM_DKIM_SELECTOR=${EXIM_DKIM_SELECTOR}
 
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
@@ -269,6 +270,7 @@ services:
     labels:
       - "traefik.enable=false"
     secrets:
+       - dkim-privkey
        - letsencrypt-cert
        - letsencrypt-fullchain
        - source: letsencrypt-privkey
@@ -296,6 +298,8 @@ secrets:
            file: /etc/letsencrypt-readers/fullchain.pem
         letsencrypt-privkey:
            file: /etc/letsencrypt-readers/privkey.pem
+        dkim-privkey:
+            file: .certs/dkim-faudin.de-private
 
 networks:
    traefik:
