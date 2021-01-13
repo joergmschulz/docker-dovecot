@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:edge as build
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -72,7 +72,7 @@ RUN  mkdir /opt/pigeonhole/ && \
 ### Setup Container for Dovecot
     rm -rf /etc/dovecot/* && \
     mkdir -p /var/lib/dovecot && \
-    mkdir -p /var/log/dovecot && \
+    # mkdir -p /var/log/dovecot && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /var/lib/dovecot/  ${DOVECOT_PREFIX}  && \
     \
 ### Cleanup
@@ -84,22 +84,36 @@ RUN  mkdir /opt/pigeonhole/ && \
 ### Networking Configuration
 EXPOSE 1143 2525 1024 1587 1993 4190
 
-### Add Files
+
+FROM alpine:edge
+
+ARG vmail_gid
+ARG VMAIL_GROUP
+ARG VMAIL_USER
+ARG vmail_uid
+ENV LDAP_HOSTS=TakeItFromDotEnv
+ENV LDAP_PASSWORD=TakeItFromDotEnv
+ENV LDAP_PASS_FILTER=TakeItFromDotEnv
+ENV LDAP_USER_FILTER=TakeItFromDotEnv
+ENV LDAP_ITERATE_FILTER=TakeItFromDotEnv
+
+COPY --from=build /usr/local/dovecot /usr/local/dovecot
 ADD install /
-# create DH PEM
-RUN ( cd /etc/dovecot && \
+
+RUN addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
+    # mkdir -p /var/log/dovecot && \
+    mkdir -p /var/lib/dovecot && \
+    chown -R ${VMAIL_USER}:${VMAIL_GROUP} /var/lib/dovecot/  ${DOVECOT_PREFIX} && \
+    ( cd /etc/dovecot && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot && \
     test -f dh.pem || openssl dhparam 4096 > dh.pem ) && \
     chmod g+r /etc/dovecot/dovecot-ldap.conf.ext
-    # for d in $ACCESS_FIX ; do mkdir -p $d ; done && \
-    # chown -R ${vmail_uid}.${VMAIL_GROUP}  ${ACCESS_FIX} \
-    # &&  find ${ACCESS_FIX} -type d -exec chmod g+wx {} \; \
-    # &&  find ${ACCESS_FIX} -type f -exec chmod g+w  {} \;
+
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 USER ${VMAIL_USER}
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["dovecot", "-F"]
+# CMD ["dovecot", "-F"]
 
 # CMD ["/bin/sh"]
