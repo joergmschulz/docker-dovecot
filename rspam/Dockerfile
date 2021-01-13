@@ -38,7 +38,7 @@ RUN set -eux && \
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD etc/rspamd /etc/rspamd
 
-ARG ACCESS_FIX="/var/log/rspamd /run/rspamd /var/lib/rspamd /etc/rspamd /var/lib/clamav /run/clamav /var/log/clamav"
+ARG ACCESS_FIX="/var/log/rspamd /run/rspamd /var/lib/rspamd /etc/rspamd /var/lib/clamav /run/clamav /var/log/clamav  /var/lib/rspamd/dkim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done ; \
     chown -R ${RSPAM_USER}:${RSPAM_GROUP} ${ACCESS_FIX} && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
