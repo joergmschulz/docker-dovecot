@@ -118,6 +118,9 @@ dbm  = gdbm, see Local/makefile
 SPOOL_DIRECTORY=/var/spool/exim; this is not persistent
 Watch out for entrypoint.sh - this one builds the exim config.
 logging goes to the (mounted? ) directory /var/log/exim/. The exicyclog script isn't run by default; you have to set up a cron job for it if you want it.
+## dovecot
+### sieve
+individual sieve configurations are possible. Global defaults are stored in etc/dovecot/sieve.d/
 
-## testing dovecot
+### testing dovecot
 see https://wiki.dovecot.org/TestInstallation

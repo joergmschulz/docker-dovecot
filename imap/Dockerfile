@@ -88,6 +88,7 @@ EXPOSE 1143 2525 1024 1587 1993 4190
 ADD install /
 # create DH PEM
 RUN ( cd /etc/dovecot && \
+    chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot && \
     test -f dh.pem || openssl dhparam 4096 > dh.pem ) && \
     chmod g+r /etc/dovecot/dovecot-ldap.conf.ext
     # for d in $ACCESS_FIX ; do mkdir -p $d ; done && \

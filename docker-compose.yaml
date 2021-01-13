@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   imap:
-     image: imap
+     image: joergmschulz/imap
      hostname: imap
      restart: unless-stopped
      build:
@@ -54,7 +54,7 @@ services:
             - imap
 
   rspam:
-     image: rspam
+     image: joergmschulz/rspam
      restart: unless-stopped
      build:
        context: ./rspam
@@ -198,7 +198,7 @@ services:
 
 
   redis:
-    image: redis
+    image: joergmschulz/redis
     hostname: redis
     restart: unless-stopped
     build:
