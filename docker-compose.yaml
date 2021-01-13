@@ -134,6 +134,7 @@ services:
         EXIM_USER: exim
         EXIM_UID: 1024
         EXIM_VERSION: 4.94
+        DOMAIN: ${DOMAIN}
 
         # EXIM_EXTERNAL_IP: ${EXIM_IP}
         EXIM_VERSION: exim-4.94+fixes

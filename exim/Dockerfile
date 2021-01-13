@@ -76,7 +76,8 @@ RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     chown -R ${EXIM_USER}:${EXIM_GROUP} ${ACCESS_FIX} && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
 ## this will need more investigation
-RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
+RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf && \
+    printf "root: postmaster@${DOMAIN}.de" > /etc/aliases 
 ADD exim.conf /etc/exim/config.d/exim.conf
 
 
