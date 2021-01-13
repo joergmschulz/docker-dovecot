@@ -5,6 +5,8 @@ mygroup=$(id -gn)
 
 echo "inject ${me} as default user"
 sed -i "s/default_internal_user.*/default_internal_user = ${me}/" /etc/dovecot/dovecot.conf
+sed -i "s/IMAP_AUTH_VERBOSE/${IMAP_AUTH_VERBOSE}/" /etc/dovecot/dovecot.conf
+sed -i "s/IMAP_MAIL_DEBUG/${IMAP_MAIL_DEBUG}/" /etc/dovecot/dovecot.conf
 sed -i "s/default_login_user.*/default_login_user = ${me}/" /etc/dovecot/dovecot.conf
 sed -i "s/default_internal_group.*/default_internal_group = ${mygroup}/" /etc/dovecot/dovecot.conf
 sed -i "s/VMAIL_GROUP/${mygroup}/" /etc/dovecot/dovecot.conf
