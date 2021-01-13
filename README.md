@@ -124,3 +124,5 @@ individual sieve configurations are possible. Global defaults are stored in etc/
 
 ### testing dovecot
 see https://wiki.dovecot.org/TestInstallation
+
+${IMAP_AUTH_VERBOSE} ${IMAP_MAIL_DEBUG} can help debug dovecot.

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   imap:
-     image: joergmschulz/imap
+     image: joergschulz/imap
      hostname: imap
      restart: unless-stopped
      build:
@@ -20,6 +20,8 @@ services:
         - LDAP_USER_FILTER=${LDAP_USER_FILTER}
         - LDAP_PASS_FILTER=${LDAP_PASS_FILTER}
         - LDAP_ITERATE_FILTER=${LDAP_ITERATE_FILTER}
+        - IMAP_AUTH_VERBOSE=${IMAP_AUTH_VERBOSE:-no}
+        - IMAP_MAIL_DEBUG=${IMAP_MAIL_DEBUG:-no}
         # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
@@ -54,7 +56,7 @@ services:
             - imap
 
   rspam:
-     image: joergmschulz/rspam
+     image: joergschulz/rspam
      restart: unless-stopped
      build:
        context: ./rspam
@@ -119,7 +121,7 @@ services:
            - rspam
 
   exim-external:
-    image: joergmschulz/exim
+    image: joergschulz/exim
     hostname: exim-external
     restart: unless-stopped
     depends_on:
@@ -173,7 +175,7 @@ services:
           aliases:
             - exim
   clamav:
-    image: joergmschulz/docker-clamav
+    image: joergschulz/docker-clamav
     hostname: clamav
     build:
       context: ./clamav
@@ -198,7 +200,7 @@ services:
 
 
   redis:
-    image: joergmschulz/redis
+    image: joergschulz/redis
     hostname: redis
     restart: unless-stopped
     build:
@@ -227,7 +229,7 @@ services:
           - redis
 
   exim-ext-mailout:
-    image: joergmschulz/exim-mailout
+    image: joergschulz/exim-mailout
     hostname: exim-ext-mailout
     restart: unless-stopped
     depends_on:

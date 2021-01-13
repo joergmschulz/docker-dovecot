@@ -7,6 +7,6 @@ if anyof(
     header :contains "X-Spam_bar" "+++++"
     )
 {
-  fileinto :create "Junk";
-  stop; 
+  fileinto  "Junk";
+  stop;
 }
