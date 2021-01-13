@@ -77,7 +77,7 @@ RUN  mkdir /opt/pigeonhole/ && \
     \
 ### Cleanup
 ## this should be removed on prod
-    apk add sudo openldap-clients && \
+    apk add openldap-clients && \
     rm -rf /var/cache/apk/* && \
     rm -rf /opt/dovecot /opt/pigeonhole
 
@@ -100,7 +100,8 @@ ENV LDAP_ITERATE_FILTER=TakeItFromDotEnv
 COPY --from=build /usr/local/dovecot /usr/local/dovecot
 ADD install /
 
-RUN addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
+RUN apk add openldap-clients && \ 
+    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /var/lib/dovecot/  ${DOVECOT_PREFIX} && \
