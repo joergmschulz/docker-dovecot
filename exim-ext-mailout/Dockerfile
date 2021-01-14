@@ -17,7 +17,7 @@ RUN set -x && \
     addgroup --system --gid ${EXIM_GID} ${EXIM_GROUP} || export EXIM_GROUP=root  && \
     adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER
 
-COPY --from=joergmschulz/exim  /usr/exim /usr/exim
+COPY --from=joergschulz/exim  /usr/exim /usr/exim
 
 ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \

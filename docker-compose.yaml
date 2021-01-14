@@ -4,6 +4,7 @@ services:
   imap:
      image: joergschulz/imap
      hostname: imap
+     container_name: imap
      restart: unless-stopped
      build:
        context: ./imap
@@ -36,8 +37,7 @@ services:
      extra_hosts:
         # - "murg.elternserver.local:10.100.101.16"
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
-     domainname: faudin.de
-     hostname: imap
+     domainname: ${DOMAIN}.de
      labels:
        - "traefik.enable=false"
      secrets:
@@ -83,6 +83,7 @@ services:
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
      domainname: ${DOMAIN}.de
      hostname: rspam
+     container_name: rspam
      environment:
        - REDIS_PASSWORD=${REDIS_PASSWORD}
        - RSPAM_GROUP=root
@@ -109,8 +110,6 @@ services:
        - traefik.backend=rspam
        # - "traefik.http.routers.api.middlewares=auth"
        # - "traefik.http.middlewares.auth.basicauth.users=js:$$apr1$$x/KGmZcY$$lKC.FmZGenhbjMu1LrTFI."
-
-
      networks:
        services:
         ipv4_address: ${RSPAM_IP}
@@ -123,6 +122,7 @@ services:
   exim-external:
     image: joergschulz/exim
     hostname: exim-external
+    container_name: exim-external
     restart: unless-stopped
     depends_on:
       - rspam
@@ -143,6 +143,7 @@ services:
       # - /data/${DOMAIN}/mail-external/log:/var/log
         # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
+      - ${EXIM_EXTERNAL_SPOOL:-/data/exim-external/spool}:/var/spool/exim
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -153,12 +154,11 @@ services:
        - EXIM_TLS_ON_CONNECT_PORTS=1465
        - EXIM_LOCAL_DOMAINS=${EXIM_LOCAL_DOMAINS}
        - DOMAIN=${DOMAIN}
-
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
-       # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
-    domainname: faudin.de
-
+       # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external interface. Not reachable.
+    domainname: ${DOMAIN}.de
+    container_name: exim
     labels:
       - "traefik.enable=false"
     secrets:
@@ -175,6 +175,7 @@ services:
           ipv4_address: ${EXIM_EXTERNAL_IP}
           aliases:
             - exim
+
   clamav:
     image: joergschulz/docker-clamav
     hostname: clamav
@@ -187,6 +188,7 @@ services:
         CLAMAV_USER : clamav
     container_name: clamav
     restart: always
+    domainname: ${DOMAIN}.de
     environment:
        - CLAMAV_IP=${CLAMAV_IP}
     volumes:
@@ -232,6 +234,7 @@ services:
   exim-ext-mailout:
     image: joergschulz/exim-mailout
     hostname: exim-ext-mailout
+    container_name: exim-ext-mailout
     restart: unless-stopped
     depends_on:
       - rspam
@@ -251,6 +254,7 @@ services:
       # - /data/${DOMAIN}/mail-external/log:/var/log
         # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
+      - ${EXIM_EXT_MAILOUT_SPOOL:-/data/exim-ext-mailout/spool}:/var/spool/exim
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
