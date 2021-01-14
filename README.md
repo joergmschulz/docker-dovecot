@@ -3,11 +3,18 @@ lightweight alpine based dockerized dovecot, exim, rspamd environment
 
 In order to achieve scalabality the setup will be split accross these servers:
 
-    1 MX server, where most of the security features sit (exim-external)
-    1 SMTP relay, to allow users to send mails to the outside world (exim-internal)
-    1 Mailstore dovecot server, where the mailbox sits (imap)
-    1 RSPAM server. Also hosts clamav. If needed, you can add other, better virus scanners here.
-    1 redis server (for rspam and others)
+## services and addresses
+These are the addresses used in the services network. They shouldn't be seen elsewhere. We define them in the .env file.
+
+| address | host| name in .env | location (at entity or global) | description |
+| -------------- | ---------: | -------- |-------- | ----------------- |
+| 172.20.0.4 | redis  | REDIS_IP | location/global | key/value storage for all local services like rspam, nextcloud |
+| 172.20.0.5 | imap  | IMAP_IP | location | imap server for organization members. backend for Sogo and eventually contacted from outside. currently dovecot |
+| 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP | location | locally receives mail for organization members if they are listed in the appropriate LDAP group |
+| 172.20.0.6 | rspam  | RSPAM_IP (listening here) | global | global spam / virus checker, currently global, might be changed to local |
+| 172.20.0.7 | clam  | CLAMAV_IP (listening here) | global | global spam / virus checker, currently global, might be changed to local |
+| 172.20.0.8 | exim-ext-mailout  | EXIM_EXT_MAILOUT_IP (listening here) | global | smarthost for all: sends out emails to the world, local smtp hosts and all services can connect here for mail delivery. Will be spamchecked, DKIM signed and queued. |
+| 172.20.0.9 | exim-int-mailout  | EXIM_INT_MAILOUT_IP (listening here) | local | local users and services will connect here to send out their mail. connects to smarthost. Users must be member of LDAP group ${EXIM_PUBLIC_LDAP_USER_FILTER} to send mails to non-local hosts. Will be spamchecked, DKIM signed and queued. |
 
 We expect users to login via their complete email address. Two conditions must be met:
 - must be memberOf the specified LDAP_group that entitles him to use mail at allowed
@@ -32,23 +39,16 @@ some of the files will be modified using below ARGS or values in .env
 | exim-extmailout  | 1587  | 1587 in compose |
 | exim-ext-mailout  | 1465  | 1465 in compose (tls on connect) |
 
-## addresses
-These are the addresses used in the services network. They shouldn't be seen elsewhere. We define them in the .env file.
-| address | host| name in .env |
-| -------------- | ---------: | --------|
-| 172.20.0.4 | redis  | REDIS_IP |
-| 172.20.0.5 | imap  | IMAP_IP |
-| 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP |
-| 172.20.0.6 | rspam  | RSPAM_IP (listening here) |
-| 172.20.0.7 | clam  | CLAMAV_IP (listening here) |
-| 172.20.0.8 | exim-ext-mailout  | EXIM_EXT_MAILOUT_IP (listening here) |
+
 
 ## volumes
 for persistent data
+
 | volume | mountpoint| comments |
 | -------------- | ---------: | --------|
 | /data/$DOMAIN/vmail | /var/vmail  | imap, rw |
 | /data/$DOMAIN/redis | /var/vmail  | imap, rw |
+| ${CLAMAVLIB:-/data/clamav} | /var/lib/clamav  | clamav . To be tweaked in .env file |
 
 ## ssl
 see the secrets section of docker-compose.yaml.
@@ -68,6 +68,7 @@ as always, documentation lags behind. Ask questions, answers will be here.
 ## LDAP
 We expect a TLS connection to your ldap hosts.
 Set these values in your .env file. Watch up that you escape the \& with \\& until we find a better way to replace the parameters than using sed
+
 | Parameter | sample | comments |
 | -------------- | --------- | --------|
 | LDAP_HOSTS | ldap1 ldap2 ldap3 | Space separated list of LDAP hosts to use. host:port is allowed too. |
