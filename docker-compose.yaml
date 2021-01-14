@@ -213,13 +213,9 @@ services:
         redis_uid: 6379
         REDIS_GROUP: root
         REDIS_USER : redis
-
-    # environment:
-      # - REDIS_PASSWORD=${REDIS_PASSWORD}
     volumes:
       # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
       - /data/${DOMAIN}/redis:/data
-      # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
     environment:
       - REDIS_IP=${REDIS_IP}
