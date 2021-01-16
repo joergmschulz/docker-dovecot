@@ -38,6 +38,7 @@ some of the files will be modified using below ARGS or values in .env
 | exim-ext-mailout  | 1025  | 2526 (instead of submission standard )in compose |
 | exim-extmailout  | 1587  | 1587 in compose |
 | exim-ext-mailout  | 1465  | 1465 in compose (tls on connect) |
+| exim-int-mailout  | 1587  | 2587 in compose (this is the port the users have to use.) |
 
 
 
