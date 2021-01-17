@@ -79,6 +79,7 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | LDAP_USER_FILTER, LDAP_PASS_FILTER, LDAP_ITERATE_FILTER| use your convenient LDAP filters here | technically select approved users by LDAP entities |
 | LDAP_IP  | 10.100.1.23 | IP address of your LDAP server |
 | DOMAIN  | faudin | the domain part of your hosts. The imap host will be composed as imap.$DOMAIN.de, smtp.$DOMAIN.de. Adjust your DNS. The external mail host will be named mail.${DOMAIN}.de |
+| EXIM_INT_MAILOUT_LDAP_AUTH | ldap:///ou=People,dc=elternserver,dc=de??sub?(mail=${quote_ldap:$auth1}) | these people can login to the local mailout server in order to send mail. | 
 
 ## redis
 ### databases

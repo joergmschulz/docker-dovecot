@@ -765,7 +765,7 @@ AUTH_DOVECOT=yes
 # AUTH_HEIMDAL_GSSAPI=yes
 # AUTH_HEIMDAL_GSSAPI_PC=heimdal-gssapi
 # AUTH_HEIMDAL_GSSAPI_PC=heimdal-gssapi heimdal-krb5
-# AUTH_PLAINTEXT=yes
+AUTH_PLAINTEXT=yes
 # AUTH_SPA=yes
 AUTH_TLS=yes
 
