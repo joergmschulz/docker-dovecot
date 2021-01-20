@@ -11,6 +11,7 @@ hosts = LDAP_HOSTS
 dn = LDAP_USER
 dnpass = LDAP_PASSWORD
 tls = yes
+tls_require_cert = allow
 debug_level = 0
 
 auth_bind = yes
@@ -21,7 +22,7 @@ ldap_version = 3
 base = LDAP_BASE
 
 
-#deref = never
+deref = never
 
 # Search scope: base, onelevel, subtree
 scope = subtree
@@ -52,7 +53,7 @@ pass_filter = LDAP_PASS_FILTER
 
 # Attributes and filter to get a list of all users
 iterate_attrs = uid=mail
-iterate_filter = LDAP_ITERATE_FILTER 
+iterate_filter = LDAP_ITERATE_FILTER
 # iterate_filter = (objectClass=posixAccount)
 
 # Default password scheme. "{scheme}" before password overrides this.
