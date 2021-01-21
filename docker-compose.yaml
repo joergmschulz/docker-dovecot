@@ -23,6 +23,9 @@ services:
         - LDAP_ITERATE_FILTER=${LDAP_ITERATE_FILTER}
         - IMAP_AUTH_VERBOSE=${IMAP_AUTH_VERBOSE:-no}
         - IMAP_MAIL_DEBUG=${IMAP_MAIL_DEBUG:-no}
+        - DOMAIN=${DOMAIN}
+        - SMTPHOST=exim-int-mailout:1587
+
         # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf

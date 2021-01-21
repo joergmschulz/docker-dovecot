@@ -20,6 +20,8 @@ sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
 
 
 
+
+
 echo "start dovecot"
 # exec /bin/sh
 exec /usr/local/dovecot/sbin/dovecot -F
