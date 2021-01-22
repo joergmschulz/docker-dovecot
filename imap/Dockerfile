@@ -1,4 +1,4 @@
-FROM alpine:edge as build
+FROM alpine:latest as build
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -21,15 +21,14 @@ ARG pigeonhole_branch=release-0.5.11
 
 
 # build options
-ARG dovecot_config="-enable-dependency-tracking \
-          --without-pam \
+ARG dovecot_config="--without-pam \
           --without-cdb \
           --with-zlib \
           --with-bzlib \
-          --with-gc \
+          #--with-gc \
           --with-storages=maildir \
           --with-ldap \
-          --without-solr \
+          #--without-solr \
           --with-ssl=openssl \
           --sysconfdir=/etc \
           --prefix=${DOVECOT_PREFIX}  \
@@ -40,30 +39,45 @@ ARG dovecot_config="-enable-dependency-tracking \
           --without-docs \
           --without-sql-drivers \
           --without-mysql \
-          --localstatedir=/var/lib/dovecot"
+          --localstatedir=/var/lib/dovecot \
+          --enable-dependency-tracking"
 
 ARG pigeonhole_config="--with-dovecot=../dovecot --sysconfdir=/etc --prefix=${DOVECOT_PREFIX} --localstatedir=/var/lib/dovecot \
 	--with-managesieve=yes \
         --with-ldap=no"
-### Create Vmail User
-    # groupadd -f -g $vmail_gid vmail && \
-    # adduser -S -D -H -u $vmail_uid -G vmail -g "Dovecot Vmail" ${VMAIL_USER} && \
+
 RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     \
     set -x && \
     apk update && \
     apk upgrade && \
-    apk add git automake make openldap-dev zlib-dev bzip2-dev autoconf libtool libc-dev gettext gcc bison flex gnutls-dev gettext-dev rpcgen openssl-dev file && \
+    apk add --no-cache --virtual .build-deps \
+        # libressl-dev \
+        bzip2-dev lz4-dev xz-dev zlib-dev \
+        # libcap-dev \
+        # postgresql-dev mariadb-dev sqlite-dev \
+        openldap-dev \
+        heimdal-dev \
+        linux-headers && \
+    apk add git automake cmake \
+            gawk \
+            g++ \
+            make \
+            openldap-dev zlib-dev bzip2-dev autoconf libtool libc-dev gettext gcc bison flex gnutls-dev gettext-dev rpcgen openssl-dev file && \
     mkdir -p /opt/dovecot && cd /opt/dovecot && \
     git init . && \
     git remote add -t ${dovecot_branch} origin https://github.com/dovecot/core && \
     git fetch --depth=1 && git checkout ${dovecot_branch} && \
     ./autogen.sh && \
     mkdir -p ${DOVECOT_PREFIX} && \
-    PANDOC=false ./configure ${dovecot_config} && \
-    cd /opt/dovecot && make -s -j$(nproc) && make install
-
-RUN  mkdir /opt/pigeonhole/ && \
+    PANDOC=false  ./configure ${dovecot_config} ### &&  \
+RUN set -x && \
+    cd /opt/dovecot && \
+    make -s -j$(nproc)
+RUN set -x && \
+    cd /opt/dovecot && \
+    make install && \
+    mkdir /opt/pigeonhole/ && \
     cd /opt/pigeonhole && \
     git init . && git remote add -t ${pigeonhole_branch} origin https://github.com/dovecot/pigeonhole.git && \
     git fetch --depth=1 && git checkout ${pigeonhole_branch} && ./autogen.sh && \
@@ -77,7 +91,7 @@ RUN  mkdir /opt/pigeonhole/ && \
     \
 ### Cleanup
 ## this should be removed on prod
-    apk add openldap-clients && \
+    ## apk add openldap-clients && \
     rm -rf /var/cache/apk/* && \
     rm -rf /opt/dovecot /opt/pigeonhole
 
@@ -85,7 +99,7 @@ RUN  mkdir /opt/pigeonhole/ && \
 EXPOSE 1143 2525 1024 1587 1993 4190
 
 
-FROM alpine:edge
+FROM alpine:latest
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -101,8 +115,7 @@ ENV SMTPHOST=exim-int-mailout:1587
 COPY --from=build /usr/local/dovecot /usr/local/dovecot
 ADD install /
 
-RUN apk add msmtp \
-        openldap-clients && \
+RUN apk add openldap-clients && \
     addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
