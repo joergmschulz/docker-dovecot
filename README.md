@@ -79,7 +79,7 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | LDAP_USER_FILTER, LDAP_PASS_FILTER, LDAP_ITERATE_FILTER| use your convenient LDAP filters here | technically select approved users by LDAP entities |
 | LDAP_IP  | 10.100.1.23 | IP address of your LDAP server |
 | DOMAIN  | faudin | the domain part of your hosts. The imap host will be composed as imap.$DOMAIN.de, smtp.$DOMAIN.de. Adjust your DNS. The external mail host will be named mail.${DOMAIN}.de |
-| EXIM_INT_MAILOUT_LDAP_AUTH | ldap:///ou=People,dc=elternserver,dc=de??sub?(mail=${quote_ldap:$auth1}) | these people can login to the local mailout server in order to send mail. | 
+| EXIM_INT_MAILOUT_LDAP_AUTH | ldap:///ou=People,dc=elternserver,dc=de??sub?(mail=${quote_ldap:$auth1}) | these people can login to the local mailout server in order to send mail. |
 
 ## redis
 ### databases
@@ -122,6 +122,7 @@ SPOOL_DIRECTORY=/var/spool/exim; this is not persistent
 Watch out for entrypoint.sh - this one builds the exim config.
 logging goes to the (mounted? ) directory /var/log/exim/. The exicyclog script isn't run by default; you have to set up a cron job for it if you want it.
 ## dovecot
+smtp mailout possible when https://serverfault.com/questions/630291/sieve-redirect-to-foreign-email-gets-relay-access-denied submission_host is set correctly
 ### sieve
 individual sieve configurations are possible. Global defaults are stored in etc/dovecot/sieve.d/
 
