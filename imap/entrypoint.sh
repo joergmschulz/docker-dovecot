@@ -20,7 +20,50 @@ sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
 
 
 
+# enable replication if the variables are set
+if !([ -z ${IMAP_REPLICA_SERVER} ])
+then
+  printf "mail_plugins = $mail_plugins notify replication\n\
+  service replicator {  \n\
+  process_min_avail = 1  \n\
+}  \n\
+service aggregator {  \n\
+  fifo_listener replication-notify-fifo {  \n\
+    user = ${me}  \n\
+  }  \n\
+  unix_listener replication-notify {  \n\
+    user = ${me}  \n\
+  }  \n\
+}  \n\
+service replicator {  \n\
+  unix_listener replicator-doveadm {  \n\
+    mode = 0600  \n\
+    user = ${me}   \n\
+  }  \n\
+}  \n\
+plugin {  \n\
+    replication_sync_timeout = 2  \n\
+}  \n\
+service doveadm {  \n\
+  inet_listener {  \n\
+    port = $IMAP_REPLICA_PORT  \n\
+  }  \n\
+}  \n\
+doveadm_port =  $IMAP_REPLICA_PORT \n\
+doveadm_password = $IMAP_REPLICA_PASSWORD  \n\
+plugin {  \n\
+  mail_replica = tcp:$IMAP_REPLICA_SERVER:$IMAP_REPLICA_PORT # use doveadm_port  \n\
+}  \n\
+service config {\n\
+  unix_listener config {\n\
+    user = ${me}\n\
+  }\n\
+}
+  \n\
+  " > /etc/dovecot/replication.conf
 
+
+fi
 
 echo "start dovecot"
 # exec /bin/sh

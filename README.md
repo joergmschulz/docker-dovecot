@@ -110,6 +110,9 @@ openssl genrsa -out dkim_rsa.private 2048
 openssl rsa -in dkim_rsa.private -out /dev/stdout -pubout -outform PEM
 ```
 save the result as 20210111._domainkey.${DOMAIN}.de with the content k=rsa;p=[output of 2nd command]
+## IMAP replication
+(WIP)
+if you define the IMAP_REPLICA_* parameters in your .env, replication should be possible. 
 
 # build side notes
 ## exim

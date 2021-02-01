@@ -25,6 +25,9 @@ services:
         - IMAP_MAIL_DEBUG=${IMAP_MAIL_DEBUG:-no}
         - DOMAIN=${DOMAIN}
         - SMTPHOST=exim-int-mailout:1587
+        - IMAP_REPLICA_SERVER=${IMAP_REPLICA_SERVER}
+        - IMAP_REPLICA_PORT=${IMAP_REPLICA_PORT}
+        - IMAP_REPLICA_PASSWORD=${IMAP_REPLICA_PORT}
 
         # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
@@ -38,7 +41,7 @@ services:
        - "4190:4190"
        # - "2525:2525"
      extra_hosts:
-        # - "murg.elternserver.local:10.100.101.16"
+        - "m.datilo.de:10.100.101.16"
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
      domainname: ${DOMAIN}.de
      labels:

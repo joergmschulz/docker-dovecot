@@ -1,10 +1,5 @@
-# This file is commonly accessed via passdb {} or userdb {} section in
-# conf.d/auth-ldap.conf.ext
 
 # This file is opened as ${VMAIL_USER}.
-#
-# http://wiki2.dovecot.org/AuthDatabase/LDAP
-#
 
 hosts = LDAP_HOSTS
 
@@ -17,36 +12,19 @@ debug_level = 0
 auth_bind = yes
 ldap_version = 3
 
-# LDAP base. %variables can be used here.
-# For example: dc=mail, dc=example, dc=org
 base = LDAP_BASE
 
 
 deref = never
 
 # Search scope: base, onelevel, subtree
-scope = subtree
+# scope = subtree
+scope = onelevel
 
-# http://wiki2.dovecot.org/UserDatabase/ExtraFields
-#user_attrs = homeDirectory=home,uidNumber=uid,gidNumber=gid
-user_attrs=homeDirectory=home,mail=uid,mail=mail
+user_filter = LDAP_PASS_FILTER
 
-user_filter = LDAP_USER_FILTER
+pass_attrs = mail=user,userPassword=password,mail=userdb_user
 
-# Password checking attributes:
-#  user: Virtual user name (user@domain), if you wish to change the
-#        user-given username to something else
-#  password: Password, may optionally start with {type}, eg. {crypt}
-# There are also other special fields which can be returned, see
-# http://wiki2.dovecot.org/PasswordDatabase/ExtraFields
-pass_attrs = mail=user,userPassword=password
-
-# If you wish to avoid two LDAP lookups (passdb + userdb), you can use
-# userdb prefetch instead of userdb ldap in dovecot.conf. In that case you'll
-# also have to include user_attrs in pass_attrs field prefixed with "userdb_"
-# string. For example:
-#pass_attrs = uid=user,userPassword=password,\
-#  homeDirectory=userdb_home,uidNumber=userdb_uid,gidNumber=userdb_gid
 
 # Filter for password lookups
 pass_filter = LDAP_PASS_FILTER
@@ -61,4 +39,6 @@ iterate_filter = LDAP_ITERATE_FILTER
 default_pass_scheme = MD5-CRYPT
 
 # set the directories:
-user_attrs= =mail=mbox:/var/vmail/%u/Maildir
+user_attrs= =mail=mbox:/var/vmail/%{ldap:mail}/Maildir:, =home=/var/vmail/%{ldap:mail}
+
+# user_attrs=homeDirectory=home,mail=uid,mail=mail
