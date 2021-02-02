@@ -28,7 +28,8 @@ then
 }  \n\
 service aggregator {  \n\
   fifo_listener replication-notify-fifo {  \n\
-    user = ${me}  \n\
+  mode = 0600  \n\
+  user = ${me}  \n\
     group = ${mygroup} \n\
   }  \n\
   unix_listener replication-notify {  \n\
