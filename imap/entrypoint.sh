@@ -23,8 +23,7 @@ sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
 # enable replication if the variables are set
 if !([ -z ${IMAP_REPLICA_SERVER} ])
 then
-  printf "mail_plugins = $mail_plugins notify replication\n\
-  service replicator {  \n\
+  printf "service replicator {  \n\
   process_min_avail = 1  \n\
 }  \n\
 service aggregator {  \n\
@@ -45,6 +44,7 @@ plugin {  \n\
     replication_sync_timeout = 2  \n\
 }  \n\
 service doveadm {  \n\
+  user = vmail  \n\
   inet_listener {  \n\
     port = $IMAP_REPLICA_PORT  \n\
   }  \n\
@@ -60,7 +60,7 @@ service config {\n\
   }\n\
 }
   \n\
-  " > /etc/dovecot/replication.conf
+  " > /etc/dovecot/conf.d/replication.conf
 
 
 fi

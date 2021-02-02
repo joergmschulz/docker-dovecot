@@ -27,7 +27,7 @@ services:
         - SMTPHOST=exim-int-mailout:1587
         - IMAP_REPLICA_SERVER=${IMAP_REPLICA_SERVER}
         - IMAP_REPLICA_PORT=${IMAP_REPLICA_PORT}
-        - IMAP_REPLICA_PASSWORD=${IMAP_REPLICA_PORT}
+        - IMAP_REPLICA_PASSWORD=${IMAP_REPLICA_PASSWORD}
 
         # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
@@ -39,7 +39,8 @@ services:
        - "143:1143"
        - "993:1993"
        - "4190:4190"
-       # - "2525:2525"
+       - $IMAP_REPLICA_PORT:$IMAP_REPLICA_PORT
+
      extra_hosts:
         - "m.datilo.de:10.100.101.16"
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
