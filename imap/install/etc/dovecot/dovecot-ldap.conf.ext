@@ -30,7 +30,7 @@ pass_attrs = mail=user,userPassword=password,mail=userdb_user
 pass_filter = LDAP_PASS_FILTER
 
 # Attributes and filter to get a list of all users
-iterate_attrs = uid=mail
+iterate_attrs = mail=user
 iterate_filter = LDAP_ITERATE_FILTER
 # iterate_filter = (objectClass=posixAccount)
 
