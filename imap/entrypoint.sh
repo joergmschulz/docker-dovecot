@@ -29,22 +29,26 @@ then
 service aggregator {  \n\
   fifo_listener replication-notify-fifo {  \n\
     user = ${me}  \n\
+    group = ${mygroup} \n\
   }  \n\
   unix_listener replication-notify {  \n\
     user = ${me}  \n\
+    group = ${mygroup} \n\
   }  \n\
 }  \n\
 service replicator {  \n\
   unix_listener replicator-doveadm {  \n\
     mode = 0600  \n\
     user = ${me}   \n\
+    group = ${mygroup} \n\
   }  \n\
 }  \n\
 plugin {  \n\
     replication_sync_timeout = 2  \n\
 }  \n\
 service doveadm {  \n\
-  user = vmail  \n\
+  user = ${me}  \n\
+  group = ${mygroup} \n\
   inet_listener {  \n\
     port = $IMAP_REPLICA_PORT  \n\
   }  \n\
@@ -57,6 +61,7 @@ plugin {  \n\
 service config {\n\
   unix_listener config {\n\
     user = ${me}\n\
+    group = ${mygroup} \n\
   }\n\
 }
   \n\
