@@ -39,6 +39,6 @@ iterate_filter = LDAP_ITERATE_FILTER
 default_pass_scheme = MD5-CRYPT
 
 # set the directories:
-user_attrs= =mail=mbox:/var/vmail/%{ldap:mail}/Maildir:, =home=/var/vmail/%{ldap:mail}
+user_attrs= =mail=mdbox:/var/vmail/%{ldap:mail}/Maildir:, =home=/var/vmail/%{ldap:mail}
 
 # user_attrs=homeDirectory=home,mail=uid,mail=mail
