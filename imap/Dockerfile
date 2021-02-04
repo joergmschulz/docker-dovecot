@@ -15,6 +15,8 @@ ARG DOVECOT_PREFIX=/usr/local/dovecot
 # ARG pigeonhole_branch=master
 ARG pigeonhole_branch=release-0.5.13
 
+
+
 #
 #  ARG ACCESS_FIX="/run/dovecot /var/run/dovecot"
 #
@@ -123,7 +125,9 @@ RUN apk add openldap-clients && \
     ( cd /etc/dovecot && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot && \
     test -f dh.pem || openssl dhparam 4096 > dh.pem ) && \
-    chmod g+r /etc/dovecot/dovecot-ldap.conf.ext
+    chmod g+r /etc/dovecot/dovecot-ldap.conf.ext && \
+    mkdir /etc/dovecot/conf.d/ && \
+    chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot
 
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh

@@ -9,10 +9,10 @@ services:
      build:
        context: ./imap
        args:
-         vmail_gid: 0
-         vmail_uid: 1001
-         VMAIL_GROUP: root
-         VMAIL_USER : vmail
+         vmail_gid: ${vmail_gid:-0}
+         vmail_uid: ${vmail_uid:-1001}
+         VMAIL_GROUP: ${VMAIL_GROUP:-root}
+         VMAIL_USER : ${VMAIL_USER:-vmail}
      environment:
         - LDAP_HOSTS=${LDAP_HOSTS}
         - LDAP_PASSWORD=${LDAP_PASSWORD}

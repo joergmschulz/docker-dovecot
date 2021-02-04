@@ -29,3 +29,14 @@ RSPAM_password=$https://www.rspamd.com/doc/quickstart.html#setting-the-controlle
 
 # shared storage for clamav
 CLAMAVLIB=~/clamav/
+
+# imap user ID
+# gid=0 for kubernetes!
+vmail_gid=0
+vmail_uid=1001
+VMAIL_GROUP=vmail
+VMAIL_USER=vmail
+# IMAP replication settings
+IMAP_REPLICA_SERVER=replica.yourdomain.de
+IMAP_REPLICA_PORT=2443
+IMAP_REPLICA_PASSWORD=that's what you know best
