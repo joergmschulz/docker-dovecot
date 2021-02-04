@@ -126,7 +126,7 @@ RUN apk add openldap-clients && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot && \
     test -f dh.pem || openssl dhparam 4096 > dh.pem ) && \
     chmod g+r /etc/dovecot/dovecot-ldap.conf.ext && \
-    mkdir /etc/dovecot/conf.d/ && \
+    # mkdir /etc/dovecot/conf.d/ && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot
 
 
