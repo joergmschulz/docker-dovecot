@@ -52,6 +52,7 @@ services:
         - letsencrypt-fullchain
         - source: letsencrypt-privkey
           target: letsencrypt-privkey
+          gid: ${vmail_gid}
      networks:
        #  mail:
        # ipv4_address: 172.26.0.3
