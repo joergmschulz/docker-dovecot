@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.7'
 
 services:
   imap:
@@ -52,7 +52,8 @@ services:
         - letsencrypt-fullchain
         - source: letsencrypt-privkey
           target: letsencrypt-privkey
-          gid: ${vmail_gid}
+          # gid: ${vmail_gid}
+          mode: 0444
      networks:
        #  mail:
        # ipv4_address: 172.26.0.3
