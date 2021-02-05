@@ -1,4 +1,4 @@
-FROM debian:buster-slim as build
+FROM debian:bullseye-slim as build
 
 ARG EXIM_GID
 ARG EXIM_GROUP
@@ -50,7 +50,7 @@ RUN set -eux; \
     apt-get remove -y build-essential  libpcre3-dev libdkim-dev git && \
     apt-get -y autoremove --purge  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 ARG EXIM_GID
 ARG EXIM_GROUP
@@ -77,7 +77,7 @@ RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
 ## this will need more investigation
 RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf && \
-    printf "root: postmaster@${DOMAIN}.de" > /etc/aliases 
+    printf "root: postmaster@${DOMAIN}.de" > /etc/aliases
 ADD exim.conf /etc/exim/config.d/exim.conf
 
 

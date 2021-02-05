@@ -27,15 +27,7 @@ then
   process_min_avail = 1  \n\
 }  \n\
 service aggregator {  \n\
-  fifo_listener replication-notify-fifo {  \n\
-  mode = 0600  \n\
-  user = ${me}  \n\
-    group = ${mygroup} \n\
-  }  \n\
-  unix_listener replication-notify {  \n\
-    user = ${me}  \n\
-    group = ${mygroup} \n\
-  }  \n\
+  chroot = \n\
 }  \n\
 service replicator {  \n\
   unix_listener replicator-doveadm {  \n\
