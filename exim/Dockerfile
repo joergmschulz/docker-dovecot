@@ -1,4 +1,4 @@
-FROM debian:buster-slim as build
+FROM debian:bullseye-slim as build
 
 ARG EXIM_GID
 ARG EXIM_GROUP
@@ -50,7 +50,7 @@ RUN set -eux; \
     apt-get remove -y build-essential  libpcre3-dev libdkim-dev git && \
     apt-get -y autoremove --purge  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 ARG EXIM_GID
 ARG EXIM_GROUP

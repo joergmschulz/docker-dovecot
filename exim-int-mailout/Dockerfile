@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 ARG EXIM_GID
 ARG EXIM_GROUP
