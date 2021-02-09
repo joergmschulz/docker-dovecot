@@ -3,8 +3,8 @@ require "fileinto";
 if anyof(
     header :contains ["X-Spam-Flag"] "YES",
     header :contains ["X-Spam-Status"] "Yes",
-    header :contains ["Subject"] "*** SPAM ***",
-    header :contains  ["X-Spam_bar"] "++++"
+    header :contains ["Subject"] "*** SPAM",    
+    header :contains  ["X-Spam-bar"] "++++"
     )
 {
   fileinto  "Junk";
