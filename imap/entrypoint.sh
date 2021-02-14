@@ -21,7 +21,7 @@ sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
 
 
 # enable replication if the variables are set
-if !([ -z ${IMAP_REPLICA_SERVER} ])
+if !([ -n ${IMAP_REPLICA_SERVER} ])
 then
   printf "service replicator {  \n\
   process_min_avail = 1  \n\
