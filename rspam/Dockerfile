@@ -31,9 +31,9 @@ RUN set -eux && \
             rspamd-client \
             rspamd-utils \
             rspamd-proxy \
-            rspamd-libs \
-            clamav \
-            clamav-libunrar
+            rspamd-libs 
+            # clamav \
+            # clamav-libunrar
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD etc/rspamd /etc/rspamd

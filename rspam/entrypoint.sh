@@ -14,6 +14,6 @@ sed -i "s/RSPAM_IP/${RSPAM_IP}/" worker-normal.inc
 
 
 
-( freshclam -u ${RSPAM_USER} && \
-clamd && \
-rspamd -f -u ${RSPAM_USER} -g $RSPAM_GROUP ) || exec "$@"
+# ( freshclam -u ${RSPAM_USER} && \
+# clamd && \
+(rspamd -f -u ${RSPAM_USER} -g $RSPAM_GROUP ) || exec "$@"
