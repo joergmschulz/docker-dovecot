@@ -28,8 +28,6 @@ services:
         - IMAP_REPLICA_SERVER=${IMAP_REPLICA_SERVER}
         - IMAP_REPLICA_PORT=${IMAP_REPLICA_PORT}
         - IMAP_REPLICA_PASSWORD=${IMAP_REPLICA_PASSWORD}
-
-        # - LDAP_USER_FILTER="(&(|(objectclass=posixAccount))(&(memberof=cn=localMail,ou=groups,dc=elternserver,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))"
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        - /data/${DOMAIN}/vmail:/var/vmail
@@ -40,7 +38,12 @@ services:
        - "993:1993"
        - "4190:4190"
        - $IMAP_REPLICA_PORT:$IMAP_REPLICA_PORT
-
+     logging:
+       driver: "json-file"
+       options:
+         max-size: "10m"
+         max-file: "3"
+         mode: non-blocking
      extra_hosts:
         - "m.datilo.de:10.100.101.16"
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
@@ -52,8 +55,7 @@ services:
         - letsencrypt-fullchain
         - source: letsencrypt-privkey
           target: letsencrypt-privkey
-          # gid: ${vmail_gid}
-          mode: 0444
+
      networks:
        #  mail:
        # ipv4_address: 172.26.0.3
@@ -86,6 +88,12 @@ services:
        # - log:/var/log
        - /data/${DOMAIN}/rspam:/var/lib/rspamd
        - /etc/localtime:/etc/localtime:ro
+     logging:
+       driver: "json-file"
+       options:
+         max-size: "10m"
+         max-file: "3"
+         mode: non-blocking
      ports:
        - 11334:11334
      extra_hosts:
@@ -175,6 +183,12 @@ services:
        - letsencrypt-fullchain
        - source: letsencrypt-privkey
          target: letsencrypt-privkey
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        mode: non-blocking
     ports:
       - "25:1025"
       - "587:1587"
@@ -204,6 +218,12 @@ services:
       # - clam:/var/lib/clamav
       # - /data/${DOMAIN}/clamav:/var/lib/clamav
       - ${CLAMAVLIB:-/data/clamav}:/var/lib/clamav
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        mode: non-blocking
     networks:
         services:
           ipv4_address: ${CLAMAV_IP}
@@ -226,6 +246,12 @@ services:
       # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
       - /data/${DOMAIN}/redis:/data
       - /etc/localtime:/etc/localtime:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        mode: non-blocking
     environment:
       - REDIS_IP=${REDIS_IP}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -288,6 +314,12 @@ services:
        - letsencrypt-fullchain
        - source: letsencrypt-privkey
          target: letsencrypt-privkey
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        mode: non-blocking
     ports:
       # - "2526:1025"
       - "2587:1587"
@@ -312,11 +344,6 @@ services:
         EXIM_GROUP: root
         EXIM_USER: exim
         EXIM_UID: 1001
-        # EXIM_VERSION: 4.94
-
-        # EXIM_EXTERNAL_IP: ${EXIM_IP}
-        # EXIM_VERSION: exim-4.94+fixes
-        # EXIM_SOURCE: https://github.com/EXIM/EXIM/archive/EXIM-${EXIM_VERSION}.tar.gz
     volumes:
       # - /data/${DOMAIN}/mail-external/log:/var/log
         # - log:/var/log
@@ -335,12 +362,10 @@ services:
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_WHITELIST_NET=${EXIM_WHITELIST_NET:-172.20.0.0/16}
        - EXIM_DKIM_SELECTOR=${EXIM_DKIM_SELECTOR}
-
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: faudin.de
-
     labels:
       - "traefik.enable=false"
     secrets:
@@ -349,6 +374,12 @@ services:
        - letsencrypt-fullchain
        - source: letsencrypt-privkey
          target: letsencrypt-privkey
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        mode: non-blocking
     ports:
       - "2526:1025"
       - "1587:1587"
