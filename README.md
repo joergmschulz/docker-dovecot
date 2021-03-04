@@ -89,6 +89,7 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 
 ## rspamd
 If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
+for your local white/blacklists, you'll need the /var/lib/rspamd/maps.d directory
 
 ## ClamAV
 currently stolen from https://github.com/mko-x/docker-clamav/blob/master/docker-compose.yml
@@ -112,7 +113,7 @@ openssl rsa -in dkim_rsa.private -out /dev/stdout -pubout -outform PEM
 save the result as 20210111._domainkey.${DOMAIN}.de with the content k=rsa;p=[output of 2nd command]
 ## IMAP replication
 (WIP)
-if you define the IMAP_REPLICA_* parameters in your .env, replication should be possible. 
+if you define the IMAP_REPLICA_* parameters in your .env, replication should be possible.
 
 # build side notes
 ## exim
