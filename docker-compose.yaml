@@ -94,8 +94,8 @@ services:
          max-size: "10m"
          max-file: "3"
          mode: non-blocking
-     # ports:
-     #     - 11334:11334
+     ports:
+         - 11334:11334
      extra_hosts:
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
      domainname: ${DOMAIN}.de
