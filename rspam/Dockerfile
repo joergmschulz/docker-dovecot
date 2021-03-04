@@ -30,7 +30,7 @@ RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done ; \
     chown -R ${RSPAM_USER}:${RSPAM_GROUP} ${ACCESS_FIX} && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
 
-
+EXPOSE 11334
 RUN chmod +x /usr/local/bin/entrypoint.sh
 USER ${RSPAM_USER}
 
