@@ -78,14 +78,10 @@ services:
          RSPAM_USER : rspamd
          RSPAM_IP: ${RSPAM_IP}
          RSPAM_REDIS_DB: 7
-
      depends_on:
        - redis
        - clamav
      volumes:
-       # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
-       # - /usr/local/src/docker/mail/etc/rspamd:/etc/rspamd
-       # - log:/var/log
        - /data/${DOMAIN}/rspam:/var/lib/rspamd
        - /etc/localtime:/etc/localtime:ro
      logging:
@@ -94,9 +90,6 @@ services:
          max-size: "10m"
          max-file: "3"
          mode: non-blocking
-     ## ports:
-         ## - 11334
-         #- 11334:11334
      extra_hosts:
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
      domainname: ${DOMAIN}.de
@@ -119,15 +112,11 @@ services:
      labels:
        - "traefik.enable=true"
        - "traefik.http.routers.rspam_${DOMAIN}_tls.rule=Host(`rspam.${DOMAIN}.de`)"
-       # - "traefik.http.routers.api.middlewares=auth"
        - "traefik.http.routers.rspam_${DOMAIN}_tls.tls=true"
        - "traefik.http.routers.rspam_${DOMAIN}_tls.entrypoints=websecure"
-       # - "traefik.http.middlewares.auth.basicauth.users=js:$$apr1$$x/KGmZcY$$lKC.FmZGenhbjMu1LrTFI."
        - "traefik.docker.network=traefik"
        - traefik.port=11334
        - traefik.backend=rspam
-       # - "traefik.http.routers.api.middlewares=auth"
-       # - "traefik.http.middlewares.auth.basicauth.users=js:$$apr1$$x/KGmZcY$$lKC.FmZGenhbjMu1LrTFI."
      networks:
        services:
         ipv4_address: ${RSPAM_IP}
