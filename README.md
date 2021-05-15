@@ -23,6 +23,7 @@ We expect users to login via their complete email address. Two conditions must b
 ## standard config Files
 see the directory install/
 some of the files will be modified using below ARGS or values in .env
+git pull docker-dovecot master  && vi .env && docker-compose down && docker-compose build && docker-compose up -d
 
 ## Ports
 
@@ -87,7 +88,7 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | -------------- | --------- | --------|
 | 7 | rspamd |  |  
 
-enable or disable REDIS_PRODECTED_MODE in .env 
+enable or disable REDIS_PRODECTED_MODE in .env
 
 ## rspamd
 If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
