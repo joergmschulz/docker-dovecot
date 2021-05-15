@@ -245,7 +245,7 @@ services:
     environment:
       - REDIS_IP=${REDIS_IP}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_PRODECTED_MODE=${REDIS_PRODECTED_MODE:yes}
+      - REDIS_PRODECTED_MODE=${REDIS_PRODECTED_MODE:-yes}
     container_name: redis
     networks:
       services:
