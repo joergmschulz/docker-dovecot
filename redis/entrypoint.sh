@@ -9,7 +9,7 @@ protected-mode ${REDIS_PRODECTED_MODE}\n\
 dir /data\n\
 logfile \"\"\n\
 requirepass ${REDIS_PASSWORD}\n\
-port 6379\n"\
+port REDIS_PORT\n"\
 > /usr/local/etc/redis/redis.conf
 
 /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf || exec "$@"

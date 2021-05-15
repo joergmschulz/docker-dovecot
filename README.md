@@ -40,6 +40,7 @@ git pull docker-dovecot master  && vi .env && docker-compose down && docker-comp
 | exim-extmailout  | 1587  | 1587 in compose |
 | exim-ext-mailout  | 1465  | 1465 in compose (tls on connect) |
 | exim-int-mailout  | 1587  | 2587 in compose (this is the port the users have to use.) |
+| REDIS_PORT       | 6379  | set in .env |
 
 
 
@@ -88,7 +89,8 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | -------------- | --------- | --------|
 | 7 | rspamd |  |  
 
-enable or disable REDIS_PRODECTED_MODE in .env
+enable or disable REDIS_PRODECTED_MODE in .env (for future use)
+Currently, you must comment the redis port stanza in docker-compose.yaml if you want to NOT expose redis.
 
 ## rspamd
 If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
