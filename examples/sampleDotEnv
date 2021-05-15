@@ -23,6 +23,8 @@ NEXTCLOUD_IP=172.20.1.4
 EXIM_EXT_MAILOUT_IP=172.20.0.8
 
 REDIS_PASSWORD=someSecurePassword
+REDIS_PRODECTED_MODE=yes
+REDIS_PORT=6379
 
 RSPAM_enable_password=https://www.rspamd.com/doc/quickstart.html#setting-the-controller-password
 RSPAM_password=$https://www.rspamd.com/doc/quickstart.html#setting-the-controller-password
