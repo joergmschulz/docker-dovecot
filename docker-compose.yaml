@@ -229,7 +229,7 @@ services:
       context: ./redis
       args:
         redis_gid: 0
-        redis_uid: 6379
+        redis_uid: 1001
         REDIS_GROUP: root
         REDIS_USER : redis
     volumes:
@@ -247,6 +247,8 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PRODECTED_MODE=${REDIS_PRODECTED_MODE:-yes}
     container_name: redis
+    ports:
+      - 6379:6379
     networks:
       services:
         ipv4_address: ${REDIS_IP}
