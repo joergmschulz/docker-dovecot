@@ -87,6 +87,8 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 | -------------- | --------- | --------|
 | 7 | rspamd |  |  
 
+enable or disable REDIS_PRODECTED_MODE in .env 
+
 ## rspamd
 If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
 for your local white/blacklists, you'll need the /var/lib/rspamd/maps.d directory
