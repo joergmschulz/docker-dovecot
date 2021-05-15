@@ -2,6 +2,7 @@
 set -e
 
 cd /etc/rspamd/local.d
+sed -i "s/REDIS_PORT/${REDIS_PORT}/" redis.conf
 sed -i "s/REDIS_PASSWORD/${REDIS_PASSWORD}/" redis.conf
 sed -i "s/RSPAM_REDIS_DB/${RSPAM_REDIS_DB}/" redis.conf
 sed -i "s/CLAMAV_IP/${CLAMAV_IP}/" antivirus.conf

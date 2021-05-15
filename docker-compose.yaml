@@ -97,6 +97,7 @@ services:
      container_name: rspam
      environment:
        - REDIS_PASSWORD=${REDIS_PASSWORD}
+       - REDIS_PORT=${REDIS_PORT}
        - RSPAM_GROUP=root
        - RSPAM_USER=rspamd
        - RSPAM_enable_password=${RSPAM_enable_password}
