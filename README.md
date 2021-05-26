@@ -91,6 +91,7 @@ Set these values in your .env file. Watch up that you escape the \& with \\& unt
 
 enable or disable REDIS_PRODECTED_MODE in .env (for future use)
 Currently, you must comment the redis port stanza in docker-compose.yaml if you want to NOT expose redis.
+You can run multiple redis on one host if you set the REDIS_PORT to something different.
 
 ## rspamd
 If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
