@@ -34,8 +34,8 @@ service replicator {  \n\
     mode = 0600  \n\
     user = ${me}   \n\
     group = ${mygroup} \n\
-    vsz_limit = 0 \n\
   }  \n\
+  vsz_limit = 0 \n\
 }  \n\
 plugin {  \n\
     replication_sync_timeout = 20  \n\
