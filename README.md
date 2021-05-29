@@ -161,11 +161,13 @@ So, add /etc/ufw/after.rules :
 -A DOCKER-USER -j RETURN -s 192.168.0.0/16
 
 -A DOCKER-USER -p udp -m udp --sport 53 --dport 1024:65535 -j RETURN
-# allow some common ports
+# allow all ports your installation wants to expose
 -A DOCKER-USER -p tcp --dport 25 -j RETURN
 -A DOCKER-USER -p tcp --dport 1025 -j RETURN
 -A DOCKER-USER -p tcp --dport 1465 -j RETURN
 -A DOCKER-USER -p tcp --dport 1587 -j RETURN
+-A DOCKER-USER -p tcp --dport 1143 -j RETURN
+-A DOCKER-USER -p tcp --dport 4190 -j RETURN
 -A DOCKER-USER -p tcp --dport 143 -j RETURN
 -A DOCKER-USER -p tcp --dport 80 -j RETURN
 -A DOCKER-USER -p tcp --dport 587 -j RETURN
