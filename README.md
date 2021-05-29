@@ -140,3 +140,53 @@ individual sieve configurations are possible. Global defaults are stored in etc/
 see https://wiki.dovecot.org/TestInstallation
 
 ${IMAP_AUTH_VERBOSE} ${IMAP_MAIL_DEBUG} can help debug dovecot.
+
+### firewall
+if you're using UFW, you'll see docker opening ports to the world.
+You don't want that.
+So, add /etc/ufw/after.rules :
+
+(todo: add the IPs of the services, so you'll only have the correct services listening)
+
+````
+# BEGIN UFW AND DOCKER
+# *filter
+:ufw-user-forward - [0:0]
+:ufw-docker-logging-deny - [0:0]
+:DOCKER-USER - [0:0]
+-A DOCKER-USER -j ufw-user-forward
+
+-A DOCKER-USER -j RETURN -s 10.0.0.0/8
+-A DOCKER-USER -j RETURN -s 172.16.0.0/12
+-A DOCKER-USER -j RETURN -s 192.168.0.0/16
+
+-A DOCKER-USER -p udp -m udp --sport 53 --dport 1024:65535 -j RETURN
+# allow some common ports
+-A DOCKER-USER -p tcp --dport 25 -j RETURN
+-A DOCKER-USER -p tcp --dport 1025 -j RETURN
+-A DOCKER-USER -p tcp --dport 1465 -j RETURN
+-A DOCKER-USER -p tcp --dport 1587 -j RETURN
+-A DOCKER-USER -p tcp --dport 143 -j RETURN
+-A DOCKER-USER -p tcp --dport 80 -j RETURN
+-A DOCKER-USER -p tcp --dport 587 -j RETURN
+-A DOCKER-USER -p tcp --dport 443 -j RETURN
+-A DOCKER-USER -p tcp --dport 8443 -j RETURN
+-A DOCKER-USER -p tcp --dport 9980 -j RETURN
+-A DOCKER-USER -p tcp --dport 993 -j RETURN
+
+-A DOCKER-USER -j ufw-docker-logging-deny -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -d 192.168.0.0/16
+-A DOCKER-USER -j ufw-docker-logging-deny -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -d 10.0.0.0/8
+-A DOCKER-USER -j ufw-docker-logging-deny -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -d 172.16.0.0/12
+-A DOCKER-USER -j ufw-docker-logging-deny -p udp -m udp --dport 0:32767 -d 192.168.0.0/16
+-A DOCKER-USER -j ufw-docker-logging-deny -p udp -m udp --dport 0:32767 -d 10.0.0.0/8
+-A DOCKER-USER -j ufw-docker-logging-deny -p udp -m udp --dport 0:32767 -d 172.16.0.0/12
+
+-A DOCKER-USER -j RETURN
+
+-A ufw-docker-logging-deny -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW DOCKER BLOCK] "
+-A ufw-docker-logging-deny -j DROP
+
+COMMIT
+# END UFW AND DOCKER
+
+````
