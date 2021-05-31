@@ -22,9 +22,12 @@ COPY --from=joergschulz/exim  /usr/exim /usr/exim
 ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     chown -R ${EXIM_USER}:${EXIM_GROUP} ${ACCESS_FIX} && \
-    find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;
-## this will need more investigation
-RUN echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
+    find ${ACCESS_FIX} -type d -exec chmod g+wx {} \; && \
+    ln -sf /dev/stdout /var/log/exim/main.log && \
+    ln -sf /dev/stderr /var/log/exim/panic.log && \
+    ln -sf /dev/stderr /var/log/exim/reject.log && \
+    ## this will need more investigation
+    echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ADD exim.conf /etc/exim/config.d/exim.conf
 
