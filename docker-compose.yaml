@@ -79,7 +79,7 @@ services:
          RSPAM_IP: ${RSPAM_IP}
          RSPAM_REDIS_DB: 7
      depends_on:
-       - redis
+       - mail-redis
        - clamav
      volumes:
        - /data/${DOMAIN}/rspam:/var/lib/rspamd
@@ -222,9 +222,9 @@ services:
             - clamav
 
 
-  redis:
+  mail-redis:
     image: joergschulz/redis
-    hostname: redis
+    hostname: mail-redis
     restart: unless-stopped
     build:
       context: ./redis
@@ -248,7 +248,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PRODECTED_MODE=${REDIS_PRODECTED_MODE:-yes}
       - REDIS_PORT=${REDIS_PORT}
-    container_name: redis
+    container_name: mail-redis
     # sorry, you must change something manually here if you want externals to (not) use redis.
     # the protected mode flag doesn't work. If you want to restrict access to docker-internal, uncomment the following 2 lines
     ports:
@@ -257,7 +257,7 @@ services:
       services:
         ipv4_address: ${REDIS_IP}
         aliases:
-          - redis
+          - mail-redis
 
   exim-int-mailout:
     image: joergschulz/exim-int-mailout
