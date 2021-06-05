@@ -1,6 +1,12 @@
 # docker-dovecot
 lightweight alpine based dockerized dovecot, exim, rspamd environment
 
+install using examples/sampleDotEnv
+<code>
+git pull docker-dovecot master && vi .env  && docker-compose down && docker-compose build && docker-compose up -d
+</code>
+you might need to create and chown/chmod the data directories referenced in .env 
+
 In order to achieve scalabality the setup will be split accross these servers:
 
 ## services and addresses
