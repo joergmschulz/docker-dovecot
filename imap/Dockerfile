@@ -42,6 +42,7 @@ ARG dovecot_config="--without-pam \
           --without-docs \
           --without-sql-drivers \
           --without-mysql \
+          --with-sodium \
           --localstatedir=/var/lib/dovecot \
           --enable-dependency-tracking"
 
@@ -62,6 +63,7 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
         openldap-dev \
         heimdal-dev \
         libsodium \
+        libsodium-dev \
         linux-headers && \
     apk add git automake cmake \
             gawk \
