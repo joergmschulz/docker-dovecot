@@ -11,7 +11,7 @@ ENV LDAP_USER_FILTER=TakeItFromDotEnv
 ENV LDAP_ITERATE_FILTER=TakeItFromDotEnv
 
 ARG dovecot_branch=release-2.3.14
-ARG dovecot_tag=origin/2.3.14.1
+ARG dovecot_tag=2.3.14.1
 ARG DOVECOT_PREFIX=/usr/local/dovecot
 # ARG pigeonhole_branch=master
 ARG pigeonhole_branch=release-0.5.14
