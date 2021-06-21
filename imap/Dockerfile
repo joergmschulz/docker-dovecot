@@ -61,6 +61,7 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
         # postgresql-dev mariadb-dev sqlite-dev \
         openldap-dev \
         heimdal-dev \
+        libsodium \
         linux-headers && \
     apk add git automake cmake \
             gawk \
@@ -70,7 +71,7 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
     mkdir -p /opt/dovecot && cd /opt/dovecot && \
     git init . && \
     git remote add -t ${dovecot_branch} origin https://github.com/dovecot/core && \
-    git fetch --depth=1 && git checkout ${dovecot_branch} && \
+    git fetch --depth=1 && git checkout ${dovecot_tag} && \
     ./autogen.sh && \
     mkdir -p ${DOVECOT_PREFIX} && \
     PANDOC=false  ./configure ${dovecot_config} ### &&  \
