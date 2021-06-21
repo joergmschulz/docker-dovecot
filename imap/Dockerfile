@@ -1,4 +1,4 @@
-FROM alpine:latest as build
+FROM alpine:3.13 as build
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -10,11 +10,11 @@ ENV LDAP_PASS_FILTER=TakeItFromDotEnv
 ENV LDAP_USER_FILTER=TakeItFromDotEnv
 ENV LDAP_ITERATE_FILTER=TakeItFromDotEnv
 
-ARG dovecot_branch=release-2.3.14
-ARG dovecot_tag=2.3.14.1
+ARG dovecot_branch=release-2.3.15
+ARG dovecot_tag=origin/release-2.3.15
 ARG DOVECOT_PREFIX=/usr/local/dovecot
 # ARG pigeonhole_branch=master
-ARG pigeonhole_branch=release-0.5.14
+ARG pigeonhole_branch=release-0.5.15
 
 
 
@@ -28,21 +28,21 @@ ARG dovecot_config="--without-pam \
           --without-cdb \
           --with-zlib \
           --with-bzlib \
-          #--with-gc \
           --with-storages=maildir \
           --with-ldap \
-          #--without-solr \
           --with-ssl=openssl \
           --sysconfdir=/etc \
           --prefix=${DOVECOT_PREFIX}  \
           --with-sql=no \
           --without-sqlite \
+          --without-apparmor \
           --without-mysql \
           --without-pgsql \
           --without-docs \
           --without-sql-drivers \
           --without-mysql \
-          --with-sodium \
+          --without-sodium \
+          --without-systemd \
           --localstatedir=/var/lib/dovecot \
           --enable-dependency-tracking"
 
@@ -54,16 +54,17 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
     \
     set -x && \
     apk update && \
-    apk upgrade && \
+    apk upgrade -U -a && \
+    # libressl-dev \
     apk add --no-cache --virtual .build-deps \
-        # libressl-dev \
         bzip2-dev lz4-dev xz-dev zlib-dev \
-        # libcap-dev \
-        # postgresql-dev mariadb-dev sqlite-dev \
+        libcap-dev \
+        postgresql-dev mariadb-dev sqlite-dev \
         openldap-dev \
         heimdal-dev \
-        libsodium \
-        libsodium-dev \
+        gnu-libiconv \
+        # libsodium \
+        # libsodium-dev \
         linux-headers && \
     apk add git automake cmake \
             gawk \
@@ -105,7 +106,7 @@ RUN set -x && \
 EXPOSE 1143 2525 1024 1587 1993 4190
 
 
-FROM alpine:latest
+FROM alpine:3.13
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -121,8 +122,10 @@ ENV SMTPHOST=exim-int-mailout:1587
 COPY --from=build /usr/local/dovecot /usr/local/dovecot
 ADD install /
 
-RUN apk add openldap-clients \
-    libsodium && \
+RUN apk update && \
+    apk upgrade -U -a && \
+    apk add openldap-clients \
+    ## libsodium && \
     addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
