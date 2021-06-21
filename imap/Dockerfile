@@ -39,6 +39,7 @@ ARG dovecot_config="--without-pam \
           --without-mysql \
           --without-pgsql \
           --without-docs \
+          --without-libcap \
           --without-sql-drivers \
           --without-mysql \
           --without-sodium \
@@ -124,8 +125,7 @@ ADD install /
 
 RUN apk update && \
     apk upgrade -U -a && \
-    apk add openldap-clients \
-    libcap && \
+    apk add openldap-clients  && \
     addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
