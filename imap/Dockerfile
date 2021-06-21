@@ -59,7 +59,7 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
     # libressl-dev \
     apk add --no-cache --virtual .build-deps \
         bzip2-dev lz4-dev xz-dev zlib-dev \
-        libcap-dev \
+        # libcap-dev \
         postgresql-dev mariadb-dev sqlite-dev \
         openldap-dev \
         heimdal-dev \
@@ -125,7 +125,11 @@ ADD install /
 
 RUN apk update && \
     apk upgrade -U -a && \
-    apk add openldap-clients  && \
+    apk add openldap-clients  \
+    zlib \
+    bzip2 \
+    lz4 \
+    openldap && \
     addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
