@@ -125,7 +125,7 @@ ADD install /
 RUN apk update && \
     apk upgrade -U -a && \
     apk add openldap-clients \
-    ## libsodium && \
+    libcap && \
     addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
