@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.13
 
 ARG redis_gid
 ARG REDIS_GROUP
