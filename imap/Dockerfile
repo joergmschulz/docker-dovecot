@@ -1,4 +1,4 @@
-FROM alpine:3.13 as build
+FROM alpine:3.14 as build
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -61,6 +61,7 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
     apk add --no-cache --virtual .build-deps \
         bzip2-dev lz4-dev xz-dev zlib-dev \
         # libcap-dev \
+        runc \
         postgresql-dev mariadb-dev sqlite-dev \
         openldap-dev \
         heimdal-dev \
@@ -108,7 +109,7 @@ RUN set -x && \
 EXPOSE 1143 2525 1024 1587 1993 4190
 
 
-FROM alpine:3.13
+FROM alpine:3.14
 
 ARG vmail_gid
 ARG VMAIL_GROUP
