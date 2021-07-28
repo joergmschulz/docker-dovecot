@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.14
 
 ARG redis_gid
 ARG REDIS_GROUP
@@ -24,6 +24,7 @@ RUN set -eux && \
     		coreutils \
     		dpkg-dev dpkg \
     		gcc \
+        runc \
     		linux-headers \
     		make \
     		musl-dev \
