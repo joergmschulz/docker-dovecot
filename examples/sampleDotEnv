@@ -33,9 +33,9 @@ RSPAM_password=$https://www.rspamd.com/doc/quickstart.html#setting-the-controlle
 CLAMAVLIB=~/clamav/
 
 dovecot version
-dovecot_branch=release-2.3.15
-dovecot_tag=2.3.15
-pigeonhole_branch=release-0.5.15
+dovecot_branch=release-2.3.16
+dovecot_tag=2.3.16
+pigeonhole_branch=release-0.5.16
 # imap user ID
 # gid=0 for kubernetes!
 vmail_gid=0
