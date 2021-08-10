@@ -32,7 +32,7 @@ RSPAM_password=$https://www.rspamd.com/doc/quickstart.html#setting-the-controlle
 # shared storage for clamav
 CLAMAVLIB=~/clamav/
 
-dovecot version
+# dovecot version
 dovecot_branch=release-2.3.16
 dovecot_tag=2.3.16
 pigeonhole_branch=release-0.5.16

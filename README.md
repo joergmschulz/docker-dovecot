@@ -5,7 +5,7 @@ install using examples/sampleDotEnv
 <code>
 git pull docker-dovecot master && vi .env  && docker-compose down && docker-compose build && docker-compose up -d
 </code>
-you might need to create and chown/chmod the data directories referenced in .env 
+you might need to create and chown/chmod the data directories referenced in .env
 
 In order to achieve scalabality the setup will be split accross these servers:
 
@@ -141,6 +141,9 @@ logging goes to the (mounted? ) directory /var/log/exim/. The exicyclog script i
 smtp mailout possible when https://serverfault.com/questions/630291/sieve-redirect-to-foreign-email-gets-relay-access-denied submission_host is set correctly
 ### sieve
 individual sieve configurations are possible. Global defaults are stored in etc/dovecot/sieve.d/
+
+### version of dovecot
+see the sample .env file. Version 16 is the most current, but your mileage may vary as some small glitches may have turned up. See the dovecot  mailing list or revert to .15.
 
 ### testing dovecot
 see https://wiki.dovecot.org/TestInstallation
