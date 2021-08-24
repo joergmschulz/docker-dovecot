@@ -1,11 +1,8 @@
 # docker-dovecot
-lightweight alpine based dockerized dovecot, exim, rspamd environment
+lightweight alpine (dovecot) and bullseye-slim (exim) based dockerized dovecot, exim, rspamd, clamav environment; some self-compiled, some from stock.
 
 install using examples/sampleDotEnv
-<code>
-git pull docker-dovecot master && vi .env  && docker-compose down && docker-compose build && docker-compose up -d
-</code>
-you might need to create and chown/chmod the data directories referenced in .env
+
 
 In order to achieve scalabality the setup will be split accross these servers:
 
@@ -28,7 +25,10 @@ We expect users to login via their complete email address. Two conditions must b
 
 ## standard config Files
 see the directory install/
-some of the files will be modified using below ARGS or values in .env
+some of the files will be modified using below ARGS or values in .env - see the entrypoint scripts.
+
+
+## startup
 git pull docker-dovecot master  && vi .env && docker-compose down && docker-compose build && docker-compose up -d
 
 ## Ports
@@ -52,6 +52,8 @@ git pull docker-dovecot master  && vi .env && docker-compose down && docker-comp
 
 ## volumes
 for persistent data
+you might need to create and chown/chmod the data directories referenced in .env:
+
 
 | volume | mountpoint| comments |
 | -------------- | ---------: | --------|
@@ -127,6 +129,14 @@ save the result as 20210111._domainkey.${DOMAIN}.de with the content k=rsa;p=[ou
 (WIP)
 if you define the IMAP_REPLICA_* parameters in your .env, replication should be possible.
 
+# License
+Currently, this project doesn't contain license info. This is work in progress.
+
+While dovecot is under MIT, exim4 and others are under GPL. Links to the licences will be added.
+The individual contributions will be MIT licensed.
+
+
+
 # build side notes
 ## exim
 for exim, see http://exim.org/exim-html-current/doc/html/spec_html/ch-building_and_installing_exim.html and https://registry.hub.docker.com/r/itherz/exim4/dockerfile
@@ -143,7 +153,7 @@ smtp mailout possible when https://serverfault.com/questions/630291/sieve-redire
 individual sieve configurations are possible. Global defaults are stored in etc/dovecot/sieve.d/
 
 ### version of dovecot
-see the sample .env file. Version 16 is the most current, but your mileage may vary as some small glitches may have turned up. See the dovecot  mailing list or revert to .15.
+see the sample .env file. Version 16 is the most current, but your mileage may vary. See the dovecot  mailing list or revert to .15.
 
 ### testing dovecot
 see https://wiki.dovecot.org/TestInstallation
