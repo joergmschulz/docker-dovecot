@@ -39,7 +39,6 @@ RUN set -eux && \
     # disable Redis protected mode [1] as it is unnecessary in context of Docker
     # (ports are not automatically exposed when running inside Docker, but rather explicitly by specifying -p / -P)
     # [1]: https://github.com/redis/redis/commit/edd4d555df57dc84265fdfb4ef59a4678832f6da
-
     #	grep -E '^ *createBoolConfig[(]"protected-mode",.*, *1 *,.*[)],$' /usr/src/redis/src/config.c; \
     #	sed -ri 's!^( *createBoolConfig[(]"protected-mode",.*, *)1( *,.*[)],)$!\10\2!' /usr/src/redis/src/config.c; \
     #	grep -E '^ *createBoolConfig[(]"protected-mode",.*, *0 *,.*[)],$' /usr/src/redis/src/config.c; \
