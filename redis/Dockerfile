@@ -17,7 +17,6 @@ ENV REDIS_DOWNLOAD_SHA 98ed7d532b5e9671f5df0825bb71f0f37483a16546364049384c63db8
 RUN set -eux && \
     addgroup -S -g ${redis_gid} $REDIS_GROUP || export REDIS_GROUP=root  && \
     adduser -S -D -H -u $redis_uid -G $REDIS_GROUP -g "Redis user" ${REDIS_USER} && \
-
     # add tzdata for https://github.com/docker-library/redis/issues/138
     apk add --no-cache --virtual .build-deps \
         tzdata \
