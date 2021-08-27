@@ -130,11 +130,8 @@ save the result as 20210111._domainkey.${DOMAIN}.de with the content k=rsa;p=[ou
 if you define the IMAP_REPLICA_* parameters in your .env, replication should be possible.
 
 # License
-Currently, this project doesn't contain license info. This is work in progress.
-
-While dovecot is under MIT, exim4 and others are under GPL. Links to the licences will be added.
-The individual contributions will be MIT licensed.
-
+This portion of the project has been made by js@jslz.de using inspiration from MIT/X11 licensed github content.
+As some other portions of the project have been derived from GPLed code, we need to be on the safe side and GPL it all.
 
 
 # build side notes
