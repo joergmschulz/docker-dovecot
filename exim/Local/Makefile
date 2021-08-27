@@ -1,7 +1,7 @@
 ##################################################
 #          The Exim mail transport agent         #
 ##################################################
-
+# this is largely copied from the EXIM example.
 # This is the template for Exim's main build-time configuration file. It
 # contains settings that are independent of any operating system. These are
 # things that are mostly sysadmin choices. The items below are divided into
