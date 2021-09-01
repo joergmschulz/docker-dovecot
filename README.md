@@ -33,20 +33,20 @@ git pull docker-dovecot master  && vi .env && docker-compose down && docker-comp
 
 ## Ports
 
-| service | Port in container| comments |
-| -------------- | ---------: | --------|
-| imap         | 1143  | 143 in docker-compose |
-| lmtp in      | 2525  | only internal, from mail srv |
-| imaps        | 1993  | 993 in docker-compose |
-| managesieve  | 4190  | 4190 in compose |
-| exim-external  | 1025  | 25 in compose |
-| exim-external  | 1587  | 587 in compose |
-| exim-external  | 1465  | 465 in compose (tls on connect) |
-| exim-ext-mailout  | 1025  | 2526 (instead of submission standard )in compose |
-| exim-extmailout  | 1587  | 1587 in compose |
-| exim-ext-mailout  | 1465  | 1465 in compose (tls on connect) |
-| exim-int-mailout  | 1587  | 2587 in compose (this is the port the users have to use.) |
-| REDIS_PORT       | 6379  | set in .env |
+| service | Port in container| external | comments |
+| -------------- | ---------: | --------- | --------|
+| imap         | 1143  | 143 in  | docker-compose |
+| lmtp in      | 2525  |  | only internal, from mail srv |
+| imaps        | 1993  | 993  | in docker-compose |
+| managesieve  | 4190  | 4190  | in compose |
+| exim-external  | 1025  | 25  | in compose |
+| exim-external  | 1587  | 587  | in compose |
+| exim-external  | 1465  | 465  | in compose (tls on connect) |
+| exim-ext-mailout  | 1025  | 2526  | (instead of submission standard )in compose |
+| exim-extmailout  | 1587  | 1587  | in compose |
+| exim-ext-mailout  | 1465  | 1465  | in compose (tls on connect) |
+| exim-int-mailout  | 1587  | 2587  | in compose (this is the port the users have to use.) |
+| REDIS_PORT       | 6379  |  | set in .env |
 
 
 
