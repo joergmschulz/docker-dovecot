@@ -11,8 +11,8 @@ These are the addresses used in the services network. They shouldn't be seen els
 
 | address | host| name in .env | location (at entity or global) | description |
 | -------------- | ---------: | -------- |-------- | ----------------- |
-| 172.20.0.4 | redis  | REDIS_IP | location/global | key/value storage for all local services like rspam, nextcloud |
-| 172.20.0.5 | imap  | IMAP_IP | location | imap server for organization members. backend for Sogo and eventually contacted from outside. currently dovecot |
+| 172.20.0.4 | redis  | REDIS_IP | local/global | key/value storage for all local services like rspam, nextcloud |
+| 172.20.0.5 | imap  | IMAP_IP | local | imap server for organization members. backend for Sogo and eventually contacted from outside. currently dovecot |
 | 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP | location | locally receives mail for organization members if they are listed in the appropriate LDAP group |
 | 172.20.0.6 | rspam  | RSPAM_IP (listening here) | global | global spam / virus checker, currently global, might be changed to local |
 | 172.20.0.7 | clam  | CLAMAV_IP (listening here) | global | global spam / virus checker, currently global, might be changed to local |
