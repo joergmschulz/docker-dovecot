@@ -156,6 +156,7 @@ services:
         # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
       - ${EXIM_EXTERNAL_SPOOL:-/data/exim-external/spool}:/var/spool/exim
+      - ${EXIM_EXTERNAL_LOG:-/data/exim-external/log}:/var/log/exim
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -287,6 +288,7 @@ services:
         # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
       - ${EXIM_INT_MAILOUT_SPOOL:-/data/exim-int-mailout/spool}:/var/spool/exim
+      - ${EXIM_INT_MAILOUT_LOG:-/data/exim-int-mailout/log}:/var/log/exim
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -350,6 +352,7 @@ services:
         # - log:/var/log
       - /etc/localtime:/etc/localtime:ro
       - ${EXIM_EXT_MAILOUT_SPOOL:-/data/exim-ext-mailout/spool}:/var/spool/exim
+      - ${EXIM_EXT_MAILOUT_LOG:-/data/exim-ext-mailout/log}:/var/log/exim
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
