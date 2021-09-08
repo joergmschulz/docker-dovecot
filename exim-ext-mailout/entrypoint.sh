@@ -11,4 +11,4 @@ sed -i "s/EXIM_DKIM_DOMAIN/${DOMAIN}.de/" exim.conf
 
 set -e
 
-/usr/exim/bin/exim -bdf -q 15m -C /etc/exim/config.d/exim.conf
+/usr/exim/bin/exim -bd -q 15m -C /etc/exim/config.d/exim.conf
