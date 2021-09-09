@@ -60,6 +60,7 @@ you might need to create and chown/chmod the data directories referenced in .env
 | /data/$DOMAIN/vmail | /var/vmail  | imap, rw |
 | /data/$DOMAIN/redis | /var/vmail  | imap, rw |
 | ${CLAMAVLIB:-/data/clamav} | /var/lib/clamav  | clamav . To be tweaked in .env file |
+|
 
 ## ssl
 see the secrets section of docker-compose.yaml.

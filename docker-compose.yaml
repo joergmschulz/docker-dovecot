@@ -306,6 +306,8 @@ services:
 
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
+       - ${EXIM_EXTERNAL_HOSTNAME}:${EXIM_EXTERNAL_IP}
+
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: faudin.de
 
