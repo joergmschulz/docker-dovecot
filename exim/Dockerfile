@@ -65,7 +65,7 @@ ENV EXIM_TLS_ON_CONNECT_PORTS=1465
 RUN set -x && \
     apt-get -y update \
     && apt-get -y upgrade \
-    && apt-get install -y libldap-2.4-2 libspf2-2 && \
+    && apt-get install -y libldap-2.4-2 libspf2-2 ca-certificates && \
     addgroup --system --gid ${EXIM_GID} ${EXIM_GROUP} || export EXIM_GROUP=root  && \
     adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER
 COPY --from=build /usr/exim /usr/exim
