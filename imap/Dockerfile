@@ -60,14 +60,11 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
     # libressl-dev \
     apk add --no-cache --virtual .build-deps \
         bzip2-dev lz4-dev xz-dev zlib-dev \
-        # libcap-dev \
         runc \
         postgresql-dev mariadb-dev sqlite-dev \
         openldap-dev \
         heimdal-dev \
         gnu-libiconv \
-        # libsodium \
-        # libsodium-dev \
         linux-headers && \
     apk add git automake cmake \
             gawk \
