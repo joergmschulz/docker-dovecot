@@ -65,8 +65,8 @@ RUN    addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser 
         openldap-dev \
         heimdal-dev \
         gnu-libiconv \
-        linux-headers && \
-    apk add git automake cmake \
+        linux-headers
+        git automake cmake \
             gawk \
             g++ \
             make \
