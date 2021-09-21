@@ -289,6 +289,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${EXIM_INT_MAILOUT_SPOOL:-/data/exim-int-mailout/spool}:/var/spool/exim
       - ${EXIM_INT_MAILOUT_LOG:-/data/exim-int-mailout/log}:/var/log/exim
+      - ${MM3_DATA_DIR}:/opt/mailman/
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
