@@ -159,9 +159,10 @@ see https://wiki.dovecot.org/TestInstallation
 ${IMAP_AUTH_VERBOSE} ${IMAP_MAIL_DEBUG} can help debug dovecot.
 
 ### mailman3
-We're beginning to integrate mailman. 
-exim-int-mailout will need a mailman volume and some configs. See example .env
-we don't currently plan to add a way to leave out mailman 
+We're beginning to integrate mailman.
+exim-int-mailout will need a mailman volume and some configs. See example .env!
+
+We don't currently plan to add a way to leave out mailman.
 
 ### firewall
 if you're using UFW, you'll see docker opening ports to the world.
@@ -214,3 +215,6 @@ COMMIT
 # END UFW AND DOCKER
 
 ````
+
+## special firewall rules
+sudo ufw allow from 172.0.0.0/8 to mailout.${domain}.de port 1587
