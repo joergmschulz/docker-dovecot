@@ -4,7 +4,6 @@ ARG EXIM_GID
 ARG EXIM_GROUP
 ARG EXIM_USER
 ARG EXIM_UID
-ARG DOMAIN
 
 ARG EXIM_IP=0.0.0.0
 ARG EXIM_VERSION=4.94
@@ -57,7 +56,7 @@ ARG EXIM_GID
 ARG EXIM_GROUP
 ARG EXIM_USER
 ARG EXIM_UID
-
+ARG DOMAIN
 ARG EXIM_IP=0.0.0.0
 
 ENV EXIM_PORTS="1025 : 1465 : 1587"
@@ -74,15 +73,14 @@ COPY --from=build /usr/exim /usr/exim
 
 ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
 # fix access, log to stderr
-RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
+RUN set -x && \
+    for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     chown -R ${EXIM_USER}:${EXIM_GROUP} ${ACCESS_FIX} && \
     find ${ACCESS_FIX} -type d -exec chmod g+wx {} \;  && \
     # ln -sf /dev/stdout /var/log/exim/main.log && \
     #ln -sf /dev/stderr /var/log/exim/panic.log && \
     #ln -sf /dev/stderr /var/log/exim/reject.log && \
-## this will need more investigation
-    echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
-RUN set -x && \
+    echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf && \
     printf "root: postmaster@${DOMAIN}.de" > /etc/aliases
 ADD exim.conf /etc/exim/config.d/exim.conf
 
