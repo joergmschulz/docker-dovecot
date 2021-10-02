@@ -310,7 +310,7 @@ services:
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
 
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
-    domainname: faudin.de
+    domainname: ${DOMAIN}.de
 
     labels:
       - "traefik.enable=false"
