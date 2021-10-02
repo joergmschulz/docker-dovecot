@@ -80,7 +80,8 @@ RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
     #ln -sf /dev/stderr /var/log/exim/panic.log && \
     #ln -sf /dev/stderr /var/log/exim/reject.log && \
 ## this will need more investigation
-    echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf && \
+    echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
+RUN set -x && \
     printf "root: postmaster@${DOMAIN}.de" > /etc/aliases
 ADD exim.conf /etc/exim/config.d/exim.conf
 
