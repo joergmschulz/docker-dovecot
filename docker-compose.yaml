@@ -14,9 +14,9 @@ services:
          vmail_uid: ${vmail_uid:-1001}
          VMAIL_GROUP: ${VMAIL_GROUP:-root}
          VMAIL_USER : ${VMAIL_USER:-vmail}
-         dovecot_branch : ${dovecot_branch:-release-2.3.15}
+         dovecot_branch : ${dovecot_branch:-release-2.3.17}
          dovecot_tag : ${dovecot_tag:-2.3.15}
-         pigeonhole_branch : ${pigeonhole_branch:-release-0.5.15}
+         pigeonhole_branch : ${pigeonhole_branch:-release-0.5.17}
      environment:
         - LDAP_HOSTS=${LDAP_HOSTS}
         - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -387,20 +387,56 @@ services:
         max-size: "10m"
         max-file: "3"
         mode: non-blocking
-    ports:
-      - "2526:1025"
-      - "1587:1587"
-      - "1465:1465"
+    # ports:
+    #  - "2526:1025"
+    #  - "1587:1587"
+    #  - "1465:1465"
     networks:
         services:
           ipv4_address: ${EXIM_EXT_MAILOUT_IP}
           aliases:
             - exim-ext-mailout
 
+  # mail-dnsmasq:
+  #   image: joergschulz/dnsmasq
+  #   hostname: mail-dnsmasq
+  #   restart: unless-stopped
+  #   build:
+  #     context: ./dnsmasq
+  #     args:
+  #       DNSMASQ_GID: 1001
+  #       DNSMASQ_UID: 1001
+  #       DNSMASQ_GROUP: dnsmasq
+  #       DNSMASQ_USER : dnsmasq
+  #   volumes:
+  #     # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
+  #     - /data/${DOMAIN}/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
+  #     - /data/${DOMAIN}/dnsmasq/dnsmasq.d /etc/dnsmasq.d
+  #     - /etc/localtime:/etc/localtime:ro
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "10m"
+  #       max-file: "3"
+  #       mode: non-blocking
+  #   container_name: mail-dnsmasq
+  #   # sorry, you must change something manually here if you want externals to (not) use redis.
+  #   # the protected mode flag doesn't work. If you want to restrict access to docker-internal, uncomment the following 2 lines
+  #   #ports:
+  #   #  - ${REDIS_PORT}:${REDIS_PORT}
+  #   networks:
+  #     services:
+  #       ipv4_address: ${DNSMASQ_IP}
+  #       aliases:
+  #         - mail-dnsmasq
+
+    extra_hosts:
+       - "ldap.${DOMAIN}.de:${LDAP_IP}"
+       - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
+
 
 volumes:
     log: {}
-
 secrets:
         letsencrypt-cert:
            file: /etc/letsencrypt-readers/cert.pem

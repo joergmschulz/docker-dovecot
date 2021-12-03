@@ -133,7 +133,9 @@ if you define the IMAP_REPLICA_* parameters in your .env, replication should be 
 # License
 This portion of the project has been made by js@jslz.de using inspiration from MIT/X11 licensed github content.
 As some other portions of the project have been derived from GPLed code, we need to be on the safe side and GPL it all.
-
+# dnsmasq
+as exim insists on dns lookups for al hostnames and ignores resolv.conf, we install dnsmasq.
+the config file is generated automatically. To add hosts, use dnsmasq/local_hosts .
 
 # build side notes
 ## exim
