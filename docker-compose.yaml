@@ -338,7 +338,7 @@ services:
 
   exim-ext-mailout:
     image: joergschulz/exim-mailout
-    hostname: hostname: mailout.${DOMAIN}.de # exim-ext-mailout
+    hostname: mailout.${DOMAIN}.de # exim-ext-mailout
     container_name: exim-ext-mailout
     restart: unless-stopped
     depends_on:
