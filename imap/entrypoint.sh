@@ -35,7 +35,7 @@ service replicator {  \n\
     user = ${me}   \n\
     group = ${mygroup} \n\
   }  \n\
-  vsz_limit = 512M \n\
+  vsz_limit = 2G \n\
 }  \n\
 plugin {  \n\
     replication_sync_timeout = 20  \n\
