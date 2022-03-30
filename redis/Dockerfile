@@ -8,10 +8,11 @@ ARG REDIS_IP=0.0.0.0
 ARG REDIS_PASSWORD
 # ENV REDIS_PASSWORD=TakeItFromDotEnv
 ENV REDIS_VERSION 6.2.3
-# ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.0.9.tar.gz
-# ENV REDIS_DOWNLOAD_SHA dc2bdcf81c620e9f09cfd12e85d3bc631c897b2db7a55218fd8a65eaa37f86dd
-ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.2.3.tar.gz
-ENV REDIS_DOWNLOAD_SHA 98ed7d532b5e9671f5df0825bb71f0f37483a16546364049384c63db8764512b
+# ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.2.3.tar.gz
+# ENV REDIS_DOWNLOAD_SHA 98ed7d532b5e9671f5df0825bb71f0f37483a16546364049384c63db8764512b
+
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/redis-stable.tar.gz
+ENV REDIS_DOWNLOAD_SHA 480d88a55d38959a815cbd3bc921e73ccd11f11514f77f53beeb187b1631eadd
 
 
 RUN set -eux && \

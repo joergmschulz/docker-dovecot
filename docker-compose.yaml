@@ -357,11 +357,11 @@ services:
       - ${EXIM_EXT_MAILOUT_SPOOL:-/data/exim-ext-mailout/spool}:/var/spool/exim
       - ${EXIM_EXT_MAILOUT_LOG:-/data/exim-ext-mailout/log}:/var/log/exim
     environment:
-       - LDAP_HOSTS=${LDAP_HOSTS}
-       - LDAP_PASSWORD=${LDAP_PASSWORD}
-       - LDAP_USER=${LDAP_USER}
-       - LDAP_BASE=${LDAP_BASE}
-       - EXIM_LDAP_USER_FILTER=${EXIM_LDAP_USER_FILTER}
+       # - LDAP_HOSTS=${LDAP_HOSTS}
+       # - LDAP_PASSWORD=${LDAP_PASSWORD}
+       # - LDAP_USER=${LDAP_USER}
+       # - LDAP_BASE=${LDAP_BASE}
+       # - EXIM_LDAP_USER_FILTER=${EXIM_LDAP_USER_FILTER}
        - "EXIM_PORTS=1025 : 1465 : 1587"
        - EXIM_TLS_ON_CONNECT_PORTS=1465
        - EXIM_LOCAL_DOMAINS=${EXIM_LOCAL_DOMAINS}
@@ -369,8 +369,8 @@ services:
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_WHITELIST_NET=${EXIM_WHITELIST_NET:-172.20.0.0/16}
        - EXIM_DKIM_SELECTOR=${EXIM_DKIM_SELECTOR}
-    extra_hosts:
-       - "ldap.${DOMAIN}.de:${LDAP_IP}"
+    # extra_hosts:
+       # - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: faudin.de
     labels:
@@ -389,7 +389,7 @@ services:
         mode: non-blocking
     # ports:
     #  - "2526:1025"
-    #  - "1587:1587"
+    - "1587:1587"
     #  - "1465:1465"
     networks:
         services:
