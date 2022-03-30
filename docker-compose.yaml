@@ -387,7 +387,7 @@ services:
         max-size: "10m"
         max-file: "3"
         mode: non-blocking
-    # ports:
+    ports:
     #  - "2526:1025"
     - "1587:1587"
     #  - "1465:1465"
