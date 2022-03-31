@@ -16,7 +16,7 @@ These are the addresses used in the services network. They shouldn't be seen els
 | 172.20.0.3 | exim-external | EXIM_EXTERNAL_IP | location | locally receives mail for organization members if they are listed in the appropriate LDAP group |
 | 172.20.0.6 | rspam  | RSPAM_IP (listening here) | global | global spam / virus checker, currently global, might be changed to local |
 | 172.20.0.7 | clam  | CLAMAV_IP (listening here) | global | global spam / virus checker, currently global, might be changed to local |
-| 172.20.0.8 | exim-ext-mailout  | EXIM_EXT_MAILOUT_IP (listening here) | global | smarthost for all: sends out emails to the world, local smtp hosts and all services can connect here for mail delivery. Will be spamchecked, DKIM signed and queued. |
+| 172.20.0.8 | exim-ext-mailout  | EXIM_EXT_MAILOUT_IP (listening here) | global | smarthost for all: sends out emails to the world, local smtp hosts and all services can connect here for mail delivery. Will be spamchecked, DKIM signed and queued. you must define an extra smarthost.${DOMAIN}.de that CAN be different from this one here|
 | 172.20.0.9 | exim-int-mailout  | EXIM_INT_MAILOUT_IP (listening here) | local | local users and services will connect here to send out their mail. connects to smarthost. Users must be member of LDAP group ${EXIM_PUBLIC_LDAP_USER_FILTER} to send mails to non-local hosts. Will be spamchecked, DKIM signed and queued. |
 
 We expect users to login via their complete email address. Two conditions must be met:

@@ -9,7 +9,7 @@ chown -R ${EXIM_USER}:${EXIM_GROUP} /var/log/exim
 
 
 cd /etc/exim/config.d
-sed -i "s/EXIM_EXTERNAL_HOSTNAME/mailout.${DOMAIN}.de/" exim.conf
+sed -i "s/EXIM_EXTERNAL_HOSTNAME/smarthost.${DOMAIN}.de/" exim.conf
 sed -i "s/EXIM_INTERNAL_HOSTNAME/intmail.${DOMAIN}.de/" exim.conf
 sed -i "s/EXIM_LDAP_USER_FILTER/${EXIM_LDAP_USER_FILTER}/" exim.conf
 sed -i "s/EXIM_LOCAL_DOMAINS/${EXIM_LOCAL_DOMAINS}/" exim.conf

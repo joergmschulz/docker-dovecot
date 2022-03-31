@@ -308,6 +308,7 @@ services:
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
+       - smarthost.${DOMAIN}.de:${EXIM_SMARTHOST_MAILOUT_IP:-172.20.0.8}
 
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: ${DOMAIN}.de
