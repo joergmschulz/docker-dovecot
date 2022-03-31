@@ -414,12 +414,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
     # ports:
     #  - 53:53
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-        mode: non-blocking
     container_name: mail-dnsmasq
     networks:
       services:
