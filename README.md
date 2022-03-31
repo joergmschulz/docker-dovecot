@@ -135,7 +135,7 @@ This portion of the project has been made by js@jslz.de using inspiration from M
 As some other portions of the project have been derived from GPLed code, we need to be on the safe side and GPL it all.
 # dnsmasq
 as exim insists on dns lookups for al hostnames and ignores resolv.conf, we install dnsmasq.
-the config file is generated automatically. To add hosts, use dnsmasq/local_hosts .
+the config file is generated automatically. To add hosts, use dnsmasq/local_hosts or the extra_hosts in docker-compose.yml.
 
 # build side notes
 ## exim

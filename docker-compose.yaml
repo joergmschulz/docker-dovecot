@@ -302,9 +302,6 @@ services:
        - DOMAIN=${DOMAIN}
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_INT_MAILOUT_LDAP_AUTH=${EXIM_INT_MAILOUT_LDAP_AUTH}
-       # - EXIM_WHITELIST_NET=${EXIM_WHITELIST_NET}
-       # - EXIM_DKIM_SELECTOR=${EXIM_DKIM_SELECTOR}
-
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
@@ -312,7 +309,6 @@ services:
 
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: ${DOMAIN}.de
-
     labels:
       - "traefik.enable=false"
     secrets:
@@ -336,6 +332,8 @@ services:
           ipv4_address: ${EXIM_INT_MAILOUT_IP:-172.20.0.9}
           aliases:
             - exim-int-mailout
+    dns:
+      - dnsmasq
 
   exim-ext-mailout:
     image: joergschulz/exim-mailout
@@ -398,7 +396,7 @@ services:
           aliases:
             - exim-ext-mailout
 
-mail-dnsmasq:
+  mail-dnsmasq:
     image: joergschulz/dnsmasq
     hostname: mail-dnsmasq
     restart: unless-stopped
@@ -414,6 +412,8 @@ mail-dnsmasq:
       - /data/${DOMAIN}/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
       - /data/${DOMAIN}/dnsmasq/dnsmasq.d /etc/dnsmasq.d
       - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #  - 53:53
     logging:
       driver: "json-file"
       options:
@@ -421,16 +421,12 @@ mail-dnsmasq:
         max-file: "3"
         mode: non-blocking
     container_name: mail-dnsmasq
-    # sorry, you must change something manually here if you want externals to (not) use redis.
-    # the protected mode flag doesn't work. If you want to restrict access to docker-internal, uncomment the following 2 lines
-    #ports:
-    #  - ${REDIS_PORT}:${REDIS_PORT}
     networks:
       services:
         ipv4_address: ${DNSMASQ_IP}
         aliases:
           - mail-dnsmasq
-
+    # THIS is the place where you need to put all your DNS overwrites
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
