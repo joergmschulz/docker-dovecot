@@ -10,7 +10,7 @@ ARG DNSMASQ_GID
 ARG DNSMASQ_GROUP
 ARG DNSMASQ_USER
 ARG DNSMASQ_UID
-ARG DNSMASQ_IP=0.0.0.0
+# ARG DNSMASQ_IP=0.0.0.0
 
 
 ADD http://www.thekelleys.org.uk/dnsmasq/dnsmasq-$VERSION.tar.gz /tmp/dnsmasq.tar.gz
@@ -23,13 +23,16 @@ RUN [ "$(sha256sum /tmp/dnsmasq.tar.gz | awk '{print $1}')" = "$CHECKSUM" ] && \
 RUN mkdir -p /rootfs/bin && \
       cp /tmp/dnsmasq-$VERSION/src/dnsmasq /rootfs/bin/ && \
     mkdir -p /rootfs/etc && \
-      echo "nogroup:*:${DNSMASQ_UID}:nobody" > /rootfs/etc/group && \
-      echo "nobody:*:${DNSMASQ_UID}:${DNSMASQ_GID}:::" > /rootfs/etc/passwd
+      echo "DNSMASQ_GROUP:*:${DNSMASQ_UID}:nobody" > /rootfs/etc/group && \
+      echo "DNSMASQ_USER:*:${DNSMASQ_UID}:${DNSMASQ_GID}:::" > /rootfs/etc/passwd
 RUN mkdir -p /rootfs/var/run && \
     chown -R :${DNSMASQ_GID} /rootfs/var/run
 
 FROM scratch
-
+ARG DNSMASQ_GID
+ARG DNSMASQ_GROUP
+ARG DNSMASQ_USER
+ARG DNSMASQ_UID
 COPY --from=build --chown=${DNSMASQ_UID}:${DNSMASQ_GID} /rootfs /
 
 USER ${DNSMASQ_UID}:${DNSMASQ_GID}
