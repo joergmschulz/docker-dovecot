@@ -308,7 +308,7 @@ services:
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
-       - smarthost.${DOMAIN}.de:${EXIM_SMARTHOST_MAILOUT_IP:-172.20.0.8}
+       - smarthost.${DOMAIN}.de:${EXIM_SMARTHOST_MAILOUT:-mailout.fau}
 
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: ${DOMAIN}.de
@@ -398,42 +398,43 @@ services:
           aliases:
             - exim-ext-mailout
 
-  # mail-dnsmasq:
-  #   image: joergschulz/dnsmasq
-  #   hostname: mail-dnsmasq
-  #   restart: unless-stopped
-  #   build:
-  #     context: ./dnsmasq
-  #     args:
-  #       DNSMASQ_GID: 1001
-  #       DNSMASQ_UID: 1001
-  #       DNSMASQ_GROUP: dnsmasq
-  #       DNSMASQ_USER : dnsmasq
-  #   volumes:
-  #     # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
-  #     - /data/${DOMAIN}/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
-  #     - /data/${DOMAIN}/dnsmasq/dnsmasq.d /etc/dnsmasq.d
-  #     - /etc/localtime:/etc/localtime:ro
-  #   logging:
-  #     driver: "json-file"
-  #     options:
-  #       max-size: "10m"
-  #       max-file: "3"
-  #       mode: non-blocking
-  #   container_name: mail-dnsmasq
-  #   # sorry, you must change something manually here if you want externals to (not) use redis.
-  #   # the protected mode flag doesn't work. If you want to restrict access to docker-internal, uncomment the following 2 lines
-  #   #ports:
-  #   #  - ${REDIS_PORT}:${REDIS_PORT}
-  #   networks:
-  #     services:
-  #       ipv4_address: ${DNSMASQ_IP}
-  #       aliases:
-  #         - mail-dnsmasq
+mail-dnsmasq:
+    image: joergschulz/dnsmasq
+    hostname: mail-dnsmasq
+    restart: unless-stopped
+    build:
+      context: ./dnsmasq
+      args:
+        DNSMASQ_GID: 1001
+        DNSMASQ_UID: 1001
+        DNSMASQ_GROUP: dnsmasq
+        DNSMASQ_USER : dnsmasq
+    volumes:
+      # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
+      - /data/${DOMAIN}/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
+      - /data/${DOMAIN}/dnsmasq/dnsmasq.d /etc/dnsmasq.d
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        mode: non-blocking
+    container_name: mail-dnsmasq
+    # sorry, you must change something manually here if you want externals to (not) use redis.
+    # the protected mode flag doesn't work. If you want to restrict access to docker-internal, uncomment the following 2 lines
+    #ports:
+    #  - ${REDIS_PORT}:${REDIS_PORT}
+    networks:
+      services:
+        ipv4_address: ${DNSMASQ_IP}
+        aliases:
+          - mail-dnsmasq
 
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
+       - smarthost.${DOMAIN}.de:${EXIM_SMARTHOST_MAILOUT_IP:-172.20.0.8}
 
 
 volumes:

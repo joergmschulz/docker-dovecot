@@ -36,7 +36,7 @@ EXIM_EXTERNAL_SPOOL=/data/faudin/exim-external/spool
 EXIM_EXT_MAILOUT_LOG=/data/faudin/exim-ext-mailout/log
 EXIM_INT_MAILOUT_LOG=/data/faudin/exim-int-mailout/log
 EXIM_EXTERNAL_LOG=/data/faudin/exim-external/log
-
+EXIM_SMARTHOST_MAILOUT_IP=172.20.0.8
 
 # shared storage for clamav
 CLAMAVLIB=~/clamav/
