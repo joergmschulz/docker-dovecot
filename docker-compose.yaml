@@ -406,7 +406,7 @@ services:
         DNSMASQ_GID: 1001
         DNSMASQ_UID: 1001
         DNSMASQ_GROUP: dnsmasq
-        DNSMASQ_USER : dnsmasq
+        DNSMASQ_USER : nobody
     volumes:
       # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
       - /data/${DOMAIN}/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
