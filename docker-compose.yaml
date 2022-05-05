@@ -305,7 +305,7 @@ services:
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
-       
+
 
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: ${DOMAIN}.de
@@ -333,7 +333,7 @@ services:
           aliases:
             - exim-int-mailout
     dns:
-      - dnsmasq
+      - mail-dnsmasq
 
   exim-ext-mailout:
     image: joergschulz/exim-mailout
