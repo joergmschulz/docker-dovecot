@@ -75,7 +75,7 @@ services:
      restart: unless-stopped
      build:
        context: ./rspam
-       kRSPAM_gid: 0
+         RSPAM_gid: 0
          RSPAM_uid: 1001
          RSPAM_GROUP: root
          RSPAM_USER : rspamd
