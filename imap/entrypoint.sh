@@ -28,6 +28,12 @@ then
   process_min_avail = 1  \n\
 }  \n\
 service aggregator {  \n\
+  fifo_listener replication-notify-fifo {\n\
+    user = vmail\n\
+  }\n\
+  unix_listener replication-notify {\n\
+    user = vmail\n\
+  }\n\
   chroot = \n\
 }  \n\
 service replicator {  \n\
