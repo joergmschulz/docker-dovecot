@@ -44,9 +44,9 @@ service replicator {  \n\
   }  \n\
   vsz_limit = 0 \n\
 }  \n\
-plugin {  \n\
-    replication_sync_timeout = 20  \n\
-}  \n\
+# plugin {  \n\
+#     replication_sync_timeout = 20  \n\
+# }  \n\
 service doveadm {  \n\
   user = ${me}  \n\
   group = ${mygroup} \n\
