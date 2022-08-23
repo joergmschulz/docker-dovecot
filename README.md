@@ -218,5 +218,12 @@ COMMIT
 
 ````
 
+## MM3
+if needed, this image contains a mailman3 environment. External dependency: postgres database.
+see example dot env file.
+
+Define _HAVE_MM3.
+set all MM3 variables as appropriate.
+
 ## special firewall rules
 sudo ufw allow from 172.0.0.0/8 to mailout.${domain}.de port 1587

@@ -22,6 +22,9 @@ sed -i "s/LDAP_USER/${LDAP_USER}/" /etc/dovecot/dovecot-ldap.conf.ext
 
 # enable replication if the variables are set
 # if ([ -n ${IMAP_REPLICA_SERVER} ])
+
+# https://thr3ads.net/dovecot/2020/08/3147546-replicator-Panic-data-stack-Out-of-memory suggests to remove the replication_sync_timeout
+
 if ([  "${IMAP_REPLICA_SERVER}"  != "" ])
 then
   printf "service replicator {  \n\

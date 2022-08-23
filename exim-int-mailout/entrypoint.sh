@@ -20,6 +20,7 @@ sed -i "s/LDAP_PASSWORD/${LDAP_PASSWORD}/" exim.conf
 sed -i "s/LDAP_USER/${LDAP_USER}/" exim.conf
 sed -i "s/LDAP_HOSTS/${LDAP_HOSTS}/" exim.conf
 sed -i "s/EXIM_INT_MAILOUT_LDAP_AUTH/${EXIM_INT_MAILOUT_LDAP_AUTH}/" exim.conf
+sed -i "s/EXIM_INT_MM3_DOMAINS/${EXIM_INT_MAILOUT_LDAP_AUTH}/" exim.conf
 
 
 set -e

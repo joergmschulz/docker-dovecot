@@ -59,10 +59,12 @@ IMAP_REPLICA_PASSWORD=that's what you know best
 
 MM3_DATA_DIR=/data/faudin/mm3/core
 MM3_WEB_DIR=/data/faudin/mm3/web
-MM3_DATABASE_URL="postgres://mailman3:80YhF4%25QyPBm@postgres-db/mm3"
-MM3_WEB_DATABASE_URL=postgres://mailman3web:80YhF4%25QyPBm@postgres-db/mm3web
-MM3_HYPERKITTY_API_KEY=LDF6JJ7g8rUPmMxo/yeRTND0HKWSktaK
+MM3_DATABASE_URL="postgres://mailman3:supersecret@postgres-db/mm3"
+MM3_WEB_DATABASE_URL=postgres://mailman3web:supersecret@postgres-db/mm3web
+MM3_HYPERKITTY_API_KEY=supersecret
 MM3_SMTP_PORT=2587
 
 MM3_CORE_IP=172.20.0.27
 MM3_WEB_IP=172.20.0.28
+
+EXIM_INT_MM3_DOMAINS=mm3.domaina.de:mm3.domainb.de:domainc.de
