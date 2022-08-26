@@ -14,9 +14,9 @@ services:
          vmail_uid: ${vmail_uid:-1001}
          VMAIL_GROUP: ${VMAIL_GROUP:-root}
          VMAIL_USER : ${VMAIL_USER:-vmail}
-         dovecot_branch : ${dovecot_branch:-release-2.3.18.1}
+         dovecot_branch : ${dovecot_branch:-release-2.3.19.1}
          dovecot_tag : ${dovecot_tag:-2.3.15}
-         pigeonhole_branch : ${pigeonhole_branch:-release-0.5.18.1}
+         pigeonhole_branch : ${pigeonhole_branch:-release-0.5.19.1}
      environment:
         - LDAP_HOSTS=${LDAP_HOSTS}
         - LDAP_PASSWORD=${LDAP_PASSWORD}
