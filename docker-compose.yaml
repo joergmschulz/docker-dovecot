@@ -290,6 +290,7 @@ services:
       - ${EXIM_INT_MAILOUT_SPOOL:-/data/exim-int-mailout/spool}:/var/spool/exim
       - ${EXIM_INT_MAILOUT_LOG:-/data/exim-int-mailout/log}:/var/log/exim
       - ${MM3_DATA_DIR}:/opt/mailman/
+
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -302,8 +303,7 @@ services:
        - DOMAIN=${DOMAIN}
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_INT_MAILOUT_LDAP_AUTH=${EXIM_INT_MAILOUT_LDAP_AUTH}
-       - _HAVE_MM3=TRUE
-       - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
+
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
@@ -357,6 +357,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${EXIM_EXT_MAILOUT_SPOOL:-/data/exim-ext-mailout/spool}:/var/spool/exim
       - ${EXIM_EXT_MAILOUT_LOG:-/data/exim-ext-mailout/log}:/var/log/exim
+      - ${MM3_DATA_DIR}:/opt/mailman/
     environment:
        # - LDAP_HOSTS=${LDAP_HOSTS}
        # - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -370,6 +371,8 @@ services:
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_WHITELIST_NET=${EXIM_WHITELIST_NET:-172.20.0.0/16}
        - EXIM_DKIM_SELECTOR=${EXIM_DKIM_SELECTOR}
+       - HAVE_MM3=${_HAVE_MM3}
+       - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
     # extra_hosts:
        # - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.

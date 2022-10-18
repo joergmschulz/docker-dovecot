@@ -7,8 +7,8 @@ sed -i "s/EXIM_WHITELIST_NET/${EXIM_WHITELIST_NET}/" exim.conf
 sed -i "s/EXIM_QUALIFIED_DOMAIN/${DOMAIN}.de/" exim.conf
 sed -i "s/EXIM_DKIM_SELECTOR/${EXIM_DKIM_SELECTOR}/" exim.conf
 sed -i "s/EXIM_DKIM_DOMAIN/${DOMAIN}.de/" exim.conf
-
+sed -i "s/EXIM_INT_MM3_DOMAINS/${MM3_DOMAINS}/" exim.conf
 
 set -e
 
-/usr/exim/bin/exim -bd -q 15m -C /etc/exim/config.d/exim.conf
+/usr/exim/bin/exim -bd -q 15m -D ${HAVE_MM3} -C /etc/exim/config.d/exim.conf
