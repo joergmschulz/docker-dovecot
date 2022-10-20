@@ -303,6 +303,8 @@ services:
        - DOMAIN=${DOMAIN}
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_INT_MAILOUT_LDAP_AUTH=${EXIM_INT_MAILOUT_LDAP_AUTH}
+       - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
+       - HAVE_MM3=${HAVE_MM3}
 
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
