@@ -240,7 +240,7 @@ services:
         REDIS_USER : redis
     volumes:
       # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
-      - /data/${DOMAIN}/redis:/data
+      - /data/${DOMAIN}/redis:/data:Z
       - /etc/localtime:/etc/localtime:ro
     logging:
       driver: "json-file"
@@ -373,7 +373,6 @@ services:
        - EXIM_RELAY_HOSTS=${EXIM_RELAY_HOSTS}
        - EXIM_WHITELIST_NET=${EXIM_WHITELIST_NET:-172.20.0.0/16}
        - EXIM_DKIM_SELECTOR=${EXIM_DKIM_SELECTOR}
-       - HAVE_MM3=${_HAVE_MM3}
        - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
     # extra_hosts:
        # - "ldap.${DOMAIN}.de:${LDAP_IP}"
