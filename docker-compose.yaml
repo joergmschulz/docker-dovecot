@@ -167,6 +167,8 @@ services:
        - EXIM_TLS_ON_CONNECT_PORTS=1465
        - EXIM_LOCAL_DOMAINS=${EXIM_LOCAL_DOMAINS}
        - DOMAIN=${DOMAIN}
+       - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
+       - HAVE_MM3=${HAVE_MM3}
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external interface. Not reachable.
