@@ -157,6 +157,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${EXIM_EXTERNAL_SPOOL:-/data/exim-external/spool}:/var/spool/exim
       - ${EXIM_EXTERNAL_LOG:-/data/exim-external/log}:/var/log/exim
+      - ${MM3_DATA_DIR}:/opt/mailman/:ro
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
        - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -291,7 +292,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${EXIM_INT_MAILOUT_SPOOL:-/data/exim-int-mailout/spool}:/var/spool/exim
       - ${EXIM_INT_MAILOUT_LOG:-/data/exim-int-mailout/log}:/var/log/exim
-      - ${MM3_DATA_DIR}:/opt/mailman/
+      - ${MM3_DATA_DIR}:/opt/mailman/:ro
 
     environment:
        - LDAP_HOSTS=${LDAP_HOSTS}
