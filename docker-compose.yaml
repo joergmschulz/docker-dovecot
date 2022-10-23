@@ -32,6 +32,7 @@ services:
         - IMAP_REPLICA_SERVER=${IMAP_REPLICA_SERVER}
         - IMAP_REPLICA_PORT=${IMAP_REPLICA_PORT}
         - IMAP_REPLICA_PASSWORD=${IMAP_REPLICA_PASSWORD}
+        - TIMEZONE=Europe/Berlin
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        - /data/${DOMAIN}/vmail:/var/vmail
@@ -109,6 +110,7 @@ services:
        - RSPAM_REDIS_DB=7
        - RSPAM_IP=${RSPAM_IP}
        - CLAMAV_IP=${CLAMAV_IP}
+       - TIMEZONE=Europe/Berlin
      secrets:
         - letsencrypt-cert
         - letsencrypt-fullchain
@@ -170,6 +172,7 @@ services:
        - DOMAIN=${DOMAIN}
        - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
        - HAVE_MM3=${HAVE_MM3}
+       - TIMEZONE=Europe/Berlin
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external interface. Not reachable.
@@ -213,6 +216,7 @@ services:
     domainname: ${DOMAIN}.de
     environment:
        - CLAMAV_IP=${CLAMAV_IP}
+       - TIMEZONE=Europe/Berlin
     volumes:
       # - clam:/var/lib/clamav
       # - /data/${DOMAIN}/clamav:/var/lib/clamav
@@ -256,6 +260,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PRODECTED_MODE=${REDIS_PRODECTED_MODE:-yes}
       - REDIS_PORT=${REDIS_PORT}
+      - TIMEZONE=Europe/Berlin
     container_name: mail-redis
     # sorry, you must change something manually here if you want externals to (not) use redis.
     # the protected mode flag doesn't work. If you want to restrict access to docker-internal, uncomment the following 2 lines
@@ -308,6 +313,7 @@ services:
        - EXIM_INT_MAILOUT_LDAP_AUTH=${EXIM_INT_MAILOUT_LDAP_AUTH}
        - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
        - HAVE_MM3=${HAVE_MM3}
+       - TIMEZONE=Europe/Berlin
 
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
@@ -377,6 +383,7 @@ services:
        - EXIM_WHITELIST_NET=${EXIM_WHITELIST_NET:-172.20.0.0/16}
        - EXIM_DKIM_SELECTOR=${EXIM_DKIM_SELECTOR}
        - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
+       - TIMEZONE=Europe/Berlin
     # extra_hosts:
        # - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
