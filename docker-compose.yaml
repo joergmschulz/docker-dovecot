@@ -51,6 +51,7 @@ services:
      extra_hosts:
         - "m.datilo.de:10.100.101.16"
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
+        - ${IMAP_REPLICA_SERVER}:${IMAP_REPLICA_SERVER_IP} 
      domainname: ${DOMAIN}.de
      labels:
        - "traefik.enable=false"
@@ -197,6 +198,8 @@ services:
           ipv4_address: ${EXIM_EXTERNAL_IP}
           aliases:
             - exim
+
+
 
   clamav:
     image: joergschulz/docker-clamav
@@ -404,6 +407,8 @@ services:
           ipv4_address: ${EXIM_EXT_MAILOUT_IP}
           aliases:
             - exim-ext-mailout
+    dns:
+      - ${DNSMASQ_IP}
 
   mail-dnsmasq:
     image: joergschulz/dnsmasq
@@ -434,6 +439,7 @@ services:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
        - smarthost.${DOMAIN}.de:${EXIM_SMARTHOST_MAILOUT_IP:-172.20.0.8}
+       - rspam.${DOMAIN}.de:${RSPAM_IP:-172.20.0.25}
 
 
 volumes:
