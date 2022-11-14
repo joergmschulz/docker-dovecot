@@ -129,6 +129,7 @@ RUN apk update && \
     lz4 \
     bzip2-dev lz4-dev xz-dev zlib-dev \
     openldap && \
+    rspamd-client \
     addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
@@ -137,7 +138,7 @@ RUN apk update && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot && \
     test -f dh.pem || openssl dhparam 4096 > dh.pem ) && \
     chmod g+r /etc/dovecot/dovecot-ldap.conf.ext && \
-    # mkdir /etc/dovecot/conf.d/ && \
+    chmod +x /etc/dovecot/sieve/*sh && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot
 
 
