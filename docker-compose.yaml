@@ -33,7 +33,7 @@ services:
         - IMAP_REPLICA_PORT=${IMAP_REPLICA_PORT}
         - IMAP_REPLICA_PASSWORD=${IMAP_REPLICA_PASSWORD}
         - TIMEZONE=Europe/Berlin
-        - RSPAM_password=${RSPAM_password}
+        - RSPAM_Clear_password=${RSPAM_Clear_password}
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        - /data/${DOMAIN}/vmail:/var/vmail
