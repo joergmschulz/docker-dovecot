@@ -127,9 +127,9 @@ RUN apk update && \
     zlib \
     bzip2 \
     lz4 \
+    rspamd-client \
     bzip2-dev lz4-dev xz-dev zlib-dev \
     openldap && \
-    rspamd-client \
     addgroup -S -g ${vmail_gid} vmail || export VMAIL_GROUP=root  && adduser -S -D -H -u $vmail_uid -G $VMAIL_GROUP -g "Dovecot Vmail" ${VMAIL_USER} && \
     # mkdir -p /var/log/dovecot && \
     mkdir -p /var/lib/dovecot && \
