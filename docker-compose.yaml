@@ -33,7 +33,7 @@ services:
         - IMAP_REPLICA_PORT=${IMAP_REPLICA_PORT}
         - IMAP_REPLICA_PASSWORD=${IMAP_REPLICA_PASSWORD}
         - TIMEZONE=Europe/Berlin
-        - RSPAM_Clear_password=${RSPAM_Clear_password}
+        # - RSPAM_Clear_password=${RSPAM_Clear_password}
      volumes:
        # - /etc/ldap/ldap.conf:/etc/ldap/ldap.conf
        - /data/${DOMAIN}/vmail:/var/vmail
@@ -62,7 +62,7 @@ services:
         - letsencrypt-fullchain
         - source: letsencrypt-privkey
           target: letsencrypt-privkey
-
+        - RSPAM_Clear_password
      networks:
        #  mail:
        # ipv4_address: 172.26.0.3
@@ -461,6 +461,8 @@ secrets:
            file: /etc/letsencrypt-readers/privkey.pem
         dkim-privkey:
             file: .certs/dkim-faudin.de-private
+        RSPAM_Clear_password:
+          file: .RSPAM_Clear_password
 
 networks:
    traefik:

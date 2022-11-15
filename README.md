@@ -151,6 +151,8 @@ logging goes to the (mounted? ) directory /var/log/exim/. The exicyclog script i
 smtp mailout possible when https://serverfault.com/questions/630291/sieve-redirect-to-foreign-email-gets-relay-access-denied submission_host is set correctly
 ### sieve
 individual sieve configurations are possible. Global defaults are stored in etc/dovecot/sieve.d/
+#### a word on autolearn
+sievec is used for auto-learning. You need the rspamd clear text password in a docker secret which should be available locally as .RSPAM_Clear_password file.
 
 ### version of dovecot
 see the sample .env file. Version 16 is the most current, but your mileage may vary. See the dovecot  mailing list or revert to .15.
