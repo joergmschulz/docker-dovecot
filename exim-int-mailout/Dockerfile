@@ -18,6 +18,10 @@ RUN set -x && \
     adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER
 
 COPY --from=joergschulz/exim  /usr/exim /usr/exim
+RUN apt-get -y update \
+    && apt-get -y upgrade \
+    && apt-get install -y libldap-2.4-2 libspf2-2 ca-certificates && \
+    apt-get clean
 
 ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
 RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
