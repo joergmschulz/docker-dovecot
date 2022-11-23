@@ -73,6 +73,9 @@ we log to /dev/stderr.
 | REDIS_PASSWORD | redis, rspam | access to REDIS via this password |
 | LDAP_PASSWORD | dovecot, exim  | admin readonly access to ldap |
 
+## passwd.client
+if you need to use specific relays to hotmail, you need to populate the exim-ext-mailout/.passwd.client file.
+
 ## build time parameters
 as always, documentation lags behind. Ask questions, answers will be here.
 
@@ -224,7 +227,7 @@ COMMIT
 if needed, this image contains a mailman3 environment. External dependency: postgres database.
 see example dot env file.
 
-Define _HAVE_MM3.
+Define HAVE_MM3.
 set all MM3 variables as appropriate.
 
 ## special firewall rules
