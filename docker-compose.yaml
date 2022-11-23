@@ -374,7 +374,7 @@ services:
       - ${EXIM_EXT_MAILOUT_LOG:-/data/exim-ext-mailout/log}:/var/log/exim
       - ${MM3_DATA_DIR}:/opt/mailman/
       - .passwd.client:/etc/exim/config.d/passwd.client
-      - .specific_relays:/etc/exim/config.d/specific_relays
+      # - .specific_relays:/etc/exim/config.d/specific_relays
     environment:
        # - LDAP_HOSTS=${LDAP_HOSTS}
        # - LDAP_PASSWORD=${LDAP_PASSWORD}
