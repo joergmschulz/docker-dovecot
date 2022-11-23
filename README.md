@@ -74,7 +74,8 @@ we log to /dev/stderr.
 | LDAP_PASSWORD | dovecot, exim  | admin readonly access to ldap |
 
 ## passwd.client
-if you need to use specific relays to hotmail, you need to populate the exim-ext-mailout/.passwd.client file.
+(tbd) if you need to use specific relays to hotmail, you need to populate the exim-ext-mailout/.passwd.client file.
+for the time being, we use EXIM_EXT_MSACCOUNT : EXIM_EXT_PW
 
 ## build time parameters
 as always, documentation lags behind. Ask questions, answers will be here.

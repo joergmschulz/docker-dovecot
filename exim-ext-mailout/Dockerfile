@@ -35,7 +35,7 @@ RUN for d in ${ACCESS_FIX} ; do mkdir -p $d ; done && \
   echo "TLS_REQCERT never" >> /etc/ldap/ldap.conf
 
 ADD exim.conf /etc/exim/config.d/exim.conf
-
+ADD specific_relays /etc/exim/config.d/specific_relays
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh

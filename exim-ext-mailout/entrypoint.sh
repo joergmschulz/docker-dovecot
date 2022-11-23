@@ -9,6 +9,11 @@ sed -i "s/EXIM_DKIM_SELECTOR/${EXIM_DKIM_SELECTOR}/" exim.conf
 sed -i "s/EXIM_DKIM_DOMAIN/${DOMAIN}.de/" exim.conf
 sed -i "s/EXIM_INT_MM3_DOMAINS/${MM3_DOMAINS}/" exim.conf
 
+sed -i "s/EXIM_EXT_MSACCOUNT/${EXIM_EXT_MSACCOUNT}/" exim.conf
+sed -i "s/EXIM_EXT_PW/${EXIM_EXT_PW}/" exim.conf
+
+
+
 set -e
 
 /usr/exim/bin/exim -bd -q 15m  -C /etc/exim/config.d/exim.conf
