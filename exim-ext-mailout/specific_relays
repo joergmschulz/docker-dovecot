@@ -1,6 +1,14 @@
-hotmail.com:smtp.office365.com
-outlook.com:smtp.office365.com
-outlook.de:smtp.office365.com
-*.outlook.com:smtp.office365.com
-hotmail.de:smtp.office365.com
-live.com:smtp.office365.com
+# hotmail.com:smtp.office365.com
+# outlook.com:smtp.office365.com
+# outlook.de:smtp.office365.com
+# *.outlook.com:smtp.office365.com
+# hotmail.de:smtp.office365.com
+# live.com:smtp.office365.com
+
+
+hotmail.com:smtp.socketlabs.com
+outlook.com:smtp.socketlabs.com
+outlook.de:smtp.socketlabs.com
+*.outlook.com:smtp.socketlabs.com
+hotmail.de:smtp.socketlabs.com
+live.com:smtp.socketlabs.com
