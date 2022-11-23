@@ -65,7 +65,7 @@ you might need to create and chown/chmod the data directories referenced in .env
 ## ssl
 see the secrets section of docker-compose.yaml.
 ## logging
-we log to /dev/stderr.
+IMAP logs to /dev/stderr. Exim logs to the defined log directory. Truncate manually!
 
 ## Passwords and users in .env file
 | placeholder | container| comments |
@@ -225,11 +225,12 @@ COMMIT
 ````
 
 ## MM3
-if needed, this image contains a mailman3 environment. External dependency: postgres database.
+This image contains a mailman3 environment. External dependency: postgres database.
 see example dot env file.
 
 Define HAVE_MM3.
 set all MM3 variables as appropriate.
+If undefined, it *should* work properly.
 
 ## special firewall rules
 sudo ufw allow from 172.0.0.0/8 to mailout.${domain}.de port 1587
