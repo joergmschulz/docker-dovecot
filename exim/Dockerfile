@@ -10,6 +10,7 @@ ARG EXIM_VERSION=4.95
 # ARG EXIM_VERSION=master
 
 ARG EXIM_SOURCE=https://github.com/exim/exim/archive/exim-${EXIM_VERSION}.tar.gz
+# ARG EXIM_SOURCE=http://exim.mirror.iphh.net/ftp/exim/exim4/exim-${EXIM_VERSION}.tar.gz
 
 ENV EXIM_PORTS="1025 : 1465 : 1587"
 ENV EXIM_TLS_ON_CONNECT_PORTS=1465
