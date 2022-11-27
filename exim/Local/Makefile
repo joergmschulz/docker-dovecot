@@ -85,7 +85,7 @@
 # If you don't specify SPOOL_DIRECTORY, Exim won't fail to build. However, it
 # really is a very good idea to specify it here rather than at run time. This
 # is particularly true if you let the logs go to their default location in the
-# spool directory, because it means that the location of the logs is known
+# spool directory, because it meansp that the location of the logs is known
 # before Exim has read the run time configuration file.
 
 #------------------------------------------------------------------------------
@@ -469,7 +469,7 @@ LDAP_LIB_TYPE=OPENLDAP2
 # to find the include files and libraries, else use PCRE_LIBS and set INCLUDE
 # too if needed.
 
-PCRE_CONFIG=yes
+PCRE2_CONFIG=yes
 # PCRE_LIBS=-lpcre
 
 

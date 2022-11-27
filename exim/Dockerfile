@@ -6,11 +6,11 @@ ARG EXIM_USER
 ARG EXIM_UID
 
 ARG EXIM_IP=0.0.0.0
-ARG EXIM_VERSION=4.95
+ARG EXIM_VERSION=4.96
 # ARG EXIM_VERSION=master
 
-ARG EXIM_SOURCE=https://github.com/exim/exim/archive/exim-${EXIM_VERSION}.tar.gz
-# ARG EXIM_SOURCE=http://exim.mirror.iphh.net/ftp/exim/exim4/exim-${EXIM_VERSION}.tar.gz
+# ARG EXIM_SOURCE=https://github.com/exim/exim/archive/exim-${EXIM_VERSION}.tar.gz
+ARG EXIM_SOURCE=http://exim.mirror.iphh.net/ftp/exim/exim4/exim-${EXIM_VERSION}.tar.gz
 
 ENV EXIM_PORTS="1025 : 1465 : 1587"
 ENV EXIM_TLS_ON_CONNECT_PORTS=1465
@@ -23,7 +23,7 @@ RUN set -x && \
     apt-get -y update \
     && apt-get -y upgrade \
     && apt-get install -y libldap2-dev tzdata  \
-      git libpcre3-dev build-essential libdb-dev  \
+      wget libpcre2-dev build-essential libdb-dev  \
       libopendmarc-dev  libspf2-dev  \
       libldap2-dev libldap-common \
       libdkim-dev  \
@@ -35,15 +35,16 @@ RUN set -x && \
 
 RUN set -eux; \
       mkdir -p /usr/src && cd /usr/src && \
-      git clone https://github.com/exim/exim -b $EXIM_VERSION exim && \
+      # git clone https://github.com/exim/exim -b $EXIM_VERSION exim && \
       # echo "$EXIM_DOWNLOAD_SHA *exim.tar.gz" | sha256sum -c -; \ TBD!
-      mkdir -p /usr/src/exim/Local && \
+      wget ${EXIM_SOURCE} && tar -zxvf exim-${EXIM_VERSION}.tar.gz  && mv exim-${EXIM_VERSION} exim && \
+      # mkdir -p /usr/src/exim/Local && \
       mkdir -p /etc/exim
 
 
-ADD Local/Makefile /usr/src/exim/src/Local/
+ADD Local/Makefile /usr/src/exim/Local/
 RUN set -eux; \
-    cd /usr/src/exim/src && \
+    cd /usr/src/exim && \
     sed -i "s/EXIM_LOCAL_USER/${EXIM_USER}/" Local/Makefile && \
     sed -i "s/EXIM_LOCAL_GROUP/${EXIM_GROUP}/" Local/Makefile && \
     make && make install && \
