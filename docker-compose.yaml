@@ -152,8 +152,6 @@ services:
         EXIM_VERSION: 4.96
         DOMAIN: ${DOMAIN}
 
-        
-        # EXIM_SOURCE: https://github.com/EXIM/EXIM/archive/EXIM-${EXIM_VERSION}.tar.gz
     volumes:
       # - /data/${DOMAIN}/mail-external/log:/var/log
         # - log:/var/log
@@ -289,11 +287,7 @@ services:
         EXIM_GROUP: root
         EXIM_USER: exim
         EXIM_UID: 1001
-        # EXIM_VERSION: 4.94
 
-        # EXIM_EXTERNAL_IP: ${EXIM_IP}
-        # EXIM_VERSION: exim-4.94+fixes
-        # EXIM_SOURCE: https://github.com/EXIM/EXIM/archive/EXIM-${EXIM_VERSION}.tar.gz
     volumes:
       # - /data/${DOMAIN}/mail-external/log:/var/log
         # - log:/var/log
