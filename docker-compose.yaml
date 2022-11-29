@@ -226,7 +226,8 @@ services:
     volumes:
       # - clam:/var/lib/clamav
       # - /data/${DOMAIN}/clamav:/var/lib/clamav
-      - ${CLAMAVLIB:-/data/clamav}:/var/lib/clamav
+      # - ${CLAMAVLIB:-/data/clamav}:/var/lib/clamav
+      - ${CLAMAVLIB:-/data/clamav}:/data
     logging:
       driver: "json-file"
       options:
