@@ -203,21 +203,26 @@ services:
 
 
   clamav:
-    image: joergschulz/docker-clamav
+    # image: joergschulz/docker-clamav
+    image: tiredofit/clamav:latest
+
     hostname: clamav
-    build:
-      context: ./clamav
-      args:
-        CLAMAV_gid: 0
-        CLAMAV_uid: 1001
-        CLAMAV_GROUP: root
-        CLAMAV_USER : clamav
+    #  build:
+      #context: ./clamav
+      #args:
+    #    CLAMAV_gid: 0
+  #      CLAMAV_uid: 1001
+#        CLAMAV_GROUP: root
+#        CLAMAV_USER : clamav
     container_name: clamav
     restart: always
     domainname: ${DOMAIN}.de
     environment:
        - CLAMAV_IP=${CLAMAV_IP}
        - TIMEZONE=Europe/Berlin
+       - DEFINITIONS_UPDATE_FREQUENCY=60
+       - ZABBIX_SERVER_ACTIVE=zabbix-server
+       - ZABBIX_HOSTNAME=clamav.${DOMAIN}.de
     volumes:
       # - clam:/var/lib/clamav
       # - /data/${DOMAIN}/clamav:/var/lib/clamav
