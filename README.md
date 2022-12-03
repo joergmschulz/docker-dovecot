@@ -4,7 +4,11 @@ lightweight alpine (dovecot) and bullseye-slim (exim) based dockerized dovecot, 
 install using examples/sampleDotEnv
 
 
-In order to achieve scalabality the setup will be split accross these servers:
+In order to achieve scalabality the setup will be split accross these containers / you can as well split across physical servers:
+##credits
+
+mentioned elsewhere.
+Additionally, well rely on tiredofit images / clamav makes the beginning
 
 ## services and addresses
 These are the addresses used in the services network. They shouldn't be seen elsewhere. We define them in the .env file.
