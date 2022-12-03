@@ -72,7 +72,7 @@ RUN set -x && \
     adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER && \
     yes | perl -MCPAN -e getopt::std
 COPY --from=build /usr/exim /usr/exim
-
+ADD configfiles /usr/exim/
 
 ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
 # fix access, log to stderr
