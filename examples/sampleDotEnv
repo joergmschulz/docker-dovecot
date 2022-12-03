@@ -6,7 +6,7 @@ LDAP_BASE=ou=People,dc=yourDomain,dc=de
 
 # fusiondirectory structure reflected here
 LDAP_USER_FILTER=(\&(\&(memberof=cn=localMail,ou=groups,dc=yourDomain,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))
-EXIM_LDAP_USER_FILTER=(\&(memberOf=cn=localmail,ou=groups,dc=yourDomain,dc=de)(|(mail=$local_part@$domain)(|(gosaMailAlternateAddress=$local_part@$domain))))
+EXIM_LDAP_USER_FILTER=(\&(memberOf=cn=localmail,ou=groups,dc=yourDomain,dc=de)(|(mail=$local_part@$domain)(|(gosaMailAlternateAddress=$local_part@$domain_data))))
 LDAP_PASS_FILTER=(\&(memberof=cn=localMail,ou=groups,dc=yourDomain,dc=de)(|(mail=%u)(|(gosaMailAlternateAddress=%u))))
 LDAP_ITERATE_FILTER=(memberOf=cn=localMail,ou=groups,dc=yourDomain,dc=de)
 
