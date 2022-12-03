@@ -14,7 +14,9 @@ bind_socket = \"0.0.0.0:11334\";\n" > worker-controller.inc
 
 sed -i "s/RSPAM_IP/${RSPAM_IP}/" worker-normal.inc
 
-
+printf "neighbours {\n\
+    ${RSPAM_NEIGHBOURS}\n\
+}" > rspam-neighbours.inc
 
 # ( freshclam -u ${RSPAM_USER} && \
 # clamd && \

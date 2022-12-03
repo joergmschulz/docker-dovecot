@@ -108,6 +108,7 @@ services:
        - RSPAM_GROUP=root
        - RSPAM_USER=rspamd
        - RSPAM_enable_password=${RSPAM_enable_password}
+       - RSPAM_NEIGHBOURS=${RSPAM_NEIGHBOURS}
        - RSPAM_password=${RSPAM_password}
        - RSPAM_REDIS_DB=7
        - RSPAM_IP=${RSPAM_IP}

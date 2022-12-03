@@ -114,8 +114,15 @@ You can run multiple redis on one host if you set the REDIS_PORT to something di
 If you want to use the console, don't forget to set  RSPAMD_enable_password, RSPAMD_password
 for your local white/blacklists, you'll need the /var/lib/rspamd/maps.d directory
 
+configure your RSPAM_NEIGHBOURS in .env!
+```
+RSPAM_NEIGHBOURS=" \
+    server1 {host = \"\"; }"
+```
+
 ## ClamAV
 currently stolen from https://github.com/mko-x/docker-clamav/blob/master/docker-compose.yml
+
 
 ## exim
 ### mail acceptance
