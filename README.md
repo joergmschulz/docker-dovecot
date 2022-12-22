@@ -116,8 +116,8 @@ for your local white/blacklists, you'll need the /var/lib/rspamd/maps.d director
 
 configure your RSPAM_NEIGHBOURS in .env!
 ```
-RSPAM_NEIGHBOURS=" \
-    server1 {host = \"\"; }"
+RSPAM_NEIGHBOURS="server1 {host = \"https://rspam.faudin.de:443\"; } \
+    server2 {host = \"https://m4-rspam.faudin.de:443\"; }"
 ```
 
 ## ClamAV

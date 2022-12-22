@@ -33,7 +33,8 @@ REDIS_PORT=6379
 RSPAM_enable_password=https://www.rspamd.com/doc/quickstart.html#setting-the-controller-password
 RSPAM_password=$https://www.rspamd.com/doc/quickstart.html#setting-the-controller-password
 # RSPAM_Clear_password='something that generates the above'
-
+RSPAM_NEIGHBOURS="server1 {host = \"https://rspam.faudin.de:443\"; } \
+    server2 {host = \"https://m4-rspam.faudin.de:443\"; }"
 
 EXIM_EXT_MAILOUT_SPOOL=/data/faudin/exim-ext-mailout/spool
 EXIM_INT_MAILOUT_SPOOL=/data/faudin/exim-int-mailout/spool
