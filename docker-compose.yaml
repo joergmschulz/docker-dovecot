@@ -453,6 +453,7 @@ services:
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
        - smarthost.${DOMAIN}.de:${EXIM_SMARTHOST_MAILOUT_IP:-172.20.0.8}
        - rspam.${DOMAIN}.de:${RSPAM_IP:-172.20.0.25}
+       - imap.${DOMAIN}.de:${$IMAP_IP:-172.20.0.5}
 
 
 volumes:
