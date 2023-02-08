@@ -312,6 +312,7 @@ services:
        - LDAP_PASSWORD=${LDAP_PASSWORD}
        - LDAP_USER=${LDAP_USER}
        - LDAP_BASE=${LDAP_BASE}
+       - EXIM_IMAP_HOST=imap.${DOMAIN}.de
        - EXIM_LDAP_USER_FILTER=${EXIM_LDAP_USER_FILTER}
        - "EXIM_PORTS=1025 : 1465 : 1587"
        - EXIM_TLS_ON_CONNECT_PORTS=1465
@@ -322,6 +323,7 @@ services:
        - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
        - HAVE_MM3=${HAVE_MM3}
        - TIMEZONE=Europe/Berlin
+
     dns:
       - ${DNSMASQ_IP}
     extra_hosts:
