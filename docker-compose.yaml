@@ -323,9 +323,6 @@ services:
        - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
        - HAVE_MM3=${HAVE_MM3}
        - TIMEZONE=Europe/Berlin
-
-    dns:
-      - ${DNSMASQ_IP}
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
