@@ -166,6 +166,7 @@ services:
        - LDAP_USER=${LDAP_USER}
        - LDAP_BASE=${LDAP_BASE}
        - EXIM_LDAP_USER_FILTER=${EXIM_LDAP_USER_FILTER}
+       - EXIM_IMAP_HOST=imap.${DOMAIN}.de
        - "EXIM_PORTS=1025 : 1465 : 1587"
        - EXIM_TLS_ON_CONNECT_PORTS=1465
        - EXIM_LOCAL_DOMAINS=${EXIM_LOCAL_DOMAINS}
@@ -195,6 +196,8 @@ services:
       - "25:1025"
       - "587:1587"
       - "465:1465"
+    dns:
+      - ${DNSMASQ_IP}
     networks:
         services:
           ipv4_address: ${EXIM_EXTERNAL_IP}
@@ -319,7 +322,8 @@ services:
        - EXIM_INT_MM3_DOMAINS=${EXIM_INT_MM3_DOMAINS}
        - HAVE_MM3=${HAVE_MM3}
        - TIMEZONE=Europe/Berlin
-
+    dns:
+      - ${DNSMASQ_IP}
     extra_hosts:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        - mailout.${DOMAIN}.de:${EXIM_EXTERNAL_IP}
