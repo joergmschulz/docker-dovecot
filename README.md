@@ -8,7 +8,7 @@ In order to achieve scalabality the setup will be split accross these containers
 ##credits
 
 mentioned elsewhere.
-Additionally, well rely on tiredofit images / clamav makes the beginning
+Additionally, well rely on tiredofit images / clamav makes the beginning. For Mailman3, the use of maxking's repository is best.
 
 ## services and addresses
 These are the addresses used in the services network. They shouldn't be seen elsewhere. We define them in the .env file.
@@ -181,7 +181,7 @@ ${IMAP_AUTH_VERBOSE} ${IMAP_MAIL_DEBUG} can help debug dovecot.
 We're beginning to integrate mailman.
 exim-int-mailout will need a mailman volume and some configs. See example .env!
 
-We don't currently plan to add a way to leave out mailman.
+
 
 ### firewall
 if you're using UFW, you'll see docker opening ports to the world.
@@ -241,7 +241,7 @@ see example dot env file.
 
 Define HAVE_MM3.
 set all MM3 variables as appropriate.
-If undefined, it *should* work properly.
+If undefined, it will work properly in spite of the warning messages.
 
 ## special firewall rules
 sudo ufw allow from 172.0.0.0/8 to mailout.${domain}.de port 1587
