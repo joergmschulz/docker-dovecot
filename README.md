@@ -164,6 +164,8 @@ Watch out for entrypoint.sh - this one builds the exim config.
 logging goes to the (mounted? ) directory /var/log/exim/. The exicyclog script isn't run by default; you have to set up a cron job for it if you want it.
 ## dovecot
 smtp mailout possible when https://serverfault.com/questions/630291/sieve-redirect-to-foreign-email-gets-relay-access-denied submission_host is set correctly
+### encryption
+see https://docker-mailserver.github.io/docker-mailserver/edge/config/security/mail_crypt/ 
 ### sieve
 individual sieve configurations are possible. Global defaults are stored in etc/dovecot/sieve.d/
 #### a word on autolearn
