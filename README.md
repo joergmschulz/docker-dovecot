@@ -119,6 +119,8 @@ configure your RSPAM_NEIGHBOURS in .env!
 RSPAM_NEIGHBOURS="server1 {host = \"https://rspam.faudin.de:443\"; } \
     server2 {host = \"https://m4-rspam.faudin.de:443\"; }"
 ```
+### phishing
+is enabled via openphish
 
 ## ClamAV
 currently stolen from https://github.com/mko-x/docker-clamav/blob/master/docker-compose.yml
