@@ -55,6 +55,8 @@ services:
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
         - ${IMAP_REPLICA_SERVER}:${IMAP_REPLICA_SERVER_IP}
      domainname: ${DOMAIN}.de
+     dns:
+      - ${DNSMASQ_IP}
      labels:
        - "traefik.enable=false"
      secrets:
@@ -396,9 +398,6 @@ services:
        - EXIM_EXT_MSACCOUNT=${EXIM_EXT_MSACCOUNT}
        - EXIM_EXT_PW=${EXIM_EXT_PW}
        - TIMEZONE=Europe/Berlin
-    # extra_hosts:
-       # - "ldap.${DOMAIN}.de:${LDAP_IP}"
-       # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external inerface. Not reachable.
     domainname: faudin.de
     labels:
       - "traefik.enable=false"

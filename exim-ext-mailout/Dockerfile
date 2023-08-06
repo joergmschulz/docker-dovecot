@@ -13,7 +13,7 @@ ENV EXIM_TLS_ON_CONNECT_PORTS=1465
 RUN set -x && \
     apt-get -y update \
     && apt-get -y upgrade \
-    && apt-get install -y libldap-2.5-0 libspf2-2 ca-certificates adduser && \
+    && apt-get install -y libldap-2.5-0 libspf2-2 ca-certificates libgetopt-complete-perl adduser && \
     addgroup --system --gid ${EXIM_GID} ${EXIM_GROUP} || export EXIM_GROUP=root  && \
     /usr/sbin/adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER
 
