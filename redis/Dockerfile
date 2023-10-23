@@ -7,13 +7,14 @@ ARG redis_uid
 ARG REDIS_IP=0.0.0.0
 ARG REDIS_PASSWORD
 # ENV REDIS_PASSWORD=TakeItFromDotEnv
-ENV REDIS_VERSION 6.2.3
+ENV REDIS_VERSION 7.2.2
 # ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.2.3.tar.gz
 # ENV REDIS_DOWNLOAD_SHA 98ed7d532b5e9671f5df0825bb71f0f37483a16546364049384c63db8764512b
 # hashes come from https://github.com/redis/redis-hashes
-ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.2.6.tar.gz
-ENV REDIS_DOWNLOAD_SHA 5b2b8b7a50111ef395bf1c1d5be11e6e167ac018125055daa8b5c2317ae131ab
-
+# ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.2.6.tar.gz
+# ENV REDIS_DOWNLOAD_SHA 5b2b8b7a50111ef395bf1c1d5be11e6e167ac018125055daa8b5c2317ae131ab
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/redis-stable.tar.gz
+ENV REDIS_DOWNLOAD_SHA_URL http://download.redis.io/redis-stable.tar.gz.SHA256SUM
 
 RUN set -eux && \
     addgroup -S -g ${redis_gid} $REDIS_GROUP || export REDIS_GROUP=root  && \
@@ -31,11 +32,12 @@ RUN set -eux && \
     		openssl-dev \
     		wget \
     	; \
-    	wget -O redis.tar.gz "$REDIS_DOWNLOAD_URL"; \
-    	echo "$REDIS_DOWNLOAD_SHA *redis.tar.gz" | sha256sum -c -; \
+        wget -O REDIS_DOWNLOAD_SHA "$REDIS_DOWNLOAD_SHA_URL"; \
+    	wget -O redis-stable.tar.gz "$REDIS_DOWNLOAD_URL"; \
+    	echo $(cat REDIS_DOWNLOAD_SHA) | sha256sum -c -; \
     	mkdir -p /usr/src/redis; \
-    	tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1; \
-    	rm redis.tar.gz; \
+    	tar -xzf redis-stable.tar.gz -C /usr/src/redis --strip-components=1; \
+    	rm redis-stable.tar.gz REDIS_DOWNLOAD_SHA ; \
     # disable Redis protected mode [1] as it is unnecessary in context of Docker
     # (ports are not automatically exposed when running inside Docker, but rather explicitly by specifying -p / -P)
     # [1]: https://github.com/redis/redis/commit/edd4d555df57dc84265fdfb4ef59a4678832f6da
