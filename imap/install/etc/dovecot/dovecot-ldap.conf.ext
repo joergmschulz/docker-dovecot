@@ -40,3 +40,4 @@ default_pass_scheme = MD5-CRYPT
 
 # set the directories:
 user_attrs= =mail=mdbox:/var/vmail/%{ldap:mail}/Maildir, =home=/var/vmail/%{ldap:mail}
+## here, quota could be added like ,=... , see https://doc.dovecot.org/configuration_manual/quota_plugin/
