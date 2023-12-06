@@ -381,7 +381,7 @@ services:
       - ${MM3_DATA_DIR}:/opt/mailman/
       - .passwd.client:/etc/exim/config.d/passwd.client
       # to be moved into the local configuration
-      - ./exim-ext-mailout/specific_relays:/etc/exim/config.d/specific_relays 
+      # - ./exim-ext-mailout/specific_relays:/etc/exim/config.d/specific_relays 
     environment:
        # - LDAP_HOSTS=${LDAP_HOSTS}
        # - LDAP_PASSWORD=${LDAP_PASSWORD}
