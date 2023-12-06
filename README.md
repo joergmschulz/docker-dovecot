@@ -78,7 +78,11 @@ IMAP logs to /dev/stderr. Exim logs to the defined log directory. Truncate manua
 | LDAP_PASSWORD | dovecot, exim  | admin readonly access to ldap |
 
 ## specific relays
-If you want to configure specific relays, create .specific_relays. It will be mounted into exim-ext-mailout.
+If you want to configure specific relays, create .specific_relays. It needs be mounted into exim-ext-mailout via docker-compose.override:
+exim-ext-mailout:
+    volumes:
+      - ./.specific_relays:/etc/exim/config.d/specific_relays
+      
 ### passwd.client
 (tbd) if you need to use specific relays to hotmail, you need to populate the exim-ext-mailout/.passwd.client file.
 for the time being, we use EXIM_EXT_MSACCOUNT : EXIM_EXT_PW
