@@ -77,7 +77,9 @@ IMAP logs to /dev/stderr. Exim logs to the defined log directory. Truncate manua
 | REDIS_PASSWORD | redis, rspam | access to REDIS via this password |
 | LDAP_PASSWORD | dovecot, exim  | admin readonly access to ldap |
 
-## passwd.client
+## specific relays
+If you want to configure specific relays, create .specific_relays. It will be mounted into exim-ext-mailout.
+### passwd.client
 (tbd) if you need to use specific relays to hotmail, you need to populate the exim-ext-mailout/.passwd.client file.
 for the time being, we use EXIM_EXT_MSACCOUNT : EXIM_EXT_PW
 
@@ -144,7 +146,7 @@ openssl rsa -in dkim_rsa.private -out /dev/stdout -pubout -outform PEM
 ```
 save the result as 20210111._domainkey.${DOMAIN}.de with the content k=rsa;p=[output of 2nd command]
 ## IMAP replication
-(WIP)
+(watch up - dovecot obsoletes this feature in version 2.4. You can still create some redundancy using doveadm sync)
 if you define the IMAP_REPLICA_* parameters in your .env, replication should be possible.
 
 # License
@@ -152,7 +154,7 @@ This portion of the project has been made by js@jslz.de using inspiration from M
 As some other portions of the project have been derived from GPLed code, we need to be on the safe side and GPL it all.
 # dnsmasq
 as exim insists on dns lookups for al hostnames and ignores resolv.conf, we install dnsmasq.
-the config file is generated automatically. To add hosts, use dnsmasq/local_hosts or the extra_hosts in docker-compose.yml.
+the config file is generated automatically. To add hosts, use dnsmasq/local_hosts or the extra_hosts in docker-compose[.override].yml.
 
 # build side notes
 ## exim
@@ -174,7 +176,10 @@ individual sieve configurations are possible. Global defaults are stored in etc/
 sievec is used for auto-learning. You need the rspamd clear text password in a docker secret which should be available locally as .RSPAM_Clear_password file.
 
 ### version of dovecot
-see the sample .env file. Version 16 is the most current, but your mileage may vary. See the dovecot  mailing list or revert to .15.
+see the sample .env file. 
+- dovecot_branch=release-2.3.21
+- dovecot_tag=2.3.21
+
 
 ### testing dovecot
 see https://wiki.dovecot.org/TestInstallation
