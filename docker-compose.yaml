@@ -124,8 +124,6 @@ services:
      labels:
        - "traefik.enable=true"
        - "traefik.http.routers.rspam_${DOMAIN}_tls.rule=Host(`rspam.${DOMAIN}.de`)"
-       - "traefik.http.routers.rspam_${DOMAIN}_tls.tls=true"
-       - "traefik.http.routers.rspam_${DOMAIN}_tls.entrypoints=websecure"
        - "traefik.docker.network=traefik"
        - traefik.port=11334
        - traefik.backend=rspam
