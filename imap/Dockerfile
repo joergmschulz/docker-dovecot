@@ -1,4 +1,4 @@
-FROM alpine:3.18 as build
+FROM alpine:3.19 as build
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -105,7 +105,7 @@ RUN set -x && \
 EXPOSE 1143 2525 1024 1587 1993 4190
 
 
-FROM alpine:3.18
+FROM alpine:3.19
 
 ARG vmail_gid
 ARG VMAIL_GROUP
