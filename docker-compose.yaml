@@ -178,7 +178,6 @@ services:
        - "ldap.${DOMAIN}.de:${LDAP_IP}"
        # - "imap.${DOMAIN}.de:${IMAP_IP}" # DNS would point to external interface. Not reachable.
     domainname: ${DOMAIN}.de
-    container_name: exim
     labels:
       - "traefik.enable=false"
     secrets:
