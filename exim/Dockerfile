@@ -6,7 +6,7 @@ ARG EXIM_USER
 ARG EXIM_UID
 
 ARG EXIM_IP=0.0.0.0
-ARG EXIM_VERSION=4.97
+ARG EXIM_VERSION=4.97.1
 # ARG EXIM_VERSION=master
 
 # ARG EXIM_SOURCE=https://github.com/exim/exim/archive/exim-${EXIM_VERSION}.tar.gz
