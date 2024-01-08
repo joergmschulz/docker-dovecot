@@ -130,11 +130,11 @@ services:
      networks:
        services:
          ipv4_address: ${RSPAM_IP}
-        aliases:
-         - rspam
+         aliases:
+          - rspam
        traefik:
          ipv4_address: ${RSPAM_TRAEFIK_IP}
-           aliases:
+         aliases:
              - rspam
 
   exim-external:
