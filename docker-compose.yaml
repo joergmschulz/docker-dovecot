@@ -129,12 +129,13 @@ services:
        - traefik.backend=rspam
      networks:
        services:
-        ipv4_address: ${RSPAM_IP}
+         ipv4_address: ${RSPAM_IP}
         aliases:
          - rspam
        traefik:
-         aliases:
-           - rspam
+         ipv4_address: ${RSPAM_TRAEFIK_IP}
+           aliases:
+             - rspam
 
   exim-external:
     image: joergschulz/exim
