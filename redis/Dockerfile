@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.19
 
 ARG redis_gid
 ARG REDIS_GROUP
@@ -7,7 +7,7 @@ ARG redis_uid
 ARG REDIS_IP=0.0.0.0
 ARG REDIS_PASSWORD
 # ENV REDIS_PASSWORD=TakeItFromDotEnv
-ENV REDIS_VERSION 7.2.2
+ENV REDIS_VERSION 7.2.4
 # ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-6.2.3.tar.gz
 # ENV REDIS_DOWNLOAD_SHA 98ed7d532b5e9671f5df0825bb71f0f37483a16546364049384c63db8764512b
 # hashes come from https://github.com/redis/redis-hashes
