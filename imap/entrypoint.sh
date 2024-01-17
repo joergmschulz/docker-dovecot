@@ -39,14 +39,14 @@ service aggregator {  \n\
   }\n\
   chroot = \n\
 }  \n\
-service replicator {  \n\
-  unix_listener replicator-doveadm {  \n\
-    mode = 0600  \n\
-    user = ${me}   \n\
-    group = ${mygroup} \n\
-  }  \n\
-  vsz_limit = 0 \n\
-}  \n\
+#service replicator {  \n\
+#  unix_listener replicator-doveadm {  \n\
+#    mode = 0600  \n\
+#    user = ${me}   \n\
+#    group = ${mygroup} \n\
+#  }  \n\
+#  vsz_limit = 0 \n\
+#}  \n\
 # plugin {  \n\
 #     replication_sync_timeout = 20  \n\
 # }  \n\
@@ -59,9 +59,9 @@ service doveadm {  \n\
 }  \n\
 doveadm_port =  $IMAP_REPLICA_PORT \n\
 doveadm_password = $IMAP_REPLICA_PASSWORD  \n\
-plugin {  \n\
-  mail_replica = tcp:$IMAP_REPLICA_SERVER:$IMAP_REPLICA_PORT # use doveadm_port  \n\
-}  \n\
+#plugin {  \n\
+#  mail_replica = tcp:$IMAP_REPLICA_SERVER:$IMAP_REPLICA_PORT # use doveadm_port  \n\
+#}  \n\
 service config {\n\
   unix_listener config {\n\
     user = ${me}\n\
