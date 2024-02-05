@@ -53,7 +53,7 @@ services:
      extra_hosts:
         - "m.datilo.de:10.100.101.16"
         - "ldap.${DOMAIN}.de:${LDAP_IP}"
-        - ${IMAP_REPLICA_SERVER}:${IMAP_REPLICA_SERVER_IP}
+        # - ${IMAP_REPLICA_SERVER}:${IMAP_REPLICA_SERVER_IP} # this should go into the override. Caveat, dovecot3 doesn't support replica anyway 
      domainname: ${DOMAIN}.de
      dns:
       - ${DNSMASQ_IP}
