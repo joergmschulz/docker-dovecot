@@ -208,7 +208,7 @@ services:
 
   clamav:
     # image: joergschulz/docker-clamav
-    image: tiredofit/clamav:latest
+    image: joergschulz/clamav:latest
     build: 
       context: https://github.com/tiredofit/docker-clamav.git#2.6.13
 
