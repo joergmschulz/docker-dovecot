@@ -7,6 +7,8 @@ sed -i "s/REDIS_PASSWORD/${REDIS_PASSWORD}/" redis.conf
 sed -i "s/RSPAM_REDIS_DB/${RSPAM_REDIS_DB}/" redis.conf
 sed -i "s/CLAMAV_IP/${CLAMAV_IP}/" antivirus.conf
 sed -i "s/REDIS_PORT/${REDIS_PORT}/" classifier-bayes.conf
+ed -i "s/REDIS_PASSWORD/${REDIS_PASSWORD}/" classifier-bayes.conf
+sed -i "s/RSPAM_REDIS_DB/${RSPAM_REDIS_DB}/" classifier-bayes.conf
 
 printf "enable_password = \"${RSPAM_enable_password}\";\n\
 password = \"${RSPAM_password}\";\n\
