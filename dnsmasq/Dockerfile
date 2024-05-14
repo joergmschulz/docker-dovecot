@@ -3,8 +3,7 @@
 FROM alpine:3 AS build
 
 ARG VERSION="2.90"
-# ARG CHECKSUM="ef15f608a83ee2b1d1d2c1f11d089a7e0ac401ffb0991de73fc01ce5f290e512"
-ARG CHECKSUM="ae39bffde9c37e4d64849b528afeb060be6bad6d1044a3bd94a49fce41357284"
+ARG CHECKSUM="8f6666b542403b5ee7ccce66ea73a4a51cf19dd49392aaccd37231a2c51b303b"
 ADD http://www.thekelleys.org.uk/dnsmasq/dnsmasq-$VERSION.tar.gz /tmp/dnsmasq.tar.gz
 
 RUN [ "$(sha256sum /tmp/dnsmasq.tar.gz | awk '{print $1}')" = "$CHECKSUM" ] && \
