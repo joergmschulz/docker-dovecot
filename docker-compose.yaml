@@ -227,6 +227,7 @@ services:
        - TIMEZONE=Europe/Berlin
        - DEFINITIONS_UPDATE_FREQUENCY=60
        - FRESHCLAM_DATABASES=http://www.rfxn.com/downloads/rfxn.ndb,http://www.rfxn.com/downloads/rfxn.hdb
+       - CONTAINER_ENABLE_MONITORING=FALSE
        - ZABBIX_SERVER_ACTIVE=zabbix-server
        - ZABBIX_HOSTNAME=clamav.${DOMAIN}.de
     volumes:
