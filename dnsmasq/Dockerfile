@@ -1,6 +1,6 @@
 # borrowed from https://github.com/ricardbejarano/dnsmasq/blob/master/Dockerfile
 
-FROM alpine:3 AS build
+FROM alpine:latest AS build
 
 ARG VERSION="2.90"
 ARG CHECKSUM="8f6666b542403b5ee7ccce66ea73a4a51cf19dd49392aaccd37231a2c51b303b"
