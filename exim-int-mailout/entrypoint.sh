@@ -25,5 +25,5 @@ sed -i "s/EXIM_INT_MAILOUT_LDAP_AUTH/${EXIM_INT_MAILOUT_LDAP_AUTH}/" exim.conf
 
 set -e
 # now we'd execute exim...
-/usr/exim/bin/exim -bd -q 15m -C /etc/exim/config.d/exim.conf
+/usr/exim/bin/exim -bd -q15m -C /etc/exim/config.d/exim.conf
 # tail -f /var/log/exim/*g
