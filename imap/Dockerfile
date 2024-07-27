@@ -1,4 +1,4 @@
-FROM alpine:3.19 as build
+FROM alpine:3.20 as build
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -46,6 +46,7 @@ ARG dovecot_config="--without-pam \
           --without-sodium \
           --without-systemd \
           --localstatedir=/var/lib/dovecot \
+          --enable-experimental-mail-utf8 \
           --enable-dependency-tracking"
 
 ARG pigeonhole_config="--with-dovecot=../dovecot --sysconfdir=/etc --prefix=${DOVECOT_PREFIX} --localstatedir=/var/lib/dovecot \
@@ -105,7 +106,7 @@ RUN set -x && \
 EXPOSE 1143 2525 1024 1587 1993 4190
 
 
-FROM alpine:3.19
+FROM alpine:3.20
 
 ARG vmail_gid
 ARG VMAIL_GROUP
