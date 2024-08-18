@@ -1,4 +1,4 @@
-FROM alpine:3.20 as build
+FROM alpine:3.20 AS build
 
 ARG vmail_gid
 ARG VMAIL_GROUP
@@ -13,6 +13,7 @@ ENV LDAP_ITERATE_FILTER=TakeItFromDotEnv
 ARG dovecot_tag
 ARG dovecot_branch
 ARG pigeonhole_branch
+ARG pigeonhole_tag
 ARG DOVECOT_PREFIX=/usr/local/dovecot
 # ARG pigeonhole_branch=master
 
@@ -87,7 +88,7 @@ RUN set -x && \
     mkdir /opt/pigeonhole/ && \
     cd /opt/pigeonhole && \
     git init . && git remote add -t ${pigeonhole_branch} origin https://github.com/dovecot/pigeonhole.git && \
-    git fetch --depth=1 && git checkout ${pigeonhole_branch} && ./autogen.sh && \
+    git fetch --depth=1 && git checkout ${pigeonhole_tag} && ./autogen.sh && \
     ./configure ${pigeonhole_config} && \
     make -s -j$(nproc) && make install && \
 ### Setup Container for Dovecot
