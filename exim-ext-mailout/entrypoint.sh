@@ -16,4 +16,4 @@ sed -i "s/EXIM_EXT_PW/${EXIM_EXT_PW}/" exim.conf
 
 set -e
 
-/usr/exim/bin/exim -bd -q 15m  -C /etc/exim/config.d/exim.conf
+/usr/exim/bin/exim -bd -q15m  -C /etc/exim/config.d/exim.conf

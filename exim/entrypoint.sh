@@ -19,5 +19,5 @@ sed -i "s/LDAP_HOSTS/${LDAP_HOSTS}/" exim.conf
 
 set -e
 # now we'd execute exim...
-/usr/exim/bin/exim -bd -q 15m -C /etc/exim/config.d/exim.conf
+/usr/exim/bin/exim -bd -q15m -C /etc/exim/config.d/exim.conf
 # tail -f /var/log/exim/*g
