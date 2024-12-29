@@ -470,7 +470,7 @@ secrets:
         letsencrypt-privkey:
            file: /etc/letsencrypt-readers/privkey.pem
         dkim-privkey:
-            file: .certs/dkim-faudin.de-private
+            file: .certs/dkim${DOMAIN}.de-private
         RSPAM_Clear_password:
           file: .RSPAM_Clear_password
 
