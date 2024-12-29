@@ -143,7 +143,7 @@ Currently all mails to all accepted domains are delivered to the imap server ima
 This is responsible for mailing out. only hosts in $EXIM_LOCAL_DOMAINS and hosts from mail network can send out messages.
 EXIM_RELAY_HOSTS : EXIM_WHITELIST_NET can send out messages.
 
-DKIM see also https://exim.org/exim-html-current/doc/html/spec_html/ch-dkim_spf_and_dmarc.html ;
+DKIM see also https://exim.org/exim-html-current/doc/html/spec_html/ch-dkim_spf_srs_and_dmarc.html ;
 ```
 openssl genrsa -out dkim_rsa.private 2048
 openssl rsa -in dkim_rsa.private -out /dev/stdout -pubout -outform PEM
