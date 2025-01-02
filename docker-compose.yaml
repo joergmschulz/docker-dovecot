@@ -17,6 +17,8 @@ services:
          dovecot_tag: ${dovecot_tag:-2.3.21.1}
          pigeonhole_branch: ${pigeonhole_branch:-release-0.5.21.1}
          pigeonhole_tag: ${pigeonhole_tag:-0.5.21.1}
+     depends_on:
+       - mail-dnsmasq
      environment:
         - LDAP_HOSTS=${LDAP_HOSTS}
         - LDAP_PASSWORD=${LDAP_PASSWORD}
@@ -470,7 +472,7 @@ secrets:
         letsencrypt-privkey:
            file: /etc/letsencrypt-readers/privkey.pem
         dkim-privkey:
-            file: .certs/dkim${DOMAIN}.de-private
+            file: .certs/dkim-${DOMAIN}.de-private
         RSPAM_Clear_password:
           file: .RSPAM_Clear_password
 
