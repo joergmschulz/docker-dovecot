@@ -49,7 +49,8 @@ service replicator {  \n\
 }  \n\
  plugin {  \n\
      replication_sync_timeout = 20  \n\
-     replication_dsync_parameters = ${REPLICATION_DSYNC_PARAMETERS}
+     replication_dsync_parameters = ${REPLICATION_DSYNC_PARAMETERS} \n\
+     process_min_avail = 1 \n\
  }  \n\
 service doveadm {  \n\
   user = ${me}  \n\
