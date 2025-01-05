@@ -141,7 +141,8 @@ RUN apk update && \
     test -f dh.pem || openssl dhparam 4096 > dh.pem ) && \
     chmod g+r /etc/dovecot/dovecot-ldap.conf.ext && \
     chmod +x /etc/dovecot/sieve/*sh && \
-    chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot
+    chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot && \
+    chmod +x /usr/local/scripts/*
 
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
