@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 PERCENT=$1
 USER=$2
-cat << EOF | /usr/sbin/sendmail $USER -O "plugin/quota=maildir:User quota:noenforcing"
-From: [email protected]
-Subject: quota warning
+cat << EOF | /usr/sbin/sendmail $2
+Subject: Mailbox Überlauf
 
-Ihre Mailbox ist jetzt zu  $PERCENT% voll.
+Guten Tag $2,
+Ihre Mailbox ist jetzt zu  $1 % voll.
+Bitte beginnen Sie, Nachrichten zu löschen.
+
 EOF
