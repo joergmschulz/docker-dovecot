@@ -142,7 +142,8 @@ RUN apk update && \
     chmod g+r /etc/dovecot/dovecot-ldap.conf.ext && \
     chmod +x /etc/dovecot/sieve/*sh && \
     chown -R ${VMAIL_USER}:${VMAIL_GROUP} /etc/dovecot && \
-    chmod +x /usr/local/scripts/*
+    chmod +x /usr/local/scripts/quotawarn.sh && \
+    chown ${VMAIL_USER}:${VMAIL_GROUP}  /usr/local/scripts/quotawarn.sh
 
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
