@@ -48,7 +48,7 @@ service replicator {  \n\
   vsz_limit = 0 \n\
 }  \n\
  plugin {  \n\
-     replication_sync_timeout = 20  \n\
+     replication_sync_timeout = 2  \n\
      replication_dsync_parameters = ${REPLICATION_DSYNC_PARAMETERS} \n\
      process_min_avail = 1 \n\
  }  \n\
