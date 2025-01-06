@@ -39,4 +39,4 @@ iterate_filter = LDAP_ITERATE_FILTER
 default_pass_scheme = MD5-CRYPT
 
 # set the directories:, https://doc.dovecot.org/2.3/configuration_manual/config_file/config_variables/
-user_attrs= =mail=mdbox:/var/vmail/%{ldap:mail}/Maildir, =home=/var/vmail/%{ldap:mail}, =noreplicate=%{if;%{ldap:mail};~;.*@freie-dorfschule.de;n;y} , =quota_rule=*:bytes=%{ldap:gosaMailQuota}000
+user_attrs= =mail=mdbox:/var/vmail/%{ldap:mail}/Maildir, =home=/var/vmail/%{ldap:mail}, =noreplicate=%{if;%{ldap:mail};~;.*@freie-dorfschule.de;n;y} , =quota_rule=*:bytes=%{ldap:gosaMailQuota}000000
