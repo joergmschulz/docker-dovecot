@@ -212,7 +212,7 @@ services:
     # image: joergschulz/docker-clamav
     image: joergschulz/clamav:latest
     build: 
-      context: https://github.com/tiredofit/docker-clamav.git#2.6.21
+      context: https://github.com/tiredofit/docker-clamav.git#2.6.22
 
     hostname: clamav
     #  build:
