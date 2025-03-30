@@ -153,7 +153,7 @@ services:
         EXIM_GROUP: root
         EXIM_USER: exim
         EXIM_UID: 1001
-        EXIM_VERSION: 4.98
+        EXIM_VERSION: 4.98.2
         DOMAIN: ${DOMAIN}
 
     volumes:
@@ -303,6 +303,8 @@ services:
         EXIM_GROUP: root
         EXIM_USER: exim
         EXIM_UID: 1001
+        EXIM_VERSION: 4.98.2
+        DOMAIN: ${DOMAIN}
 
     volumes:
       # - /data/${DOMAIN}/mail-external/log:/var/log
@@ -376,6 +378,8 @@ services:
         EXIM_GROUP: root
         EXIM_USER: exim
         EXIM_UID: 1001
+        EXIM_VERSION: 4.98.2
+        DOMAIN: ${DOMAIN}
     volumes:
       # - /data/${DOMAIN}/mail-external/log:/var/log
         # - log:/var/log
