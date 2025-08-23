@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.21
 
 ARG RSPAM_gid
 ARG RSPAM_GROUP
