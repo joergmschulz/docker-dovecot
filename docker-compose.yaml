@@ -294,7 +294,7 @@ services:
     image: joergschulz/exim-int-mailout
     hostname: exim-int-mailout
     container_name: exim-int-mailout
-    restart: unless-stopped
+    restart: no
     depends_on:
       - rspam
     build:
