@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim as build
+FROM debian:trixie-slim as build
 
 ARG EXIM_GID
 ARG EXIM_GROUP
@@ -19,9 +19,9 @@ ENV EXIM_TLS_ON_CONNECT_PORTS=1465
 
 RUN set -x && \
     apt update -y && apt upgrade -y && \ 
-    apt-get install -y adduser addgroup && \
+    apt-get install -y adduser  && \
     addgroup --system --gid ${EXIM_GID} ${EXIM_GROUP} || export EXIM_GROUP=root  && \
-    adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER && \
+    /usr/sbin/adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER && \
     apt-get -y update \
     && apt-get -y upgrade \
     && apt-get install -y libldap2-dev tzdata  \
@@ -69,7 +69,7 @@ ENV EXIM_TLS_ON_CONNECT_PORTS=1465
 RUN set -x && \
     apt-get -y update \
     && apt-get -y upgrade \
-    && apt-get install -y libldap-2.5-0 libspf2-2 ca-certificates minicpan libgetopt-complete-perl adduser  && \
+    && apt-get install -y libldap2 libspf2-2 ca-certificates minicpan libgetopt-complete-perl adduser  && \
     # addgroup --system --gid ${EXIM_GID} ${EXIM_GROUP} || export EXIM_GROUP=root  && \
     # adduser --disabled-login --no-create-home  --uid $EXIM_UID --ingroup $EXIM_GROUP --gecos EXIM $EXIM_USER && \
     yes | perl -MCPAN -e getopt::std
