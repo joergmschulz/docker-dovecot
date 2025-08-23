@@ -20,7 +20,7 @@ RUN set -x && \
 COPY --from=joergschulz/exim  /usr/exim /usr/exim
 RUN apt-get -y update \
     && apt-get -y upgrade \
-    && apt-get install -y libldap-2.5-0 libspf2-2 ca-certificates && \
+    && apt-get install -y libldap2 libspf2-2 ca-certificates && \
     apt-get clean
 
 ARG ACCESS_FIX="/etc/exim/config.d /var/log/exim /var/spool/exim"
