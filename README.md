@@ -1,4 +1,7 @@
 # docker-dovecot
+
+caveat - this repository will be depracated soon as I move to an all-in-one replacement (stalwart).
+
 lightweight alpine (dovecot) and bullseye-slim (exim) based dockerized dovecot, exim, rspamd, clamav environment; some self-compiled, some from stock.
 
 install using examples/sampleDotEnv
